@@ -1,0 +1,217 @@
+---
+title: "Mother battles daughter"
+date: "2017-09-08"
+type: "post"
+showonlyimage: false
+draft: false
+slug: "mother-battles-daughter"
+image: "img/portfolio/PPlogo.jpg"
+description: "Congratulations to the Finnis ladies!"
+weight: 3
+output:
+  blogdown::html_page:
+    highlight: pygments
+---
+
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/blazy/blazy.min.js"></script>
+<script src="/rmarkdown-libs/pymjs/pym.v1.js"></script>
+<script src="/rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+<p>Welcome to this year’s PremPredict, where there’s a massive £110 pot up for grabs. And things must be heating up in the Finnis house, as <strong>Marion</strong> is currently edging <strong>Hannah</strong> out of first place.</p>
+<p style="height: .5em;">
+ 
+</p>
+<div id="latest-standings" class="section level3">
+<h3>Latest standings</h3>
+<p>With apologies in advance to two of our former winners – who now lanuish at the bottom of the pile – here are the latest standings:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(htmlwidgets)
+<span class="kw">library</span>(widgetframe)
+<span class="kw">library</span>(DT)
+<span class="kw">library</span>(ggridges)
+  
+<span class="co"># Start by running this dimmed code (as PP-thin.R):</span>
+<span class="co"># library(rvest)</span>
+<span class="co"># library(xml2)</span>
+<span class="co"># leagueTable &lt;- read_html(&quot;http://www.theguardian.com/football/premierleague/table&quot;)</span>
+<span class="co"># clubOrder &lt;- leagueTable %&gt;%</span>
+<span class="co">#   html_nodes(&quot;.table--striped&quot;) %&gt;%</span>
+<span class="co">#   .[[1]] %&gt;%</span>
+<span class="co">#   html_table()</span>
+<span class="co"># saveRDS(clubOrder, &quot;clubOrder-080917.rds&quot;) # + date</span>
+<span class="co"># Then move clubOrder.rds to data drive</span>
+  
+clubOrder &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;data/clubOrder-080917.rds&quot;</span>)  <span class="co"># Add date</span>
+  
+<span class="co"># Make the league table consistent with our inputs</span>
+clubOrder<span class="op">$</span>Team &lt;-<span class="st"> </span><span class="kw">recode</span>(
+  clubOrder<span class="op">$</span>Team,
+  <span class="st">`</span><span class="dt">AFC Bournemouth</span><span class="st">`</span> =<span class="st"> &quot;Bournemouth&quot;</span>,
+  <span class="st">`</span><span class="dt">C Palace</span><span class="st">`</span> =<span class="st"> &quot;Crystal Palace&quot;</span>,
+  <span class="dt">Spurs =</span> <span class="st">&quot;Tottenham&quot;</span>)
+  
+clubsABC &lt;-<span class="st"> </span><span class="kw">sort</span>(clubOrder<span class="op">$</span>Team)
+  
+dataInput &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/PP-2018.csv&quot;</span>)
+clubStandings &lt;-<span class="st"> </span><span class="kw">match</span>(dataInput<span class="op">$</span>Club, clubOrder<span class="op">$</span>Team, <span class="dv">0</span>)
+topClub &lt;-<span class="st"> </span><span class="kw">match</span>(<span class="dv">1</span>, clubStandings, <span class="dv">0</span>)
+  
+predictions &lt;-<span class="st"> </span>dataInput[,<span class="op">-</span><span class="dv">1</span>]
+  
+bonus &lt;-<span class="st"> </span><span class="op">-</span><span class="dv">50</span><span class="op">*</span>(predictions[topClub,]<span class="op">==</span><span class="dv">1</span>)
+ssq &lt;-<span class="st"> </span><span class="cf">function</span>(x){(x<span class="op">-</span>clubStandings)<span class="op">^</span><span class="dv">2</span>}
+squares &lt;-<span class="st"> </span><span class="kw">apply</span>(predictions,<span class="dv">2</span>,ssq)
+  
+Impact &lt;-<span class="st"> </span><span class="kw">c</span>(clubsABC, <span class="st">&quot;Bonus&quot;</span>)
+bonusSquare &lt;-<span class="st"> </span><span class="kw">rbind</span>(squares, bonus)
+bonusSquares &lt;-<span class="st"> </span><span class="kw">cbind</span>(Impact, bonusSquare) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as_data_frame</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;Player&quot;</span>, <span class="op">-</span>Impact, <span class="dt">value =</span> <span class="st">&quot;Loss&quot;</span>)
+bonusSquares<span class="op">$</span>Loss &lt;-<span class="st"> </span><span class="kw">as.integer</span>(bonusSquares<span class="op">$</span>Loss)
+  
+score &lt;-<span class="st"> </span><span class="kw">colSums</span>(squares) <span class="op">+</span><span class="st"> </span>bonus
+names &lt;-<span class="st"> </span><span class="kw">colnames</span>(score)
+names1 &lt;-<span class="st"> </span><span class="kw">str_replace_all</span>(names, <span class="st">&quot;_&quot;</span>, <span class="st">&quot; &quot;</span>)
+worst &lt;-<span class="st"> </span><span class="kw">apply</span>(squares,<span class="dv">2</span>,max)
+findWorst &lt;-<span class="st"> </span><span class="cf">function</span>(y){<span class="kw">match</span>(worst[y],squares[,y],<span class="dv">0</span>)}
+worstClubNo &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(predictions),findWorst)
+worstClub &lt;-<span class="st"> </span>clubsABC[worstClubNo]
+  
+output &lt;-<span class="st"> </span><span class="kw">rbind</span>(score, bonus, worst, worstClubNo)
+output1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(names1,<span class="kw">t</span>(output))
+<span class="kw">row.names</span>(output1) &lt;-<span class="st"> </span><span class="ot">NULL</span> 
+output2 &lt;-<span class="st"> </span>output1 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">worstClub=</span>clubsABC[worstClubNo]) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>worstClubNo) 
+<span class="kw">colnames</span>(output2) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Names&quot;</span>, <span class="st">&quot;Scores&quot;</span>, <span class="st">&quot;Bonus&quot;</span>, <span class="st">&quot;WorstCost&quot;</span>, <span class="st">&quot;WorstClub&quot;</span>)
+  
+report &lt;-<span class="st"> </span>output2 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(Scores) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(Names, Scores, Bonus, WorstClub, WorstCost) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unite</span>(WorstChoice, WorstClub, WorstCost, <span class="dt">sep =</span> <span class="st">&quot;: &quot;</span>)
+  
+dtReport &lt;-<span class="st"> </span><span class="kw">datatable</span>(
+  report, 
+  <span class="dt">rownames =</span> <span class="ot">FALSE</span>, 
+  <span class="dt">options =</span> <span class="kw">list</span>(
+    <span class="dt">dom =</span> <span class="st">&#39;t&#39;</span>, 
+    <span class="dt">pageLength =</span> <span class="dv">23</span>, 
+    <span class="dt">order =</span> <span class="kw">list</span>(
+      <span class="kw">list</span>(<span class="dv">1</span>, <span class="st">&#39;asc&#39;</span>), 
+      <span class="kw">list</span>(<span class="dv">0</span>, <span class="st">&#39;asc&#39;</span>)),
+    <span class="dt">columnDefs =</span> <span class="kw">list</span>(
+      <span class="kw">list</span>(
+        <span class="dt">className =</span> <span class="st">&#39;dt-left&#39;</span>, 
+        <span class="dt">targets =</span> <span class="kw">c</span>(<span class="dv">0</span>)
+        ),
+      <span class="kw">list</span>(
+        <span class="dt">className =</span> <span class="st">&#39;dt-right&#39;</span>, 
+        <span class="dt">targets =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
+        )
+      )
+    )
+  )
+  
+<span class="kw">frameWidget</span>(dtReport, <span class="dt">width =</span> <span class="st">&#39;100%&#39;</span>, <span class="dt">height =</span> <span class="dv">800</span>)</code></pre></div>
+<div id="htmlwidget-1" style="width:100%;height:800px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/prempredict/2017-09-08-mother-battles-daughter_files/figure-html//widgets/widget_thecode181.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+ 
+</p>
+<p>Of course, there’s still a long way to go, which I always find comforting. For more gory detail, check out the <a href="https://robin.shinyapps.io/PremPredict/">PremPredict Leaderboard</a> to learn where we’re all going wrong.</p>
+<p>(And, for completeness, <a href="https://docs.google.com/spreadsheets/d/18PTMQI_5Zxx7M1exASfGDDA148-6YoydRp5qkpegKKc/edit?usp=sharing">here are your team-by-team predictions</a> and the <a href="http://www.theguardian.com/football/premierleague/table">latest team standings</a>.)</p>
+<p>
+ 
+</p>
+</div>
+<div id="collective-expectations" class="section level3">
+<h3>Collective expectations</h3>
+<p>But what are we collectively expecting from the Premier League this season? Are we expecting this season to be as predictable as its predecessor? Or are we envisaging another Leicester-like season?</p>
+<p>By the look of our picks, we seem to side with the bookies. We collectively predict Chelsea and the Manchester clubs to finish highest on average, with the recently-promoted teams struggling.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dataInput1 &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(dataInput)
+averageView &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">rowMeans</span>(dataInput1[, <span class="op">-</span><span class="dv">1</span>]), <span class="dv">2</span>)
+views &lt;-<span class="st"> </span><span class="kw">cbind</span>(dataInput1[,<span class="dv">1</span>], averageView)
+  
+dataInput2 &lt;-<span class="st"> </span>dataInput1 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;Player&quot;</span>, <span class="op">-</span>Club, <span class="dt">value =</span> <span class="st">&quot;Prediction&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">left_join</span>(views, <span class="dt">by =</span> <span class="st">&quot;Club&quot;</span>)
+  
+<span class="kw">ggplot</span>(
+  <span class="dt">data =</span> dataInput2,
+  <span class="dt">mapping =</span> <span class="kw">aes</span>(
+    <span class="dt">y =</span> <span class="kw">reorder</span>(Club, <span class="op">-</span>averageView), 
+    <span class="dt">x =</span> Prediction, 
+    <span class="dt">fill =</span> averageView, 
+    <span class="dt">color =</span> averageView
+    )
+  ) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_ridgeline</span>(
+    <span class="dt">stat =</span> <span class="st">&quot;binline&quot;</span>, 
+    <span class="dt">bins =</span> <span class="dv">20</span>, <span class="dt">scale =</span> <span class="fl">0.95</span>, 
+    <span class="dt">draw_baseline =</span> <span class="ot">FALSE</span>
+    ) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(
+    <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>), 
+    <span class="dt">labels =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>)
+    ) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(
+    <span class="dt">y =</span> <span class="st">&quot;&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;&quot;</span>, 
+    <span class="dt">title =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st"> Our collective predictions for this season </span><span class="ch">\n</span><span class="st">&quot;</span>
+    ) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_fill_gradient</span>(
+    <span class="dt">low =</span> <span class="st">&quot;green&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>, 
+    <span class="dt">guide=</span><span class="ot">FALSE</span>
+    ) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_gradient</span>(
+    <span class="dt">low =</span> <span class="st">&quot;green&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>, 
+    <span class="dt">guide=</span><span class="ot">FALSE</span>
+    ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>), 
+    <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">6</span>)
+    )</code></pre></div>
+<p><img src="/prempredict/2017-09-08-mother-battles-daughter_files/figure-html/unnamed-chunk-1-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+ 
+</p>
+<p>In short, most of us think that Huddersfield are doomed. And most of us are currently wrong, as they’re third in the league!</p>
+<hr />
+</div>
