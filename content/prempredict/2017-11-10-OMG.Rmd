@@ -1,5 +1,6 @@
 ---
 title: "OMG!"
+author: "Robin Penfold"
 date: "2017-11-10"
 type: "post"
 showonlyimage: false
