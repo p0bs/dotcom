@@ -19,7 +19,7 @@ relativeurls = true
   sidebarAbout = [
     "At work, I use investment techniques and data science to analyse asset managers.",
     "I also volunteer with DataKind to help charities to get more from their data.", 
-    "Any free time is wasted on supporting sports teams that rarely win."
+    "Any free time is wasted on supporting sports teams that rarely win. "
   ]
   # Contact page
      # Since this template is static, the contact form uses www.formspree.io as a
