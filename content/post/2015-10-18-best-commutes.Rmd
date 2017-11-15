@@ -39,7 +39,7 @@ library(tidyverse)
 library(ggmap)
 library(leaflet)
 library(widgetframe)
-    
+
 ScoredAreas1a <- read_csv(
   "data/ScoredAreas1a.csv", 
   col_types = c("iicddldddddidddddd"))
@@ -47,7 +47,7 @@ ScoredAreas1a <- read_csv(
 Areas1.df <- read_csv(
   "data/Areas1df.csv", 
   col_types = c("iicddilic"))
-  
+
 TopAreas <- ScoredAreas1a %>%
   mutate(score = -1*((15*z.time) + 
                        (1*z.age) + 

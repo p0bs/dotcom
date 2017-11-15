@@ -7,7 +7,7 @@ languageCode = "en-gb"
 disqusShortname = "p0bs"
 # Enable Google Analytics by entering your tracking code
 googleAnalytics = "UA-85616639-1"
-ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "\\.csv$", "\\.rds$", "_cache$"]
 relativeurls = true
 
 [params]
