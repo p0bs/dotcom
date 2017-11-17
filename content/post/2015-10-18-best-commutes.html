@@ -4,7 +4,7 @@ author: "Robin Penfold"
 date: "2015-10-18"
 type: "post"
 showonlyimage: false
-draft: true
+draft: false
 slug: "best-commutes"
 image: "img/portfolio/commute.jpg"
 description: "What are the best places to live if you work in Reigate?"
@@ -14,10 +14,6 @@ output:
     highlight: pygments
 ---
 
-<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
-<script src="/rmarkdown-libs/blazy/blazy.min.js"></script>
-<script src="/rmarkdown-libs/pymjs/pym.v1.js"></script>
-<script src="/rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
 <style type="text/css">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -69,99 +65,53 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <p>I then pulled all this together into a weighted desirability score and mapped it. And, thinking optimistically, it must have helped my friend, as he ended-up buying a property in district rated as highly desirable.</p>
 <p>Here are the results:</p>
-<div id="htmlwidget-1" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/post/2015-10-18-best-commutes_files/figure-html//widgets/widget_thecodec.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<pre><code>## Reading layer `Lower_Layer_Super_Output_Areas_December_2011_Super_Generalised_Clipped__Boundaries_in_England_and_Wales&#39; from data source `/Users/robinpenfold/Documents/Work/Data Science/Code/dotcom/content/post/data/Lower_Layer_Super_Output_Areas_December_2011_Super_Generalised_Clipped__Boundaries_in_England_and_Wales.dbf&#39; using driver `ESRI Shapefile&#39;
+## Simple feature collection with 34753 features and 6 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: 82673.22 ymin: 5342.676 xmax: 655606.3 ymax: 657533.7
+## epsg (SRID):    NA
+## proj4string:    NA</code></pre>
+<p><img src="/post/2015-10-18-best-commutes_files/figure-html/thecodec-1.png" width="672" /></p>
 <p><br></br></p>
 <p>I’ve also built this <a href="http://robin.shinyapps.io/location">Shiny app</a> to add interaction to this map, enabling users to alter the weights and select only coastal regions, should they wish.</p>
 <p>And here’s the code for the map above:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(ggmap)
-<span class="kw">library</span>(leaflet)
-<span class="kw">library</span>(widgetframe)
-
-ScoredAreas1a &lt;-<span class="st"> </span><span class="kw">read_csv</span>(
-  <span class="st">&quot;data/ScoredAreas1a.csv&quot;</span>, 
-  <span class="dt">col_types =</span> <span class="kw">c</span>(<span class="st">&quot;iicddldddddidddddd&quot;</span>))
+<span class="kw">library</span>(sf)
   
-Areas1.df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(
-  <span class="st">&quot;data/Areas1df.csv&quot;</span>, 
-  <span class="dt">col_types =</span> <span class="kw">c</span>(<span class="st">&quot;iicddilic&quot;</span>))
-
-TopAreas &lt;-<span class="st"> </span>ScoredAreas1a <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">score =</span> <span class="op">-</span><span class="dv">1</span><span class="op">*</span>((<span class="dv">15</span><span class="op">*</span>z.time) <span class="op">+</span><span class="st"> </span>
-<span class="st">                       </span>(<span class="dv">1</span><span class="op">*</span>z.age) <span class="op">+</span><span class="st"> </span>
-<span class="st">                       </span>(<span class="dv">6</span><span class="op">*</span>z.expense) <span class="op">+</span><span class="st"> </span>
-<span class="st">                       </span>(<span class="dv">6</span><span class="op">*</span>z.crime) <span class="op">+</span><span class="st"> </span>
-<span class="st">                       </span>(<span class="dv">6</span><span class="op">*</span>z.flunkers) <span class="op">+</span><span class="st"> </span>
-<span class="st">                       </span>(<span class="dv">3</span><span class="op">*</span>z.deprived))) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(score), id) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">left_join</span>(Areas1.df, <span class="dt">by=</span><span class="st">&quot;id&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">rename</span>(<span class="dt">lng=</span>long)
+geography &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw">st_read</span>(
+  <span class="st">&quot;data/Lower_Layer_Super_Output_Areas_December_2011_Super_Generalised_Clipped__Boundaries_in_England_and_Wales.dbf&quot;</span>)
   
-<span class="kw">colnames</span>(TopAreas)[<span class="dv">24</span>] &lt;-<span class="st"> &quot;Xorder&quot;</span>
+<span class="kw">st_crs</span>(<span class="dt">x =</span> geography) &lt;-<span class="st"> </span><span class="dv">4326</span>
   
-LngLat1 &lt;-<span class="st"> </span>TopAreas <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(score), id, Xorder) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">select</span>(lng, lat, id, Xorder, score) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Nid0a =</span> <span class="kw">substring</span>(id, <span class="dv">1</span>, <span class="dv">1</span>),
-         <span class="dt">Nid0b =</span> <span class="kw">as.numeric</span>(<span class="kw">substring</span>(id, <span class="dv">2</span>))
-         )
+data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/ScoredAreas1a.csv&quot;</span>)
   
-LngLat1a1 &lt;-<span class="st"> </span><span class="kw">substring</span>(LngLat1<span class="op">$</span>id, <span class="dv">1</span>, <span class="dv">1</span>)
-LngLat1a2 &lt;-<span class="st"> </span><span class="kw">substring</span>(LngLat1<span class="op">$</span>id, <span class="dv">2</span>)
-Nid &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(LngLat1a2)
-Nid1 &lt;-<span class="st"> </span><span class="kw">unique</span>(Nid)
-Nid1 &lt;-<span class="st"> </span>Nid1 <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span>
+finalData &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(id<span class="op">:</span>IMD.score) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, <span class="kw">funs</span>(scale)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">score =</span>
+           ((<span class="dv">15</span> <span class="op">*</span><span class="st"> </span>Time) <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span>Wtd.Ave <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span>(<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>Affordability) <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span>(<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>IMD.crime.score) <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span>(<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>IMD.education.score) <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span>(<span class="dv">3</span> <span class="op">*</span><span class="st"> </span>IMD.score)) <span class="op">*</span><span class="st"> </span><span class="op">-</span><span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(id, score) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">score =</span> <span class="kw">scale</span>(score)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">left_join</span>(geography, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;id&quot;</span> =<span class="st"> &quot;lsoa11cd&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate_at</span>(<span class="dt">.vars =</span> <span class="st">&quot;score&quot;</span>, <span class="kw">funs</span>(as.numeric)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(score)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(score <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.75</span>)
   
-LngLat2 &lt;-<span class="st"> </span>LngLat1 <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">select</span>(lng, lat, score, Nid0b)
-  
-lLngLat3 &lt;-<span class="st"> </span><span class="kw">length</span>(Nid1)
-  
-LngLat3a &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, lLngLat3)
-LngLat3b &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, lLngLat3)
-LngLat3c &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, lLngLat3)
-  
-LngLat3 &lt;-<span class="st"> </span><span class="kw">cbind</span>(LngLat3a, LngLat3b, LngLat3c, Nid1)
-<span class="kw">colnames</span>(LngLat3) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;lng&quot;</span>, <span class="st">&quot;lat&quot;</span>, <span class="st">&quot;score&quot;</span>, <span class="st">&quot;Nid0b&quot;</span>)
-  
-LngLat4 &lt;-<span class="st"> </span><span class="kw">rbind</span>(LngLat2, LngLat3)
-  
-LngLat4b &lt;-<span class="st"> </span>LngLat4 <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">arrange</span>(Nid0b) 
-  
-LngLat5 &lt;-<span class="st"> </span>LngLat4b <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">select</span>(lng, lat)
-  
-LngLat &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(LngLat5, <span class="dt">ncol=</span><span class="dv">2</span>)
-  
-Score1 &lt;-<span class="st"> </span>LngLat4b <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">select</span>(Nid0b, score) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">distinct</span>()
-  
-Score1 &lt;-<span class="st"> </span>Score1[<span class="kw">complete.cases</span>(Score1),]
-Score1 &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(Score1, <span class="dt">ncol=</span><span class="dv">2</span>)
-Score1 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(Score1)
-  
-pal &lt;-<span class="st"> </span><span class="kw">colorQuantile</span>(<span class="st">&quot;YlOrRd&quot;</span>, <span class="ot">NULL</span>, <span class="dt">n =</span> <span class="dv">16</span>)
-  
-l &lt;-<span class="st"> </span><span class="kw">leaflet</span>(LngLat) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">addProviderTiles</span>(<span class="st">&quot;CartoDB.Positron&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">setView</span>(<span class="dt">lng =</span> <span class="op">-</span><span class="fl">0.3</span>, <span class="dt">lat =</span> <span class="fl">51.3</span>, <span class="dt">zoom =</span> <span class="dv">8</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">addPolygons</span>(<span class="dt">fillColor =</span> <span class="kw">pal</span>(Score1<span class="op">$</span>score), 
-              <span class="dt">popup =</span> <span class="kw">paste</span>(<span class="st">&quot;Overall score: &quot;</span>, 
-                            <span class="kw">round</span>(Score1<span class="op">$</span>score,<span class="dv">2</span>)),
-              <span class="dt">weight =</span> <span class="dv">1</span>,
-              <span class="dt">color =</span> <span class="st">&quot;grey&quot;</span>,
-              <span class="dt">opacity =</span> <span class="fl">0.7</span>,
-              <span class="dt">smoothFactor =</span> <span class="fl">0.5</span>)  <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">addLegend</span>(<span class="st">&quot;bottomright&quot;</span>, <span class="dt">pal =</span> pal, 
-            <span class="dt">values =</span> Score1<span class="op">$</span>score,
-            <span class="dt">title =</span> <span class="st">&quot;Desirability&quot;</span>,
-            <span class="dt">labFormat =</span> <span class="kw">labelFormat</span>(),
-            <span class="dt">opacity =</span> <span class="dv">1</span>)
-  
-<span class="kw">frameWidget</span>(l, <span class="dt">height =</span> <span class="dv">400</span>)</code></pre></div>
+<span class="kw">ggplot</span>(<span class="dt">data =</span> finalData) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> score, <span class="dt">colour =</span> score)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_fill_continuous</span>(<span class="dt">type =</span> <span class="st">&quot;viridis&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_colour_continuous</span>(<span class="dt">type =</span> <span class="st">&quot;viridis&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">axis.text.x =</span> <span class="kw">element_blank</span>(),
+    <span class="dt">axis.text.y =</span> <span class="kw">element_blank</span>()
+  )</code></pre></div>
 <p>
  
 </p>

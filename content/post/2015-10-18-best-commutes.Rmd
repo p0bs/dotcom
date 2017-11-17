@@ -4,7 +4,7 @@ author: "Robin Penfold"
 date: "2015-10-18"
 type: "post"
 showonlyimage: false
-draft: true
+draft: false
 slug: "best-commutes"
 image: "img/portfolio/commute.jpg"
 description: "What are the best places to live if you work in Reigate?"
@@ -18,111 +18,59 @@ A friend at work was recently hoping to buy his first house and asked me where t
 
 Knowing the criteria in question, I had some general views, but they didn't even convince me. So I turned to data. Fortunately, I could scrape data on the criteria I sought for all English districts:
 
-  * Commuting time by car (weight of 15) -- I could've used ggmap but had an old copy of Microsoft MapPoint, which proved easier 
+  - Commuting time by car (weight of 15) -- I could've used ggmap but had an old copy of Microsoft MapPoint, which proved easier 
   
-  * Average age of the district's residents (weight of 1) -- Like the remaining criteria, this data came from the ONS site 
+  - Average age of the district's residents (weight of 1) -- Like the remaining criteria, this data came from the ONS site 
   
-  * Typical cost of housing in the district (weight of 6)
+  - Typical cost of housing in the district (weight of 6)
   
-  * Standardised crime statistics for the district (weight of 6)
+  - Standardised crime statistics for the district (weight of 6)
   
-  * Educational achievement in the district (weight of 6)
+  - Educational achievement in the district (weight of 6)
   
-  * Level of deprivation in the district (weight of 3)
+  - Level of deprivation in the district (weight of 3)
 
 I then pulled all this together into a weighted desirability score and mapped it. And, thinking optimistically, it must have helped my friend, as he ended-up buying a property in district rated as highly desirable.
 
 Here are the results:
 
-```{r thecodec, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+```{r thecodec, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, error=FALSE}
 library(tidyverse)
-library(ggmap)
-library(leaflet)
-library(widgetframe)
-
-ScoredAreas1a <- read_csv(
-  "data/ScoredAreas1a.csv", 
-  col_types = c("iicddldddddidddddd"))
+library(sf)
   
-Areas1.df <- read_csv(
-  "data/Areas1df.csv", 
-  col_types = c("iicddilic"))
-
-TopAreas <- ScoredAreas1a %>%
-  mutate(score = -1*((15*z.time) + 
-                       (1*z.age) + 
-                       (6*z.expense) + 
-                       (6*z.crime) + 
-                       (6*z.flunkers) + 
-                       (3*z.deprived))) %>% 
-  arrange(desc(score), id) %>% 
-  left_join(Areas1.df, by="id") %>%
-  rename(lng=long)
+geography <- sf::st_read(
+  "data/Lower_Layer_Super_Output_Areas_December_2011_Super_Generalised_Clipped__Boundaries_in_England_and_Wales.dbf")
   
-colnames(TopAreas)[24] <- "Xorder"
+st_crs(x = geography) <- 4326
   
-LngLat1 <- TopAreas %>% 
-  arrange(desc(score), id, Xorder) %>% 
-  select(lng, lat, id, Xorder, score) %>% 
-  mutate(Nid0a = substring(id, 1, 1),
-         Nid0b = as.numeric(substring(id, 2))
-         )
+data <- read_csv("data/ScoredAreas1a.csv")
   
-LngLat1a1 <- substring(LngLat1$id, 1, 1)
-LngLat1a2 <- substring(LngLat1$id, 2)
-Nid <- as.numeric(LngLat1a2)
-Nid1 <- unique(Nid)
-Nid1 <- Nid1 + 0.5
+finalData <- data %>% 
+  select(id:IMD.score) %>% 
+  mutate_if(is.numeric, funs(scale)) %>% 
+  mutate(score =
+           ((15 * Time) + 
+           Wtd.Ave + 
+           (6 * Affordability) + 
+           (6 * IMD.crime.score) + 
+           (6 * IMD.education.score) + 
+           (3 * IMD.score)) * -1) %>% 
+  select(id, score) %>% 
+  mutate(score = scale(score)) %>% 
+  left_join(geography, by = c("id" = "lsoa11cd")) %>% 
+  mutate_at(.vars = "score", funs(as.numeric)) %>% 
+  arrange(desc(score)) %>% 
+  filter(score > 0.75)
   
-LngLat2 <- LngLat1 %>% 
-  select(lng, lat, score, Nid0b)
-  
-lLngLat3 <- length(Nid1)
-  
-LngLat3a <- rep(NA, lLngLat3)
-LngLat3b <- rep(NA, lLngLat3)
-LngLat3c <- rep(NA, lLngLat3)
-  
-LngLat3 <- cbind(LngLat3a, LngLat3b, LngLat3c, Nid1)
-colnames(LngLat3) <- c("lng", "lat", "score", "Nid0b")
-  
-LngLat4 <- rbind(LngLat2, LngLat3)
-  
-LngLat4b <- LngLat4 %>% 
-  arrange(Nid0b) 
-  
-LngLat5 <- LngLat4b %>% 
-  select(lng, lat)
-  
-LngLat <- as.matrix(LngLat5, ncol=2)
-  
-Score1 <- LngLat4b %>% 
-  select(Nid0b, score) %>% 
-  distinct()
-  
-Score1 <- Score1[complete.cases(Score1),]
-Score1 <- as.matrix(Score1, ncol=2)
-Score1 <- as.data.frame(Score1)
-  
-pal <- colorQuantile("YlOrRd", NULL, n = 16)
-  
-l <- leaflet(LngLat) %>% 
-  addProviderTiles("CartoDB.Positron") %>% 
-  setView(lng = -0.3, lat = 51.3, zoom = 8) %>% 
-  addPolygons(fillColor = pal(Score1$score), 
-              popup = paste("Overall score: ", 
-                            round(Score1$score,2)),
-              weight = 1,
-              color = "grey",
-              opacity = 0.7,
-              smoothFactor = 0.5)  %>% 
-  addLegend("bottomright", pal = pal, 
-            values = Score1$score,
-            title = "Desirability",
-            labFormat = labelFormat(),
-            opacity = 1)
-  
-frameWidget(l, height = 400)
+ggplot(data = finalData) + 
+  geom_sf(aes(fill = score, colour = score)) + 
+  scale_fill_continuous(type = "viridis") + 
+  scale_colour_continuous(type = "viridis") + 
+  theme_minimal() +
+  theme(
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank()
+  )
 ```
 
 <br></br>
