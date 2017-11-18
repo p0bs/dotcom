@@ -16,11 +16,11 @@ output:
 
 A friend at work was recently hoping to buy his first house and asked me where to look. "That depends on what you need", I said, like a typical consultant. But it got me thinking. 
 
-Knowing the criteria in question, I had some general views, but they didn't even convince me. So I turned to data. Fortunately, I could scrape data on the criteria I sought for all English districts:
+Knowing the criteria in question, I had some general views, but they didn't even convince me. So I turned to data (from Microsoft MapPoint for the commuting times and otherwise from the excellent [UK Data Service](https://www.ukdataservice.ac.uk/)). Fortunately, I could scrape data on the criteria I sought for all English districts:
 
-  - Commuting time by car (weight of 15) -- I could've used ggmap but had an old copy of Microsoft MapPoint, which proved easier 
+  - Commuting time by car (weight of 15) 
   
-  - Average age of the district's residents (weight of 1) -- Like the remaining criteria, this data came from the ONS site 
+  - Average age of the district's residents (weight of 1)
   
   - Typical cost of housing in the district (weight of 6)
   
@@ -30,7 +30,9 @@ Knowing the criteria in question, I had some general views, but they didn't even
   
   - Level of deprivation in the district (weight of 3)
 
-I then pulled all this together into a weighted desirability score and mapped it. And, thinking optimistically, it must have helped my friend, as he ended-up buying a property in district rated as highly desirable.
+That said, at some point, I might investigate more measures -- perhaps by constituency. 
+
+I then pulled all this together into a weighted score and mapped it. And, thinking optimistically, it must have helped my friend, as he ended-up buying a property in district rated as highly desirable.
 
 Here are the results:
 
