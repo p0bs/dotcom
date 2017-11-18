@@ -4,7 +4,7 @@ author: "Robin Penfold"
 date: "2016-10-09"
 type: "post"
 showonlyimage: false
-draft: true
+draft: false
 slug: "batting"
 image: "img/portfolio/bat.jpg"
 description: "Where in the order have the best batsmen batted?"
