@@ -30,7 +30,7 @@ That said, at some point, I might investigate more measures -- perhaps by consti
 
 I then pulled all this together into a weighted score and mapped it. And, thinking optimistically, it must have helped my friend, as he ended-up buying a property in district rated as highly desirable.
 
-Here are the results:
+Here are the results (with Reigate marked as the small red dot):
 
 ```{r thecodec, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, error=FALSE}
 library(tidyverse)
@@ -59,7 +59,12 @@ finalData <- data %>%
 ggplot(data = finalData) + 
   geom_sf(aes(fill = score, colour = score)) + 
   scale_fill_continuous(type = "viridis") + 
-  scale_colour_continuous(type = "viridis") + 
+  scale_colour_continuous(type = "viridis") +
+  annotate("point",
+           x = 520000,
+           y = 160000,
+           colour = "red",
+           size = 0.2) +
   theme_minimal() +
   theme(
     axis.text.x = element_blank(),
