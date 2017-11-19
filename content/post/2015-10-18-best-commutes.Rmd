@@ -49,14 +49,12 @@ finalData <- data %>%
   mutate(score =
            ((15 * Time) + 
            Wtd.Ave + 
-           (6 * Affordability) + 
-           (6 * IMD.score)) * -1) %>% 
+           (5 * Affordability) + 
+           (10 * IMD.score)) * -1) %>% 
   select(id, score) %>% 
   mutate(score = scale(score)) %>% 
   left_join(geography, by = c("id" = "lsoa11cd")) %>% 
-  mutate_at(.vars = "score", funs(as.numeric)) %>% 
-  arrange(desc(score)) %>% 
-  filter(score > 0.75)
+  mutate_at(.vars = "score", funs(as.numeric))
   
 ggplot(data = finalData) + 
   geom_sf(aes(fill = score, colour = score)) + 
