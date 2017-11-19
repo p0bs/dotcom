@@ -68,7 +68,9 @@ ggplot(data = finalData) +
   theme_minimal() +
   theme(
     axis.text.x = element_blank(),
-    axis.text.y = element_blank()
+    axis.text.y = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank()
   )
 ```
 
