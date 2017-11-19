@@ -24,11 +24,7 @@ Knowing the criteria in question, I had some general views, but they didn't even
   
   - Typical cost of housing in the district (weight of 6)
   
-  - Standardised crime statistics for the district (weight of 6)
-  
-  - Educational achievement in the district (weight of 6)
-  
-  - Level of deprivation in the district (weight of 3)
+  - Level of deprivation in the district (weight of 6), which also reflects crime and educational achievement
 
 That said, at some point, I might investigate more measures -- perhaps by constituency. 
 
@@ -54,9 +50,7 @@ finalData <- data %>%
            ((15 * Time) + 
            Wtd.Ave + 
            (6 * Affordability) + 
-           (6 * IMD.crime.score) + 
-           (6 * IMD.education.score) + 
-           (3 * IMD.score)) * -1) %>% 
+           (6 * IMD.score)) * -1) %>% 
   select(id, score) %>% 
   mutate(score = scale(score)) %>% 
   left_join(geography, by = c("id" = "lsoa11cd")) %>% 
