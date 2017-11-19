@@ -1,5 +1,5 @@
 ---
-title: "Fixing asset manager evaluation"
+title: "Asset manager evaluation"
 author: "Robin Penfold"
 date: "2016-10-20"
 type: "post"
@@ -7,7 +7,7 @@ showonlyimage: false
 draft: false
 slug: "evaluation"
 image: "img/portfolio/evaluation.png"
-description: "Using a Bayesian approach to add realism to decision-making"
+description: "Adding Bayesian realism to investment decisions"
 weight: 6
 output:
   blogdown::html_page:
