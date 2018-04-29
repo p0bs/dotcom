@@ -16,7 +16,7 @@ output:
 
 </br>
 
-Although the Premier League is over -- :unamused: -- there's still a lot more juice left in this season's PremPredict. As I see it, at least five of you still stand a chance of winning.
+Although the Premier League is over -- ::unamused:: -- there's still a lot more juice left in this season's PremPredict. As I see it, at least five of you still stand a chance of winning.
 
 Here are the latest standings:
 
