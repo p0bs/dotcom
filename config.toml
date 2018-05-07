@@ -6,6 +6,8 @@ languageCode = "en-gb"
 # Enable comments by entering your Disqus shortname
 disqusShortname = "p0bs"
 enableEmoji = true
+twitterAuthor = "@p0bs"
+pluralizeListTitles = false
 # Enable Google Analytics by entering your tracking code
 googleAnalytics = "UA-85616639-1"
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "\\.csv$", "\\.rds$", "_cache$"]
