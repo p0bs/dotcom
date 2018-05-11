@@ -35,8 +35,6 @@ Oh, and others may have a tiny chance of winning, but my calculations don't show
 Let's start with the current standings:
 
 ```{r thecode18p1, eval=TRUE, echo=TRUE, message=FALSE, warning=FALSE}
-# setwd("~/GitHub/p0bs.github.io/")
-  
 suppressMessages(library(tidyverse))
 library(DT)
 library(magrittr)
