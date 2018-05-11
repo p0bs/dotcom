@@ -100,7 +100,7 @@ frameWidget(dtReport, width = '100%', height = 800)
 
 # Predictions and Positions
 
-Next, we'll consider your team-by-team predictions and each team's latest Position in the league.
+Next, we'll consider your team-by-team predictions and each team's latest Position in the league. (Note that you can hover over the table and scroll to the right if you want.)
 
 ```{r thecode18p2, eval=TRUE, echo=TRUE, message=FALSE, warning=FALSE}
 Position <- as.vector(1:20)
@@ -327,13 +327,13 @@ dtWinSummary <- datatable(winSummary,
             className = 'dt-right', targets = 1)))) %>% 
   formatPercentage('Likelihood', 1)
   
-frameWidget(dtWinSummary, width = '100%', height = 300)
+frameWidget(dtWinSummary, width = '100%', height = 250)
 ```
   
 By the way, these calculations also suggest that Chelsea have only a `r 100*table(simClubOrder$Chelsea)[1]/iterations`% chance of being in the Champions League next season. <grimace>
   
-For more detail, check out the up-to-the-minute [PremPredict Leaderboard](https://robin.shinyapps.io/PremPredict/). (And, for completeness, [here are your team-by-team predictions](https://docs.google.com/spreadsheets/d/18PTMQI_5Zxx7M1exASfGDDA148-6YoydRp5qkpegKKc/edit?usp=sharing) and the [latest team standings](http://www.theguardian.com/football/premierleague/table).)
+For more detail, check out the up-to-the-minute [PremPredict Leaderboard](https://robin.shinyapps.io/PremPredict/).
 
-<p>&nbsp;</p>
+</br>
 
 ***
