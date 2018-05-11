@@ -1,0 +1,387 @@
+---
+title: "They think it's all over ..."
+author: "Robin Penfold"
+date: "2018-05-11"
+type: "post"
+showonlyimage: false
+draft: true
+slug: "they-think-it-is-all-over"
+image: "img/portfolio/PPlogo.jpg"
+description: "... But it isn't"
+weight: 1
+output:
+  blogdown::html_page:
+    highlight: pygments
+---
+
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/pymjs/pym.v1.js"></script>
+<script src="/rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<p></br></p>
+<p>… but it isn’t. In a curious turn of fate, each possible winner has about the same chance as the team that they love or endure:</p>
+<ul>
+<li><p><em>George Quin</em> – 60%, like Arsenal winning away at Huddersfield</p></li>
+<li><p><em>Jon Poole</em> – 38%, like Everton winning away at West Ham</p></li>
+<li><p><em>Beth Penfold</em> – 4%, like the chance of having to endure watching Chelsea in the Champions League next season; and</p></li>
+<li><p><em>Mike Finnis</em> has about the same chance as Cambridge United winning next year’s FA Cup (i.e. think of a very small number).</p></li>
+</ul>
+<p>Oh, and others may have a tiny chance of winning, but my calculations don’t show it. FWIW, here are the gory details.</p>
+<hr />
+<div id="current-standings" class="section level1">
+<h1>Current standings</h1>
+<p>Let’s start with the current standings:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># setwd(&quot;~/GitHub/p0bs.github.io/&quot;)</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  </a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">suppressMessages</span>(<span class="kw">library</span>(tidyverse))</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(DT)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">library</span>(lazyeval)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw">library</span>(widgetframe)</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">    </a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">clubOrder &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;data/clubOrder-180511.rds&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="st">  </span><span class="kw">as_data_frame</span>(.)</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">clubOrder<span class="op">$</span>Team &lt;-<span class="st"> </span><span class="kw">recode</span>(clubOrder<span class="op">$</span>Team,</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">  <span class="st">`</span><span class="dt">AFC Bournemouth</span><span class="st">`</span> =<span class="st"> &quot;Bournemouth&quot;</span>,</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">  <span class="st">`</span><span class="dt">C Palace</span><span class="st">`</span> =<span class="st"> &quot;Crystal Palace&quot;</span>,</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">  <span class="dt">Spurs =</span> <span class="st">&quot;Tottenham&quot;</span>)</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">  </a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">clubsABC &lt;-<span class="st"> </span><span class="kw">sort</span>(clubOrder<span class="op">$</span>Team)</a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">  </a>
+<a class="sourceLine" id="cb1-19" data-line-number="19">dataInput &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/PP-2018.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20">clubStandings &lt;-<span class="st"> </span><span class="kw">match</span>(dataInput<span class="op">$</span>Club, clubOrder<span class="op">$</span>Team, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1-21" data-line-number="21">topClub &lt;-<span class="st"> </span><span class="kw">match</span>(<span class="dv">1</span>, clubStandings, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1-22" data-line-number="22">  </a>
+<a class="sourceLine" id="cb1-23" data-line-number="23">predictions &lt;-<span class="st"> </span>dataInput[,<span class="op">-</span><span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb1-24" data-line-number="24">  </a>
+<a class="sourceLine" id="cb1-25" data-line-number="25">bonus &lt;-<span class="st"> </span><span class="dv">-50</span><span class="op">*</span>(predictions[topClub,]<span class="op">==</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1-26" data-line-number="26">ssq &lt;-<span class="st"> </span><span class="cf">function</span>(x){(x<span class="op">-</span>clubStandings)<span class="op">^</span><span class="dv">2</span>}</a>
+<a class="sourceLine" id="cb1-27" data-line-number="27">squares &lt;-<span class="st"> </span><span class="kw">apply</span>(predictions,<span class="dv">2</span>,ssq)</a>
+<a class="sourceLine" id="cb1-28" data-line-number="28">score &lt;-<span class="st"> </span><span class="kw">colSums</span>(squares) <span class="op">+</span><span class="st"> </span>bonus</a>
+<a class="sourceLine" id="cb1-29" data-line-number="29">names &lt;-<span class="st"> </span><span class="kw">colnames</span>(score)</a>
+<a class="sourceLine" id="cb1-30" data-line-number="30">names1 &lt;-<span class="st"> </span><span class="kw">str_replace_all</span>(names, <span class="st">&quot;_&quot;</span>, <span class="st">&quot; &quot;</span>)</a>
+<a class="sourceLine" id="cb1-31" data-line-number="31">worst &lt;-<span class="st"> </span><span class="kw">apply</span>(squares,<span class="dv">2</span>,max)</a>
+<a class="sourceLine" id="cb1-32" data-line-number="32">findWorst &lt;-<span class="st"> </span><span class="cf">function</span>(y){<span class="kw">match</span>(worst[y],squares[,y],<span class="dv">0</span>)}</a>
+<a class="sourceLine" id="cb1-33" data-line-number="33">worstClubNo &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(predictions),findWorst)</a>
+<a class="sourceLine" id="cb1-34" data-line-number="34">worstClub &lt;-<span class="st"> </span>clubsABC[worstClubNo]</a>
+<a class="sourceLine" id="cb1-35" data-line-number="35">  </a>
+<a class="sourceLine" id="cb1-36" data-line-number="36">output &lt;-<span class="st"> </span><span class="kw">rbind</span>(score, bonus, worst, worstClubNo)</a>
+<a class="sourceLine" id="cb1-37" data-line-number="37">output1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(names1,<span class="kw">t</span>(output))</a>
+<a class="sourceLine" id="cb1-38" data-line-number="38"><span class="kw">row.names</span>(output1) &lt;-<span class="st"> </span><span class="ot">NULL</span> </a>
+<a class="sourceLine" id="cb1-39" data-line-number="39">output2 &lt;-<span class="st"> </span>output1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-40" data-line-number="40"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">worstClub=</span>clubsABC[worstClubNo]) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1-41" data-line-number="41"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>worstClubNo) </a>
+<a class="sourceLine" id="cb1-42" data-line-number="42"><span class="kw">colnames</span>(output2) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Names&quot;</span>, <span class="st">&quot;Scores&quot;</span>, <span class="st">&quot;Bonus&quot;</span>, <span class="st">&quot;WorstCost&quot;</span>, <span class="st">&quot;WorstClub&quot;</span>)</a>
+<a class="sourceLine" id="cb1-43" data-line-number="43">  </a>
+<a class="sourceLine" id="cb1-44" data-line-number="44">report &lt;-<span class="st"> </span>output2 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-45" data-line-number="45"><span class="st">  </span><span class="kw">arrange</span>(Scores) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-46" data-line-number="46"><span class="st">  </span><span class="kw">select</span>(Names, Scores, Bonus, WorstClub, WorstCost)</a>
+<a class="sourceLine" id="cb1-47" data-line-number="47">  </a>
+<a class="sourceLine" id="cb1-48" data-line-number="48">dtReport &lt;-<span class="st"> </span><span class="kw">datatable</span>(report, </a>
+<a class="sourceLine" id="cb1-49" data-line-number="49">          <span class="dt">rownames =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb1-50" data-line-number="50">          <span class="dt">options =</span> <span class="kw">list</span>(<span class="dt">dom =</span> <span class="st">&#39;t&#39;</span>,</a>
+<a class="sourceLine" id="cb1-51" data-line-number="51">                         <span class="dt">pageLength =</span> <span class="dv">23</span>,</a>
+<a class="sourceLine" id="cb1-52" data-line-number="52">                         <span class="dt">order =</span> <span class="kw">list</span>(<span class="kw">list</span>(<span class="dv">1</span>, <span class="st">&#39;asc&#39;</span>), <span class="kw">list</span>(<span class="dv">0</span>, <span class="st">&#39;asc&#39;</span>))))</a>
+<a class="sourceLine" id="cb1-53" data-line-number="53">  </a>
+<a class="sourceLine" id="cb1-54" data-line-number="54"><span class="kw">frameWidget</span>(dtReport, <span class="dt">width =</span> <span class="st">&#39;100%&#39;</span>, <span class="dt">height =</span> <span class="dv">800</span>)</a></code></pre></div>
+<div id="htmlwidget-1" style="width:100%;height:800px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/prempredict/2018-05-11-they-think-it-is-all-over_files/figure-html//widgets/widget_thecode18p1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<hr />
+</div>
+<div id="predictions-and-positions" class="section level1">
+<h1>Predictions and Positions</h1>
+<p>Next, we’ll consider your team-by-team predictions and each team’s latest Position in the league.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">Position &lt;-<span class="st"> </span><span class="kw">as.vector</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">clubsOrder &lt;-<span class="st"> </span>clubOrder<span class="op">$</span>Team</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">clubsOrder1 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(clubsOrder, Position)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">Club =</span> clubsOrder) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="st">  </span><span class="kw">left_join</span>(dataInput, <span class="dt">by =</span> <span class="st">&quot;Club&quot;</span>)</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">  </a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">dtClubsOrder1 &lt;-<span class="st"> </span><span class="kw">datatable</span>(clubsOrder1,</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">          <span class="dt">rownames =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">          <span class="dt">options =</span> <span class="kw">list</span>(<span class="dt">dom =</span> <span class="st">&#39;t&#39;</span>,</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">                         <span class="dt">pageLength =</span> <span class="dv">20</span>,</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">                         <span class="dt">order =</span> <span class="kw">list</span>(<span class="dv">1</span>, <span class="st">&#39;asc&#39;</span>),</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">                         <span class="dt">columnDefs =</span> <span class="kw">list</span>(<span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">            <span class="dt">className =</span> <span class="st">&#39;dt-right&#39;</span>, <span class="dt">targets =</span> <span class="dv">1</span>))))</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">  </a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="kw">frameWidget</span>(dtClubsOrder1, <span class="dt">width =</span> <span class="st">&#39;100%&#39;</span>, <span class="dt">height =</span> <span class="dv">800</span>)</a></code></pre></div>
+<div id="htmlwidget-2" style="width:100%;height:800px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"url":"/prempredict/2018-05-11-they-think-it-is-all-over_files/figure-html//widgets/widget_thecode18p2.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<hr />
+</div>
+<div id="projections" class="section level1">
+<h1>Projections</h1>
+<p>Finally, we’ll project your likely success. (And the success is stable even if we use ten times the number of scenarios.)</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Change code as shown below if champion has yet to be decided</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">iterations &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">set.seed</span>(<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">  </a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">clubOrder <span class="op">%&lt;&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fullPts =</span> (<span class="dv">1000</span><span class="op">*</span>Pts) <span class="op">+</span><span class="st"> </span>GD)</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">clubsABC &lt;-<span class="st"> </span>clubOrder <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="st">  </span><span class="kw">select</span>(Team, fullPts) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="st">  </span><span class="kw">arrange</span>(Team)</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">clubStandings &lt;-<span class="st"> </span><span class="kw">match</span>(dataInput<span class="op">$</span>Club, clubOrder<span class="op">$</span>Team, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14">predictions &lt;-<span class="st"> </span>dataInput[,<span class="op">-</span><span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb3-15" data-line-number="15">nPlayers &lt;-<span class="st"> </span><span class="kw">ncol</span>(predictions)</a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17">ssq &lt;-<span class="st"> </span><span class="cf">function</span>(x){<span class="kw">sum</span>((x<span class="op">-</span>clubStandings)<span class="op">^</span><span class="dv">2</span>)}</a>
+<a class="sourceLine" id="cb3-18" data-line-number="18">score &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(<span class="kw">apply</span>(predictions,<span class="dv">2</span>,ssq))</a>
+<a class="sourceLine" id="cb3-19" data-line-number="19">names &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(<span class="kw">rownames</span>(score))</a>
+<a class="sourceLine" id="cb3-20" data-line-number="20">names1 &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(<span class="kw">str_replace_all</span>(<span class="kw">t</span>(names), <span class="st">&quot;_&quot;</span>, <span class="st">&quot; &quot;</span>))</a>
+<a class="sourceLine" id="cb3-21" data-line-number="21">  </a>
+<a class="sourceLine" id="cb3-22" data-line-number="22">bookiesInput &lt;-<span class="st"> </span><span class="kw">data_frame</span>(</a>
+<a class="sourceLine" id="cb3-23" data-line-number="23">  <span class="dt">game =</span> <span class="kw">c</span>(<span class="st">&quot;Burnley-Bournemouth&quot;</span>, <span class="st">&quot;Crystal Palace-West Brom&quot;</span>, <span class="st">&quot;Huddersfield-Arsenal&quot;</span>, <span class="st">&quot;Liverpool-Brighton&quot;</span>, <span class="st">&quot;Man Utd-Watford&quot;</span>, <span class="st">&quot;Newcastle-Chelsea&quot;</span>, <span class="st">&quot;Southampton-Man City&quot;</span>, <span class="st">&quot;Swansea-Stoke&quot;</span>, <span class="st">&quot;Tottenham-Leicester&quot;</span>, <span class="st">&quot;West Ham-Everton&quot;</span>),</a>
+<a class="sourceLine" id="cb3-24" data-line-number="24">  <span class="dt">homeValue =</span> <span class="kw">c</span>(<span class="fl">2.15</span>, <span class="fl">1.75</span>, <span class="fl">5.5</span>, <span class="fl">1.18</span>, <span class="fl">1.36</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="fl">1.87</span>, <span class="fl">1.3</span>, <span class="fl">2.35</span>),</a>
+<a class="sourceLine" id="cb3-25" data-line-number="25">  <span class="dt">drawValue =</span> <span class="kw">c</span>(<span class="fl">3.4</span>, <span class="fl">3.75</span>, <span class="fl">4.25</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="fl">4.6</span>, <span class="fl">3.7</span>, <span class="fl">5.5</span>, <span class="fl">3.4</span>), </a>
+<a class="sourceLine" id="cb3-26" data-line-number="26">  <span class="dt">awayValue =</span> <span class="kw">c</span>(<span class="fl">3.4</span>, <span class="fl">4.6</span>, <span class="fl">1.57</span>, <span class="dv">13</span>, <span class="dv">9</span>, <span class="fl">1.57</span>, <span class="fl">1.44</span>, <span class="fl">3.9</span>, <span class="fl">9.5</span>, <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb3-27" data-line-number="27">  </a>
+<a class="sourceLine" id="cb3-28" data-line-number="28">oddsData &lt;-<span class="st"> </span>bookiesInput <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-29" data-line-number="29"><span class="st">  </span><span class="kw">separate</span>(<span class="dt">col =</span> game, </a>
+<a class="sourceLine" id="cb3-30" data-line-number="30">           <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;homeTeam&quot;</span>, <span class="st">&quot;awayTeam&quot;</span>), </a>
+<a class="sourceLine" id="cb3-31" data-line-number="31">           <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>, </a>
+<a class="sourceLine" id="cb3-32" data-line-number="32">           <span class="dt">remove =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb3-33" data-line-number="33">  </a>
+<a class="sourceLine" id="cb3-34" data-line-number="34">gameOddsBuilder &lt;-<span class="st"> </span>oddsData <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-35" data-line-number="35"><span class="st">  </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-36" data-line-number="36"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">overround =</span> (<span class="dv">1</span><span class="op">/</span>homeValue) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">/</span>drawValue) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">/</span>awayValue),</a>
+<a class="sourceLine" id="cb3-37" data-line-number="37">         <span class="dt">homeLikelihood =</span> <span class="dv">1</span><span class="op">/</span>(homeValue <span class="op">*</span><span class="st"> </span>overround),</a>
+<a class="sourceLine" id="cb3-38" data-line-number="38">         <span class="dt">drawLikelihood =</span> <span class="dv">1</span><span class="op">/</span>(drawValue <span class="op">*</span><span class="st"> </span>overround),</a>
+<a class="sourceLine" id="cb3-39" data-line-number="39">         <span class="dt">awayLikelihood =</span> <span class="dv">1</span><span class="op">/</span>(awayValue <span class="op">*</span><span class="st"> </span>overround),</a>
+<a class="sourceLine" id="cb3-40" data-line-number="40">         <span class="dt">winSlice =</span> homeLikelihood,</a>
+<a class="sourceLine" id="cb3-41" data-line-number="41">         <span class="dt">drawSlice =</span> homeLikelihood <span class="op">+</span><span class="st"> </span>drawLikelihood)</a>
+<a class="sourceLine" id="cb3-42" data-line-number="42">    </a>
+<a class="sourceLine" id="cb3-43" data-line-number="43">vectorRandom &lt;-<span class="st"> </span><span class="kw">as_vector</span>(</a>
+<a class="sourceLine" id="cb3-44" data-line-number="44">  <span class="kw">ceiling</span>(</a>
+<a class="sourceLine" id="cb3-45" data-line-number="45">    <span class="kw">runif</span>(</a>
+<a class="sourceLine" id="cb3-46" data-line-number="46">      <span class="dv">10</span><span class="op">*</span>iterations, </a>
+<a class="sourceLine" id="cb3-47" data-line-number="47">      <span class="dt">min =</span> <span class="dv">0</span>, </a>
+<a class="sourceLine" id="cb3-48" data-line-number="48">      <span class="dt">max =</span> <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb3-49" data-line-number="49">    )</a>
+<a class="sourceLine" id="cb3-50" data-line-number="50">  )</a>
+<a class="sourceLine" id="cb3-51" data-line-number="51">    </a>
+<a class="sourceLine" id="cb3-52" data-line-number="52">netGameGoals &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> vectorRandom, <span class="dt">ncol =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb3-53" data-line-number="53"><span class="kw">colnames</span>(netGameGoals) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;n&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb3-54" data-line-number="54">  </a>
+<a class="sourceLine" id="cb3-55" data-line-number="55">unitVectorRandom &lt;-<span class="st"> </span><span class="kw">as.vector</span>(<span class="kw">runif</span>(<span class="dv">10</span><span class="op">*</span>iterations, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb3-56" data-line-number="56">randomGameValues &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> unitVectorRandom, <span class="dt">ncol =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb3-57" data-line-number="57"><span class="kw">colnames</span>(randomGameValues) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;r&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb3-58" data-line-number="58"></a>
+<a class="sourceLine" id="cb3-59" data-line-number="59">simulatedCalcs &lt;-<span class="st"> </span><span class="kw">data_frame</span>(</a>
+<a class="sourceLine" id="cb3-60" data-line-number="60">  <span class="dt">iteration =</span> <span class="kw">seq.int</span>(iterations)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-61" data-line-number="61"><span class="st">  </span><span class="kw">cbind</span>(randomGameValues, netGameGoals)</a>
+<a class="sourceLine" id="cb3-62" data-line-number="62">  </a>
+<a class="sourceLine" id="cb3-63" data-line-number="63">pointsAdjuster &lt;-<span class="st"> </span><span class="cf">function</span>(team) {</a>
+<a class="sourceLine" id="cb3-64" data-line-number="64">  </a>
+<a class="sourceLine" id="cb3-65" data-line-number="65">  teamName &lt;-<span class="st"> </span><span class="kw">enquo</span>(team)</a>
+<a class="sourceLine" id="cb3-66" data-line-number="66">  </a>
+<a class="sourceLine" id="cb3-67" data-line-number="67">  matchNo &lt;-<span class="st"> </span>teamData<span class="op">$</span>matchNo[teamData<span class="op">$</span>team <span class="op">==</span><span class="st"> </span><span class="kw">uq</span>(teamName)]</a>
+<a class="sourceLine" id="cb3-68" data-line-number="68">  isHomeTeam &lt;-<span class="st"> </span>teamData<span class="op">$</span>isHomeTeam[teamData<span class="op">$</span>team <span class="op">==</span><span class="st"> </span><span class="kw">uq</span>(teamName)]</a>
+<a class="sourceLine" id="cb3-69" data-line-number="69">  existingPoints &lt;-<span class="st"> </span>clubsABC<span class="op">$</span>fullPts[clubsABC <span class="op">==</span><span class="st"> </span><span class="kw">uq</span>(teamName)]</a>
+<a class="sourceLine" id="cb3-70" data-line-number="70">  winBreakpoint &lt;-<span class="st"> </span>teamData<span class="op">$</span>winSlice[teamData<span class="op">$</span>team <span class="op">==</span><span class="st"> </span><span class="kw">uq</span>(teamName)]</a>
+<a class="sourceLine" id="cb3-71" data-line-number="71">  drawBreakpoint &lt;-<span class="st"> </span>teamData<span class="op">$</span>drawSlice[teamData<span class="op">$</span>team <span class="op">==</span><span class="st"> </span><span class="kw">uq</span>(teamName)]</a>
+<a class="sourceLine" id="cb3-72" data-line-number="72">  workings &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb3-73" data-line-number="73">    <span class="dt">firstColumn =</span> simulatedCalcs[, (matchNo <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)],</a>
+<a class="sourceLine" id="cb3-74" data-line-number="74">    <span class="dt">secondColumn =</span> simulatedCalcs[, (matchNo <span class="op">+</span><span class="st"> </span><span class="dv">11</span>)])</a>
+<a class="sourceLine" id="cb3-75" data-line-number="75">  </a>
+<a class="sourceLine" id="cb3-76" data-line-number="76">  existingPoints <span class="op">+</span><span class="st"> </span><span class="cf">if</span> (isHomeTeam <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>) {</a>
+<a class="sourceLine" id="cb3-77" data-line-number="77">    workings <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-78" data-line-number="78"><span class="st">      </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-79" data-line-number="79"><span class="st">      </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb3-80" data-line-number="80">        <span class="dt">newPoints =</span> <span class="kw">ifelse</span>(</a>
+<a class="sourceLine" id="cb3-81" data-line-number="81">          firstColumn <span class="op">&lt;</span><span class="st"> </span>winBreakpoint,</a>
+<a class="sourceLine" id="cb3-82" data-line-number="82">          <span class="dv">3000</span> <span class="op">+</span><span class="st"> </span>secondColumn,</a>
+<a class="sourceLine" id="cb3-83" data-line-number="83">          <span class="kw">ifelse</span>(</a>
+<a class="sourceLine" id="cb3-84" data-line-number="84">            firstColumn <span class="op">&lt;</span><span class="st"> </span>drawBreakpoint,</a>
+<a class="sourceLine" id="cb3-85" data-line-number="85">            <span class="dv">1000</span>, </a>
+<a class="sourceLine" id="cb3-86" data-line-number="86">            <span class="op">-</span>secondColumn)</a>
+<a class="sourceLine" id="cb3-87" data-line-number="87">          )</a>
+<a class="sourceLine" id="cb3-88" data-line-number="88">        ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-89" data-line-number="89"><span class="st">      </span><span class="kw">pull</span>(newPoints)</a>
+<a class="sourceLine" id="cb3-90" data-line-number="90">    </a>
+<a class="sourceLine" id="cb3-91" data-line-number="91">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb3-92" data-line-number="92">    </a>
+<a class="sourceLine" id="cb3-93" data-line-number="93">    workings <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-94" data-line-number="94"><span class="st">      </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-95" data-line-number="95"><span class="st">      </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb3-96" data-line-number="96">        <span class="dt">newPoints =</span> <span class="kw">ifelse</span>(</a>
+<a class="sourceLine" id="cb3-97" data-line-number="97">          firstColumn <span class="op">&lt;</span><span class="st"> </span>winBreakpoint,</a>
+<a class="sourceLine" id="cb3-98" data-line-number="98">          <span class="op">-</span>secondColumn,</a>
+<a class="sourceLine" id="cb3-99" data-line-number="99">          <span class="kw">ifelse</span>(</a>
+<a class="sourceLine" id="cb3-100" data-line-number="100">            firstColumn <span class="op">&lt;</span><span class="st"> </span>drawBreakpoint, </a>
+<a class="sourceLine" id="cb3-101" data-line-number="101">            <span class="dv">1000</span>, </a>
+<a class="sourceLine" id="cb3-102" data-line-number="102">            <span class="dv">3000</span> <span class="op">+</span><span class="st"> </span>secondColumn)</a>
+<a class="sourceLine" id="cb3-103" data-line-number="103">          )</a>
+<a class="sourceLine" id="cb3-104" data-line-number="104">        ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-105" data-line-number="105"><span class="st">      </span><span class="kw">pull</span>(newPoints)</a>
+<a class="sourceLine" id="cb3-106" data-line-number="106">    }</a>
+<a class="sourceLine" id="cb3-107" data-line-number="107">}</a>
+<a class="sourceLine" id="cb3-108" data-line-number="108">  </a>
+<a class="sourceLine" id="cb3-109" data-line-number="109">homeTeamData &lt;-<span class="st"> </span>gameOddsBuilder <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-110" data-line-number="110"><span class="st">  </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;matchNo&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-111" data-line-number="111"><span class="st">  </span><span class="kw">rename</span>(</a>
+<a class="sourceLine" id="cb3-112" data-line-number="112">    <span class="dt">team =</span> homeTeam,</a>
+<a class="sourceLine" id="cb3-113" data-line-number="113">    <span class="dt">otherTeam =</span> awayTeam) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-114" data-line-number="114"><span class="st">  </span><span class="kw">select</span>(team, otherTeam, game, matchNo, homeValue<span class="op">:</span>drawSlice) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-115" data-line-number="115"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb3-116" data-line-number="116">    <span class="dt">isHomeTeam =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb3-117" data-line-number="117">    <span class="dt">matchNo =</span> <span class="kw">as.integer</span>(matchNo))</a>
+<a class="sourceLine" id="cb3-118" data-line-number="118">  </a>
+<a class="sourceLine" id="cb3-119" data-line-number="119">awayTeamData &lt;-<span class="st"> </span>gameOddsBuilder <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-120" data-line-number="120"><span class="st">    </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;matchNo&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-121" data-line-number="121"><span class="st">  </span><span class="kw">rename</span>(</a>
+<a class="sourceLine" id="cb3-122" data-line-number="122">    <span class="dt">team =</span> awayTeam,</a>
+<a class="sourceLine" id="cb3-123" data-line-number="123">    <span class="dt">otherTeam =</span> homeTeam) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-124" data-line-number="124"><span class="st">  </span><span class="kw">select</span>(team, otherTeam, game, matchNo, homeValue<span class="op">:</span>drawSlice) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-125" data-line-number="125"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb3-126" data-line-number="126">    <span class="dt">isHomeTeam =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb3-127" data-line-number="127">    <span class="dt">matchNo =</span> <span class="kw">as.integer</span>(matchNo))</a>
+<a class="sourceLine" id="cb3-128" data-line-number="128">  </a>
+<a class="sourceLine" id="cb3-129" data-line-number="129">teamData &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(homeTeamData, awayTeamData) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-130" data-line-number="130"><span class="st">  </span><span class="kw">arrange</span>(matchNo, <span class="kw">desc</span>(isHomeTeam))</a>
+<a class="sourceLine" id="cb3-131" data-line-number="131">  </a>
+<a class="sourceLine" id="cb3-132" data-line-number="132">adjustedPoints &lt;-<span class="st"> </span>clubsABC<span class="op">$</span>Team <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-133" data-line-number="133"><span class="st">  </span><span class="kw">map</span>(pointsAdjuster) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-134" data-line-number="134"><span class="st">  </span><span class="kw">as.data.frame</span>()</a>
+<a class="sourceLine" id="cb3-135" data-line-number="135">  </a>
+<a class="sourceLine" id="cb3-136" data-line-number="136"><span class="kw">colnames</span>(adjustedPoints) &lt;-<span class="st"> </span>clubsABC<span class="op">$</span>Team</a>
+<a class="sourceLine" id="cb3-137" data-line-number="137">  </a>
+<a class="sourceLine" id="cb3-138" data-line-number="138">simClubOrderString &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="kw">apply</span>(<span class="op">-</span>adjustedPoints, <span class="dv">1</span>, rank, <span class="dt">ties.method=</span><span class="st">&quot;average&quot;</span>))</a>
+<a class="sourceLine" id="cb3-139" data-line-number="139">tsimClubOrder &lt;-<span class="st"> </span><span class="kw">matrix</span>(simClubOrderString, <span class="dt">nrow =</span> <span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb3-140" data-line-number="140">  </a>
+<a class="sourceLine" id="cb3-141" data-line-number="141">simClubOrder &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(tsimClubOrder))</a>
+<a class="sourceLine" id="cb3-142" data-line-number="142"><span class="kw">colnames</span>(simClubOrder) &lt;-<span class="st"> </span>clubsABC<span class="op">$</span>Team</a>
+<a class="sourceLine" id="cb3-143" data-line-number="143">  </a>
+<a class="sourceLine" id="cb3-144" data-line-number="144">simPlayerScores &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(0L, nPlayers<span class="op">*</span>iterations), <span class="dt">nrow =</span> iterations)</a>
+<a class="sourceLine" id="cb3-145" data-line-number="145">tPredictions &lt;-<span class="st"> </span><span class="kw">t</span>(predictions)</a>
+<a class="sourceLine" id="cb3-146" data-line-number="146">  </a>
+<a class="sourceLine" id="cb3-147" data-line-number="147"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nPlayers){</a>
+<a class="sourceLine" id="cb3-148" data-line-number="148">  </a>
+<a class="sourceLine" id="cb3-149" data-line-number="149">  mPredictions &lt;-<span class="st"> </span><span class="kw">matrix</span>(</a>
+<a class="sourceLine" id="cb3-150" data-line-number="150">    <span class="kw">rep</span>(tPredictions[i,], iterations), </a>
+<a class="sourceLine" id="cb3-151" data-line-number="151">    <span class="dt">nrow =</span> iterations, </a>
+<a class="sourceLine" id="cb3-152" data-line-number="152">    <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb3-153" data-line-number="153">  </a>
+<a class="sourceLine" id="cb3-154" data-line-number="154">  workingMisses &lt;-<span class="st"> </span>(simClubOrder <span class="op">-</span><span class="st"> </span>mPredictions)<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb3-155" data-line-number="155">  bonusScore &lt;-<span class="st"> </span><span class="dv">-50</span> <span class="op">*</span><span class="st"> </span>(tPredictions[i,<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)   <span class="co"># Change if champion isn&#39;t certain</span></a>
+<a class="sourceLine" id="cb3-156" data-line-number="156">  </a>
+<a class="sourceLine" id="cb3-157" data-line-number="157">  simPlayerScores[,i] &lt;-<span class="st"> </span><span class="kw">rowSums</span>(workingMisses) <span class="op">+</span><span class="st"> </span>bonusScore</a>
+<a class="sourceLine" id="cb3-158" data-line-number="158">}</a>
+<a class="sourceLine" id="cb3-159" data-line-number="159">  </a>
+<a class="sourceLine" id="cb3-160" data-line-number="160"><span class="kw">colnames</span>(simPlayerScores) &lt;-<span class="st"> </span><span class="kw">t</span>(names1)</a>
+<a class="sourceLine" id="cb3-161" data-line-number="161">  </a>
+<a class="sourceLine" id="cb3-162" data-line-number="162">simPlayerRanks &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb3-163" data-line-number="163">  <span class="kw">t</span>(</a>
+<a class="sourceLine" id="cb3-164" data-line-number="164">    <span class="kw">apply</span>(simPlayerScores, <span class="dv">1</span>, rank, <span class="dt">ties.method=</span><span class="st">&#39;min&#39;</span>)</a>
+<a class="sourceLine" id="cb3-165" data-line-number="165">    )</a>
+<a class="sourceLine" id="cb3-166" data-line-number="166">  )</a>
+<a class="sourceLine" id="cb3-167" data-line-number="167">  </a>
+<a class="sourceLine" id="cb3-168" data-line-number="168">winPlayer &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(simPlayerRanks<span class="op">==</span>1L)</a>
+<a class="sourceLine" id="cb3-169" data-line-number="169"></a>
+<a class="sourceLine" id="cb3-170" data-line-number="170">winLikelihood &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(</a>
+<a class="sourceLine" id="cb3-171" data-line-number="171">  <span class="kw">apply</span>(winPlayer, <span class="dv">2</span>, sum)</a>
+<a class="sourceLine" id="cb3-172" data-line-number="172">  )</a>
+<a class="sourceLine" id="cb3-173" data-line-number="173">  </a>
+<a class="sourceLine" id="cb3-174" data-line-number="174"><span class="kw">colnames</span>(winLikelihood)[<span class="dv">1</span>] &lt;-<span class="st"> &quot;Frequency&quot;</span></a>
+<a class="sourceLine" id="cb3-175" data-line-number="175"><span class="kw">colnames</span>(names1)[<span class="dv">1</span>] &lt;-<span class="st"> &quot;Name&quot;</span></a>
+<a class="sourceLine" id="cb3-176" data-line-number="176">  </a>
+<a class="sourceLine" id="cb3-177" data-line-number="177">winSummary &lt;-<span class="st"> </span><span class="kw">cbind</span>(names1, winLikelihood) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-178" data-line-number="178"><span class="st">  </span><span class="kw">filter</span>(Frequency <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-179" data-line-number="179"><span class="st">  </span><span class="kw">arrange</span>(<span class="op">-</span>Frequency) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-180" data-line-number="180"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Likelihood =</span> Frequency<span class="op">/</span>iterations) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-181" data-line-number="181"><span class="st">  </span><span class="kw">select</span>(Name, Likelihood) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-182" data-line-number="182"><span class="st">  </span><span class="kw">as_tibble</span>(.)</a>
+<a class="sourceLine" id="cb3-183" data-line-number="183">  </a>
+<a class="sourceLine" id="cb3-184" data-line-number="184">dtWinSummary &lt;-<span class="st"> </span><span class="kw">datatable</span>(winSummary,</a>
+<a class="sourceLine" id="cb3-185" data-line-number="185">          <span class="dt">rownames =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb3-186" data-line-number="186">          <span class="dt">options =</span> <span class="kw">list</span>(<span class="dt">dom =</span> <span class="st">&#39;t&#39;</span>,</a>
+<a class="sourceLine" id="cb3-187" data-line-number="187">                         <span class="dt">pageLength =</span> <span class="dv">20</span>,</a>
+<a class="sourceLine" id="cb3-188" data-line-number="188">                         <span class="dt">order =</span> <span class="kw">list</span>(<span class="dv">1</span>, <span class="st">&#39;desc&#39;</span>),</a>
+<a class="sourceLine" id="cb3-189" data-line-number="189">                         <span class="dt">columnDefs =</span> <span class="kw">list</span>(<span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb3-190" data-line-number="190">            <span class="dt">className =</span> <span class="st">&#39;dt-left&#39;</span>, <span class="dt">targets =</span> <span class="dv">0</span>),<span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb3-191" data-line-number="191">            <span class="dt">className =</span> <span class="st">&#39;dt-right&#39;</span>, <span class="dt">targets =</span> <span class="dv">1</span>)))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-192" data-line-number="192"><span class="st">  </span><span class="kw">formatPercentage</span>(<span class="st">&#39;Likelihood&#39;</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb3-193" data-line-number="193">  </a>
+<a class="sourceLine" id="cb3-194" data-line-number="194"><span class="kw">frameWidget</span>(dtWinSummary, <span class="dt">width =</span> <span class="st">&#39;100%&#39;</span>, <span class="dt">height =</span> <span class="dv">800</span>)</a></code></pre></div>
+<div id="htmlwidget-3" style="width:100%;height:800px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3">{"x":{"url":"/prempredict/2018-05-11-they-think-it-is-all-over_files/figure-html//widgets/widget_thecode18p3.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p></br></p>
+<p>By the way, these calculations also suggest that Chelsea have only a 4.2% chance of being in the Champions League next season. <grimace></p>
+<p></br></p>
+<p>For more detail, check out the up-to-the-minute <a href="https://robin.shinyapps.io/PremPredict/">PremPredict Leaderboard</a>. (And, for completeness, <a href="https://docs.google.com/spreadsheets/d/18PTMQI_5Zxx7M1exASfGDDA148-6YoydRp5qkpegKKc/edit?usp=sharing">here are your team-by-team predictions</a> and the <a href="http://www.theguardian.com/football/premierleague/table">latest team standings</a>.)</p>
+<p>
+ 
+</p>
+<hr />
+</div>
