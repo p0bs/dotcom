@@ -78,8 +78,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Oh, and others may have a tiny chance of winning, but my calculations don’t show it. FWIW, here are the gory details.</p>
 <hr />
-<div id="current-standings" class="section level1">
-<h1>Current standings</h1>
+<div id="current-standings" class="section level2">
+<h2>Current standings</h2>
 <p>Let’s start with the current standings:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># setwd(&quot;~/GitHub/p0bs.github.io/&quot;)</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">  </a>
@@ -140,12 +140,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb1-57" data-line-number="57">          )</a>
 <a class="sourceLine" id="cb1-58" data-line-number="58">  </a>
 <a class="sourceLine" id="cb1-59" data-line-number="59"><span class="kw">frameWidget</span>(dtReport, <span class="dt">width =</span> <span class="st">&#39;100%&#39;</span>, <span class="dt">height =</span> <span class="dv">800</span>)</a></code></pre></div>
-<div id="htmlwidget-0bc5bb255193f6a6cd80" style="width:100%;height:800px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0bc5bb255193f6a6cd80">{"x":{"url":"2018-05-11-they-think-it-is-all-over_files/figure-html//widgets/widget_thecode18p1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-6f57059274ee12e059f0" style="width:100%;height:800px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6f57059274ee12e059f0">{"x":{"url":"2018-05-11-they-think-it-is-all-over_files/figure-html//widgets/widget_thecode18p1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 <hr />
 </div>
-<div id="predictions-and-positions" class="section level1">
-<h1>Predictions and Positions</h1>
+<div id="predictions-and-positions" class="section level2">
+<h2>Predictions and Positions</h2>
 <p>Next, we’ll consider your team-by-team predictions and each team’s latest Position in the league. (Note that you can hover over the table and scroll to the right if you want.)</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">Position &lt;-<span class="st"> </span><span class="kw">as.vector</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">clubsOrder &lt;-<span class="st"> </span>clubOrder<span class="op">$</span>Team</a>
@@ -169,12 +169,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb2-20" data-line-number="20">          )</a>
 <a class="sourceLine" id="cb2-21" data-line-number="21">  </a>
 <a class="sourceLine" id="cb2-22" data-line-number="22"><span class="kw">frameWidget</span>(dtClubsOrder1, <span class="dt">width =</span> <span class="st">&#39;100%&#39;</span>, <span class="dt">height =</span> <span class="dv">800</span>)</a></code></pre></div>
-<div id="htmlwidget-2bbc0548e0a2cef07c9a" style="width:100%;height:800px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2bbc0548e0a2cef07c9a">{"x":{"url":"2018-05-11-they-think-it-is-all-over_files/figure-html//widgets/widget_thecode18p2.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c06ef384092ad5fec83c" style="width:100%;height:800px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c06ef384092ad5fec83c">{"x":{"url":"2018-05-11-they-think-it-is-all-over_files/figure-html//widgets/widget_thecode18p2.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 <hr />
 </div>
-<div id="projections" class="section level1">
-<h1>Projections</h1>
+<div id="projections" class="section level2">
+<h2>Projections</h2>
 <p>Finally, we’ll project your likely success. (And the success is stable even if we use ten times the number of scenarios.)</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Change code as shown below if champion has yet to be decided</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">iterations &lt;-<span class="st"> </span><span class="dv">10000</span></a>
@@ -370,8 +370,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb3-192" data-line-number="192"><span class="st">  </span><span class="kw">formatPercentage</span>(<span class="st">&#39;Likelihood&#39;</span>, <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb3-193" data-line-number="193">  </a>
 <a class="sourceLine" id="cb3-194" data-line-number="194"><span class="kw">frameWidget</span>(dtWinSummary, <span class="dt">width =</span> <span class="st">&#39;100%&#39;</span>, <span class="dt">height =</span> <span class="dv">250</span>)</a></code></pre></div>
-<div id="htmlwidget-6beafbe8c2f3d5397a11" style="width:100%;height:250px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6beafbe8c2f3d5397a11">{"x":{"url":"2018-05-11-they-think-it-is-all-over_files/figure-html//widgets/widget_thecode18p3.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d5068a6c25736d903873" style="width:100%;height:250px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d5068a6c25736d903873">{"x":{"url":"2018-05-11-they-think-it-is-all-over_files/figure-html//widgets/widget_thecode18p3.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 <p>By the way, these calculations also suggest that Chelsea have only a 4.2% chance of being in the Champions League next season. <grimace></p>
 <p>For more detail, check out the up-to-the-minute <a href="https://robin.shinyapps.io/PremPredict/">PremPredict Leaderboard</a>.</p>
 <p></br></p>
