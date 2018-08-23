@@ -8,7 +8,7 @@ draft: false
 slug: "still-close"
 image: "img/portfolio/PPlogo.jpg"
 description: "A handful still in with a chance"
-weight: 1
+weight: 2
 output:
   blogdown::html_page:
     highlight: pygments

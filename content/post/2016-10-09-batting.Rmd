@@ -8,7 +8,7 @@ draft: false
 slug: "batting"
 image: "img/portfolio/bat.jpg"
 description: "Where in the order have the best batsmen batted?"
-weight: 5
+weight: 2
 output:
   blogdown::html_page:
     highlight: pygments
