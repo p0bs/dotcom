@@ -139,19 +139,17 @@ dtReport <- datatable(
 frameWidget(dtReport, width = '100%', height = 800)
 ```
 
-<p>&nbsp;</p>
+</br>
 
-Of course, there's still a long way to go, which I always find comforting. For more gory detail, check out the [PremPredict Leaderboard](https://robin.shinyapps.io/PremPredict/) to learn where we're all going wrong.
-  
-(And, for completeness, [here are your team-by-team predictions](https://docs.google.com/spreadsheets/d/1KgzlXAdcH5dwFllIU0Nktq-_QTwWwBuj76Di-UYQbtA/edit?usp=sharing) and the [latest team standings](http://www.theguardian.com/football/premierleague/table).)
+Fortunately, there's still a long way to go!
 
-<p>&nbsp;</p>
+</br>
 
 ### Collective expectations
 
-But what are we collectively expecting from the Premier League this season? Are we expecting this season to be as predictable as its predecessor? Or are we envisaging a repeat of last season?
+But what are we collectively expecting from the Premier League this season? Are we expecting it to be a repeat of last season?
 
-By the look of our picks, we seem to side with the bookies. We collectively predict Manchester City to finish highest on average, with the recently-promoted teams struggling.
+By the look of our picks, we seem to side with the bookies. As a group, we predict Manchester City to finish highest on average, with the recently-promoted teams struggling.
 
 ```{r collExp19, echo=FALSE, error=TRUE, fig.align="center", fig.asp=0.618, fig.show='hold', fig.width=6, message=FALSE, warning=FALSE, out.width="100%"}
 data_input1 <- as_data_frame(data_input)
@@ -209,13 +207,15 @@ For completeness (and reproducibility), here's the code that I used to calculate
 ```{r showthecode191, ref.label='thecode191', eval=FALSE}
 ```
 
-<p>&nbsp;</p>
+</br>
 
 ... and ...
 
-<p>&nbsp;</p>
+</br>
 
 ```{r showcollExp19, ref.label='collExp19', eval=FALSE}
 ```
+
+(Finally, [here are your team-by-team predictions](https://docs.google.com/spreadsheets/d/1KgzlXAdcH5dwFllIU0Nktq-_QTwWwBuj76Di-UYQbtA/edit?usp=sharing), alongside the [latest team standings](http://www.theguardian.com/football/premierleague/table).)
 
 ***

@@ -1,22 +1,6 @@
----
-title: "Twenty20"
-author: "Robin Penfold"
-date: "2018-08-23"
-type: "post"
-showonlyimage: false
-draft: false
-slug: "twenty-teams"
-image: "img/portfolio/PPlogo.jpg"
-description: "So far, so good for Peter Finnis!"
-weight: 2
-output:
-  blogdown::html_page:
-    highlight: pygments
----
-
-<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
-<script src="/rmarkdown-libs/pymjs/pym.v1.js"></script>
-<script src="/rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
+<script src="2018-08-23-twenty-teams_files/htmlwidgets-1.2/htmlwidgets.js"></script>
+<script src="2018-08-23-twenty-teams_files/pymjs-1.3.2/pym.v1.js"></script>
+<script src="2018-08-23-twenty-teams_files/widgetframe-binding-0.3.1/widgetframe.js"></script>
 <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
@@ -93,22 +77,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="latest-standings" class="section level3">
 <h3>Latest standings</h3>
 <p>Here’s what you really want to know:</p>
-<div id="htmlwidget-1" style="width:100%;height:800px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/prempredict/2018-08-23-twenty-teams_files/figure-html//widgets/widget_thecode191.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
-<p>
- 
-</p>
-<p>Of course, there’s still a long way to go, which I always find comforting. For more gory detail, check out the <a href="https://robin.shinyapps.io/PremPredict/">PremPredict Leaderboard</a> to learn where we’re all going wrong.</p>
-<p>(And, for completeness, <a href="https://docs.google.com/spreadsheets/d/1KgzlXAdcH5dwFllIU0Nktq-_QTwWwBuj76Di-UYQbtA/edit?usp=sharing">here are your team-by-team predictions</a> and the <a href="http://www.theguardian.com/football/premierleague/table">latest team standings</a>.)</p>
-<p>
- 
-</p>
+<div id="htmlwidget-504c61c0dc531ff8ec7d" style="width:100%;height:800px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-504c61c0dc531ff8ec7d">{"x":{"url":"2018-08-23-twenty-teams_files/figure-html//widgets/widget_thecode191.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p></br></p>
+<p>Fortunately, there’s still a long way to go!</p>
+<p></br></p>
 </div>
 <div id="collective-expectations" class="section level3">
 <h3>Collective expectations</h3>
-<p>But what are we collectively expecting from the Premier League this season? Are we expecting this season to be as predictable as its predecessor? Or are we envisaging a repeat of last season?</p>
-<p>By the look of our picks, we seem to side with the bookies. We collectively predict Manchester City to finish highest on average, with the recently-promoted teams struggling.</p>
-<p><img src="/prempredict/2018-08-23-twenty-teams_files/figure-html/collExp19-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>But what are we collectively expecting from the Premier League this season? Are we expecting it to be a repeat of last season?</p>
+<p>By the look of our picks, we seem to side with the bookies. As a group, we predict Manchester City to finish highest on average, with the recently-promoted teams struggling.</p>
+<p><img src="2018-08-23-twenty-teams_files/figure-html/collExp19-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
  
 </p>
@@ -229,13 +208,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb1-110" data-line-number="110">  )</a>
 <a class="sourceLine" id="cb1-111" data-line-number="111">   </a>
 <a class="sourceLine" id="cb1-112" data-line-number="112"><span class="kw">frameWidget</span>(dtReport, <span class="dt">width =</span> <span class="st">&#39;100%&#39;</span>, <span class="dt">height =</span> <span class="dv">800</span>)</a></code></pre></div>
-<p>
- 
-</p>
+<p></br></p>
 <p>… and …</p>
-<p>
- 
-</p>
+<p></br></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">data_input1 &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(data_input)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">averageView &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">rowMeans</span>(data_input1[, <span class="dv">-1</span>]), <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">views &lt;-<span class="st"> </span><span class="kw">cbind</span>(data_input1[,<span class="dv">1</span>], averageView)</a>
@@ -278,5 +253,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb2-40" data-line-number="40">    <span class="dt">title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>), </a>
 <a class="sourceLine" id="cb2-41" data-line-number="41">    <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">6</span>)</a>
 <a class="sourceLine" id="cb2-42" data-line-number="42">    )</a></code></pre></div>
+<p>(Finally, <a href="https://docs.google.com/spreadsheets/d/1KgzlXAdcH5dwFllIU0Nktq-_QTwWwBuj76Di-UYQbtA/edit?usp=sharing">here are your team-by-team predictions</a>, alongside the <a href="http://www.theguardian.com/football/premierleague/table">latest team standings</a>.)</p>
 <hr />
 </div>
