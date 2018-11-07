@@ -1,5 +1,5 @@
 ---
-title: "There's an R package for that"
+title: "A package for that"
 author: "Robin Penfold"
 date: "2016-10-19"
 type: "post"
