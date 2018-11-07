@@ -1,5 +1,5 @@
 ---
-title: "The premPredict package"
+title: "PremPredict R package"
 author: "Robin Penfold"
 date: "2018-10-28"
 type: "post"
@@ -7,7 +7,7 @@ showonlyimage: false
 draft: false
 slug: "premPredict-package"
 image: "img/portfolio/PPlogo.jpg"
-description: "Using R to run a football competition"
+description: "... for my football contest"
 weight: 2
 output:
   blogdown::html_page:
