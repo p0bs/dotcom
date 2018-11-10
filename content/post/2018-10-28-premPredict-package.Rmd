@@ -34,7 +34,7 @@ get_latest_standings(data_input = player_data)
 
 Doing so generates the following results.
 
-![](/post/output.png)
+![](/post/output.png){width=300px}
 
 <p>&nbsp;</p>
 
