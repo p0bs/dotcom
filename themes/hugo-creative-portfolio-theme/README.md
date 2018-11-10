@@ -1,5 +1,6 @@
 # Creative portfolio theme for hugo
 
+[![Build Status](https://travis-ci.org/kishaningithub/hugo-creative-portfolio-theme.svg?branch=master)](https://travis-ci.org/kishaningithub/hugo-creative-portfolio-theme)
 [![Join the chat at https://gitter.im/hugo-creative-portfolio-theme/Lobby](https://badges.gitter.im/hugo-creative-portfolio-theme/Lobby.svg)](https://gitter.im/hugo-creative-portfolio-theme/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Buy me a coffee](https://img.shields.io/badge/☕-Buy%20me%20a%20coffee-blue.svg)](https://www.paypal.me/kishansh/5)
 
@@ -13,18 +14,18 @@ This Hugo theme was ported from [Bootstrapious](https://bootstrapious.com/p/crea
 
 Go to the directory where you have your Hugo site and run:
 
-```
-$ mkdir themes
-$ cd themes
-$ git clone https://github.com/kishaningithub/hugo-creative-portfolio-theme.git
-$ rm -rf hugo-creative-portfolio-theme/.git
+```bash
+mkdir themes
+cd themes
+git clone https://github.com/kishaningithub/hugo-creative-portfolio-theme.git
+rm -rf hugo-creative-portfolio-theme/.git
 ```
 
 For more information read the official [setup guide](https://gohugo.io/overview/installing/) of Hugo.
 
 ## Configuration
 
-After installing the Creative portfolio theme successfully, we recommend you to take a look at the [exampleSite](https://github.com/kishaningithub/hugo-creative-portfolio-theme/tree/master/exampleSite) directory. You will find a working Hugo site configured with the Creative portfolio theme that you can use as a starting point for your site.
+After installing the Creative portfolio theme successfully, i recommend you to take a look at the [exampleSite](https://github.com/kishaningithub/hugo-creative-portfolio-theme/tree/master/exampleSite) directory. You will find a working Hugo site configured with the Creative portfolio theme that you can use as a starting point for your site.
 
 First, let's take a look at the [config.toml](https://github.com/kishaningithub/hugo-creative-portfolio-theme/tree/master/exampleSite/config.toml). It will be useful to learn how to customize your site. Feel free to play around with the settings.
 
@@ -76,17 +77,19 @@ Since this page will be static, you can use [formspree.io](//formspree.io/) as p
 
 In order to see your site in action, run Hugo's built-in local server.
 
-```
-$ hugo server
+```bash
+hugo server
 ```
 
 Now enter [`localhost:1313`](http://localhost:1313) in the address bar of your browser.
 
 ## Deployment
- - [Deploying to Amazon S3](https://github.com/kishaningithub/hugo-creative-portfolio-theme/wiki/Deploying-to-Amazon-S3)
+
+- [Deploying to Amazon S3](https://github.com/kishaningithub/hugo-creative-portfolio-theme/wiki/Deploying-to-Amazon-S3)
 
 ## Base theme version (From bootstrapious)
- - 1.0
+
+- 1.0
 
 ## Contributing
 
