@@ -15,8 +15,14 @@ output:
 ---
 
 <script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
-<script src="/rmarkdown-libs/pymjs/pym.v1.js"></script>
-<script src="/rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/datatables-binding/datatables.js"></script>
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/dt-core/js/jquery.dataTables.min.js"></script>
+<link href="/rmarkdown-libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
 <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
@@ -110,8 +116,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 18     Alan Butcher    452     0          Fulham       144
 ## 19    Paula Penfold    498     0     Southampton       121
 ## 20  Mathew Saunders    506     0          Fulham       121</code></pre>
-<div id="htmlwidget-1" style="width:100%;height:800px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/prempredict/2018-11-16-early-standings_files/figure-html//widgets/widget_thecode191.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"filter":"none","data":[["Luke Finnis","Roger Gathercole","Neil Waterman","Andrea Laporta","Peter Finnis","George Quin","Les Penfold","Alan Finnis","Imogen Finnis","Laura Finnis","Beth Penfold","Mike Finnis","Robin Penfold","Scott Harrop","Hannah Finnis","Marion Finnis","Vera Finnis","Alan Butcher","Paula Penfold","Mathew Saunders"],[212,226,236,244,264,320,320,326,332,356,368,370,370,370,386,402,438,452,498,506],[-0,-50,-50,-50,-50,-50,-50,-50,-0,-0,-50,-0,-50,-50,-0,-0,-0,-0,-0,-0],["AFC Bournemouth","AFC Bournemouth","AFC Bournemouth","AFC Bournemouth","C Palace","Watford","Southampton","AFC Bournemouth","AFC Bournemouth","Southampton","AFC Bournemouth","Fulham","Watford","Watford","Wolves","Fulham","Fulham","Fulham","Southampton","Fulham"],[81,121,100,49,64,121,100,81,64,100,81,121,144,169,81,81,100,144,121,121]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Names<\/th>\n      <th>Scores<\/th>\n      <th>Bonus<\/th>\n      <th>WorstClub<\/th>\n      <th>WorstCost<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","pageLength":20,"order":[[1,"asc"],[0,"asc"]],"columnDefs":[{"className":"dt-left","targets":0},{"className":"dt-right","targets":[1,2,3]},{"className":"dt-right","targets":4}],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 <p></br></p>
 <p>I’ll be in touch in a month or two with more standings, so stay tuned.</p>
 <p>All the best …</p>
@@ -129,31 +135,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb2-6" data-line-number="6"></a>
 <a class="sourceLine" id="cb2-7" data-line-number="7">player_data &lt;-<span class="st"> </span><span class="kw">get_player_data</span>(<span class="st">&quot;https://www.dropbox.com/s/uin6zk4w5cyk2m1/PremPredict-18-19.csv&quot;</span>)</a>
 <a class="sourceLine" id="cb2-8" data-line-number="8">   </a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="kw">frameWidget</span>(</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">  <span class="kw">datatable</span>(</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">    <span class="kw">get_latest_standings</span>(<span class="dt">data_input =</span> player_data), </a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">    <span class="dt">rownames =</span> <span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">    <span class="dt">options =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14">      <span class="dt">dom =</span> <span class="st">&#39;t&#39;</span>, </a>
-<a class="sourceLine" id="cb2-15" data-line-number="15">      <span class="dt">pageLength =</span> <span class="dv">20</span>, </a>
-<a class="sourceLine" id="cb2-16" data-line-number="16">      <span class="dt">order =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb2-17" data-line-number="17">        <span class="kw">list</span>(<span class="dv">1</span>, <span class="st">&#39;asc&#39;</span>), </a>
-<a class="sourceLine" id="cb2-18" data-line-number="18">        <span class="kw">list</span>(<span class="dv">0</span>, <span class="st">&#39;asc&#39;</span>)),</a>
-<a class="sourceLine" id="cb2-19" data-line-number="19">      <span class="dt">columnDefs =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb2-20" data-line-number="20">        <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb2-21" data-line-number="21">          <span class="dt">className =</span> <span class="st">&#39;dt-left&#39;</span>, </a>
-<a class="sourceLine" id="cb2-22" data-line-number="22">          <span class="dt">targets =</span> <span class="kw">c</span>(<span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb2-23" data-line-number="23">          ),</a>
-<a class="sourceLine" id="cb2-24" data-line-number="24">        <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb2-25" data-line-number="25">          <span class="dt">className =</span> <span class="st">&#39;dt-right&#39;</span>, </a>
-<a class="sourceLine" id="cb2-26" data-line-number="26">          <span class="dt">targets =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb2-27" data-line-number="27">          )</a>
-<a class="sourceLine" id="cb2-28" data-line-number="28">        )</a>
-<a class="sourceLine" id="cb2-29" data-line-number="29">      )</a>
-<a class="sourceLine" id="cb2-30" data-line-number="30">    ), </a>
-<a class="sourceLine" id="cb2-31" data-line-number="31">  <span class="dt">width =</span> <span class="st">&#39;100%&#39;</span>, </a>
-<a class="sourceLine" id="cb2-32" data-line-number="32">  <span class="dt">height =</span> <span class="dv">800</span></a>
-<a class="sourceLine" id="cb2-33" data-line-number="33">  )</a></code></pre></div>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="kw">datatable</span>(</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">    <span class="kw">get_latest_standings</span>(<span class="dt">data_input =</span> player_data), </a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">    <span class="dt">rownames =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">    <span class="dt">options =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">      <span class="dt">dom =</span> <span class="st">&#39;t&#39;</span>, </a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">      <span class="dt">pageLength =</span> <span class="dv">20</span>, </a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">      <span class="dt">order =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">        <span class="kw">list</span>(<span class="dv">1</span>, <span class="st">&#39;asc&#39;</span>), </a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">        <span class="kw">list</span>(<span class="dv">0</span>, <span class="st">&#39;asc&#39;</span>)),</a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">      <span class="dt">columnDefs =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">        <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20">          <span class="dt">className =</span> <span class="st">&#39;dt-left&#39;</span>, </a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">          <span class="dt">targets =</span> <span class="kw">c</span>(<span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22">          ),</a>
+<a class="sourceLine" id="cb2-23" data-line-number="23">        <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb2-24" data-line-number="24">          <span class="dt">className =</span> <span class="st">&#39;dt-right&#39;</span>, </a>
+<a class="sourceLine" id="cb2-25" data-line-number="25">          <span class="dt">targets =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb2-26" data-line-number="26">          )</a>
+<a class="sourceLine" id="cb2-27" data-line-number="27">        )</a>
+<a class="sourceLine" id="cb2-28" data-line-number="28">      )</a>
+<a class="sourceLine" id="cb2-29" data-line-number="29">    )</a></code></pre></div>
 <p></br></p>
 <p>And <a href="https://docs.google.com/spreadsheets/d/1KgzlXAdcH5dwFllIU0Nktq-_QTwWwBuj76Di-UYQbtA/edit?usp=sharing">here are your team-by-team predictions</a>, alongside the <a href="http://www.theguardian.com/football/premierleague/table">latest team standings</a>.</p>
 <hr />
