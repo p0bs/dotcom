@@ -6,7 +6,7 @@ type: "post"
 showonlyimage: false
 draft: false
 slug: "premPredict-package"
-image: "img/portfolio/PPlogo.jpg"
+image: "img/portfolio/package.jpg"
 description: "... for my football contest"
 weight: 2
 output:
