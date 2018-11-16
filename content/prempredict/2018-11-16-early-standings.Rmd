@@ -30,30 +30,6 @@ library(premPredictor)
 library(widgetframe)
 
 player_data <- get_player_data("https://www.dropbox.com/s/uin6zk4w5cyk2m1/PremPredict-18-19.csv")
-  
-dtReport <- datatable(
-  get_latest_standings(data_input = player_data), 
-  rownames = FALSE, 
-  options = list(
-    dom = 't', 
-    pageLength = 20, 
-    order = list(
-      list(1, 'asc'), 
-      list(0, 'asc')),
-    columnDefs = list(
-      list(
-        className = 'dt-left', 
-        targets = c(0)
-        ),
-      list(
-        className = 'dt-right', 
-        targets = c(1, 2, 3)
-        )
-      )
-    )
-  )
-   
-frameWidget(dtReport, width = '100%', height = 800)
 ```
 
 </br>
