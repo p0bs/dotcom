@@ -14,6 +14,9 @@ output:
     highlight: pygments
 ---
 
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/pymjs/pym.v1.js"></script>
+<script src="/rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
 <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
@@ -86,6 +89,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="latest-standings" class="section level3">
 <h3>Latest standings</h3>
 <p>Here’s what you really want to know, though …</p>
+<pre><code>##               Names Scores Bonus       WorstClub WorstCost
+## 1       Luke Finnis    212     0 AFC Bournemouth        81
+## 2  Roger Gathercole    226   -50 AFC Bournemouth       121
+## 3     Neil Waterman    236   -50 AFC Bournemouth       100
+## 4    Andrea Laporta    244   -50 AFC Bournemouth        49
+## 5      Peter Finnis    264   -50        C Palace        64
+## 6       George Quin    320   -50         Watford       121
+## 7       Les Penfold    320   -50     Southampton       100
+## 8       Alan Finnis    326   -50 AFC Bournemouth        81
+## 9     Imogen Finnis    332     0 AFC Bournemouth        64
+## 10     Laura Finnis    356     0     Southampton       100
+## 11     Beth Penfold    368   -50 AFC Bournemouth        81
+## 12      Mike Finnis    370     0          Fulham       121
+## 13    Robin Penfold    370   -50         Watford       144
+## 14     Scott Harrop    370   -50         Watford       169
+## 15    Hannah Finnis    386     0          Wolves        81
+## 16    Marion Finnis    402     0          Fulham        81
+## 17      Vera Finnis    438     0          Fulham       100
+## 18     Alan Butcher    452     0          Fulham       144
+## 19    Paula Penfold    498     0     Southampton       121
+## 20  Mathew Saunders    506     0          Fulham       121</code></pre>
+<div id="htmlwidget-1" style="width:100%;height:800px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/prempredict/2018-11-16-early-standings_files/figure-html//widgets/widget_thecode191.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 <p></br></p>
 <p>I’ll be in touch in a month or two with more standings, so stay tuned.</p>
 <p>All the best …</p>
@@ -95,13 +121,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="appendix" class="section level3">
 <h3>Appendix</h3>
 <p>For completeness (and reproducibility), here’s the code that I used to calculate what’s above.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">suppressMessages</span>(<span class="kw">library</span>(tidyverse))</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(DT)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(ggridges)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(premPredictor)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(widgetframe)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">player_data &lt;-<span class="st"> </span><span class="kw">get_player_data</span>(<span class="st">&quot;https://www.dropbox.com/s/uin6zk4w5cyk2m1/PremPredict-18-19.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">suppressMessages</span>(<span class="kw">library</span>(tidyverse))</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">library</span>(DT)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">library</span>(ggridges)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw">library</span>(premPredictor)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">library</span>(widgetframe)</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">player_data &lt;-<span class="st"> </span><span class="kw">get_player_data</span>(<span class="st">&quot;https://www.dropbox.com/s/uin6zk4w5cyk2m1/PremPredict-18-19.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">   </a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="kw">frameWidget</span>(</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">  <span class="kw">datatable</span>(</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">    <span class="kw">get_latest_standings</span>(<span class="dt">data_input =</span> player_data), </a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">    <span class="dt">rownames =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">    <span class="dt">options =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">      <span class="dt">dom =</span> <span class="st">&#39;t&#39;</span>, </a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">      <span class="dt">pageLength =</span> <span class="dv">20</span>, </a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">      <span class="dt">order =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">        <span class="kw">list</span>(<span class="dv">1</span>, <span class="st">&#39;asc&#39;</span>), </a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">        <span class="kw">list</span>(<span class="dv">0</span>, <span class="st">&#39;asc&#39;</span>)),</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">      <span class="dt">columnDefs =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20">        <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">          <span class="dt">className =</span> <span class="st">&#39;dt-left&#39;</span>, </a>
+<a class="sourceLine" id="cb2-22" data-line-number="22">          <span class="dt">targets =</span> <span class="kw">c</span>(<span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb2-23" data-line-number="23">          ),</a>
+<a class="sourceLine" id="cb2-24" data-line-number="24">        <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb2-25" data-line-number="25">          <span class="dt">className =</span> <span class="st">&#39;dt-right&#39;</span>, </a>
+<a class="sourceLine" id="cb2-26" data-line-number="26">          <span class="dt">targets =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb2-27" data-line-number="27">          )</a>
+<a class="sourceLine" id="cb2-28" data-line-number="28">        )</a>
+<a class="sourceLine" id="cb2-29" data-line-number="29">      )</a>
+<a class="sourceLine" id="cb2-30" data-line-number="30">    ), </a>
+<a class="sourceLine" id="cb2-31" data-line-number="31">  <span class="dt">width =</span> <span class="st">&#39;100%&#39;</span>, </a>
+<a class="sourceLine" id="cb2-32" data-line-number="32">  <span class="dt">height =</span> <span class="dv">800</span></a>
+<a class="sourceLine" id="cb2-33" data-line-number="33">  )</a></code></pre></div>
 <p></br></p>
 <p>And <a href="https://docs.google.com/spreadsheets/d/1KgzlXAdcH5dwFllIU0Nktq-_QTwWwBuj76Di-UYQbtA/edit?usp=sharing">here are your team-by-team predictions</a>, alongside the <a href="http://www.theguardian.com/football/premierleague/table">latest team standings</a>.</p>
 <hr />
