@@ -14,15 +14,15 @@ output:
     highlight: pygments
 ---
 
-With a third of the season gone, early congratulations go to *Luke Finnis*.
+With a third of the season gone, early congratulations go to *Luke Finnis*. He's leading with a really good score, but doesn't have City to win, so there's still a chance for *Roger*, *Neil* and others.
 
 <p style="height: .5em;">&nbsp;</p>
 
 ### Latest standings
 
-Here's what you really want to know:
+Here's what you really want to know, though ...
 
-```{r thecode191, echo=FALSE, error=TRUE, message=FALSE, warning=FALSE}
+```{r thecode191, echo=FALSE, message=FALSE, warning=FALSE}
 suppressMessages(library(tidyverse))
 library(DT)
 library(ggridges)
@@ -30,11 +30,9 @@ library(premPredictor)
 library(widgetframe)
 
 player_data <- get_player_data("https://www.dropbox.com/s/uin6zk4w5cyk2m1/PremPredict-18-19.csv")
-
-report <- get_latest_standings(data_input = player_data)
   
 dtReport <- datatable(
-  report, 
+  get_latest_standings(data_input = player_data), 
   rownames = FALSE, 
   options = list(
     dom = 't', 
@@ -60,7 +58,9 @@ frameWidget(dtReport, width = '100%', height = 800)
 
 </br>
 
-Fortunately, there's still a long way to go!
+I'll be in touch in a month or two with more standings, so stay tuned. 
+
+All the best ...
 
 </br>
 
