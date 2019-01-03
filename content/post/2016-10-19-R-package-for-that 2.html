@@ -1,0 +1,317 @@
+---
+title: "A package for that"
+author: "Robin Penfold"
+date: "2016-10-19"
+type: "post"
+showonlyimage: false
+draft: false
+slug: "R-package-for-that"
+image: "img/portfolio/package.jpg"
+description: "This post shows the versatility of the R language"
+weight: 2
+output:
+  blogdown::html_page:
+    highlight: pygments
+---
+
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/pymjs/pym.v1.js"></script>
+<script src="/rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<p>Here’s a page that I prepared for an R training course that I ran at my company. The idea was to show that, just like Apple, R has an app for that. OK, a package for that.</p>
+<p>I’ll show a range of tricks made possible by R, including web scaping, text analysis and mapping. And I’ll use data from the recent Brexit referendum to keep it topical.</p>
+<p>
+ 
+</p>
+<div id="loading-the-packages" class="section level3">
+<h3>Loading the packages</h3>
+<p>Let’s begin with the packages:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(tidyverse)        <span class="co"># Does most of what you need</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(xml2)             <span class="co"># Scrapes web data</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(htmlwidgets)      <span class="co"># For responsive exhibits</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(widgetframe)      <span class="co"># For responsive exhibits</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(DT)               <span class="co"># For responsive data tables</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">library</span>(leaflet)          <span class="co"># For interactive map plots</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw">library</span>(maptools)         <span class="co"># For maps</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">library</span>(sp)               <span class="co"># For map-like data</span></a></code></pre></div>
+<p>
+ 
+</p>
+</div>
+<div id="web-scraping" class="section level3">
+<h3>Web scraping</h3>
+<p>To understand the voting in the Brexit referendum, we need some data about it, which we can scrape from the FT’s page on the subject.</p>
+<p>(Note that I’ve dimmed-out much of this code below, so that I can show it on this static webpage. However, I ran the dimmed-out code separately and saved the ensuing results as an R Dataset. I can then just load this dataset for use on this static webpage.)</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># webResults &lt;- read_html(&quot;https://ig.ft.com/sites/elections/2016/uk/eu-referendum/&quot;)</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  </a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co"># webData &lt;- webResults %&gt;%</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#   html_nodes(&quot;td:nth-child(1) , .area-state-3 .hideable&quot;) %&gt;%</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#   html_text()</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">  </a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co"># saveRDS(webData, &quot;webData.rds&quot;)</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">  </a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">webData &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;data/webData.rds&quot;</span>)</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw">head</span>(webData)</a></code></pre></div>
+<pre><code>## [1] &quot;Boston&quot;        &quot;7,430&quot;         &quot;22,974&quot;        &quot;South Holland&quot;
+## [5] &quot;13,074&quot;        &quot;36,423&quot;</code></pre>
+<p>
+ 
+</p>
+</div>
+<div id="dealing-with-strings" class="section level3">
+<h3>Dealing with strings</h3>
+<p>That gives us some data, but it is an unhelpful format, as R would read it with a character that has a comma in the middle. Fortunately, R can manipulate strings so that they make sense, such as removing those commas:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">lWebData &lt;-<span class="st"> </span><span class="kw">length</span>(webData)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  </a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">areaName &lt;-<span class="st"> </span>webData[<span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">1</span>, <span class="dt">to =</span> lWebData<span class="dv">-2</span>, <span class="dt">by =</span> <span class="dv">3</span>)]</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">remainVotes &lt;-<span class="st"> </span>webData[<span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">2</span>, <span class="dt">to =</span> lWebData<span class="dv">-1</span>, <span class="dt">by =</span> <span class="dv">3</span>)]</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">leaveVotes &lt;-<span class="st"> </span>webData[<span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">3</span>, <span class="dt">to =</span> lWebData, <span class="dt">by =</span> <span class="dv">3</span>)]</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">  </a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">remainVotes &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;,([0-9])&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>, remainVotes)</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">leaveVotes &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;,([0-9])&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>, leaveVotes)</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">  </a>
+<a class="sourceLine" id="cb4-10" data-line-number="10">resultsData &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(<span class="kw">rbind</span>(areaName, remainVotes, leaveVotes)), <span class="dt">stringsAsFactors =</span> F)</a>
+<a class="sourceLine" id="cb4-11" data-line-number="11">  </a>
+<a class="sourceLine" id="cb4-12" data-line-number="12">resultsData<span class="op">$</span>remainVotes &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(resultsData<span class="op">$</span>remainVotes)</a>
+<a class="sourceLine" id="cb4-13" data-line-number="13">  </a>
+<a class="sourceLine" id="cb4-14" data-line-number="14">resultsData<span class="op">$</span>leaveVotes &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(resultsData<span class="op">$</span>leaveVotes)</a></code></pre></div>
+<p>
+ 
+</p>
+</div>
+<div id="map-and-boundary-data" class="section level3">
+<h3>Map and boundary data</h3>
+<p>To understand this data even more, it would help to map it. And the amount of boundary files available for UK maps is extraordinary. R helps us to use these maps, so that we can map each local authority (the areas over which the referendum votes were amalgamated). (As before, I’ve run the dimmed-out code beforehand and saved the RDS, for use on this page.)</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># localAuthorityRaw &lt;- readShapeSpatial(&quot;Local_Authority_District_(GB)_2015_boundaries_(generalised_clipped)/LAD_DEC_2015_GB_BGC.shp&quot;, proj4string=CRS(&quot;+init=epsg:27700&quot;))</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">  </a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co"># # Transform the data to use with ggmap</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co"># localAuthorityClean &lt;- spTransform(localAuthorityRaw, CRS(&quot;+init=epsg:4326&quot;))</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">  </a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co"># # Turns the data into a dataframe</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co"># localAuthorityCleanDF &lt;- fortify(localAuthorityClean, region = &quot;LAD15NM&quot;)</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">  </a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co"># saveRDS(localAuthorityCleanDF, &quot;localAuthorityCleanDF.rds&quot;)</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10">  </a>
+<a class="sourceLine" id="cb5-11" data-line-number="11">localAuthorityCleanDF &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;data/localAuthorityCleanDF.rds&quot;</span>)</a></code></pre></div>
+<p>
+ 
+</p>
+</div>
+<div id="understand-any-mislabelling" class="section level3">
+<h3>Understand any mislabelling</h3>
+<p>Being real-world data, though, the Local Authorities that we scraped from the web do not all match those for which we have boundary files. Fortuntately, R can help us to understand the erroneous labels in the data.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">l1 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">unique</span>(localAuthorityCleanDF<span class="op">$</span>id), <span class="dt">stringsAsFactors =</span> F)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">colnames</span>(l1)[<span class="dv">1</span>] &lt;-<span class="st"> &quot;locAuthID&quot;</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">areaNameDF &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(areaName, <span class="dt">stringsAsFactors =</span> F)</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">  </a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">l2 &lt;-<span class="st"> </span>l1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">check =</span> locAuthID <span class="op">%in%</span><span class="st"> </span>areaNameDF<span class="op">$</span>areaName)</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">  </a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">l3 &lt;-<span class="st"> </span>areaNameDF <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">check =</span> areaName <span class="op">%in%</span><span class="st"> </span>l1<span class="op">$</span>locAuthID)</a>
+<a class="sourceLine" id="cb6-10" data-line-number="10">  </a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="kw">print</span>(l2[l2<span class="op">$</span>check<span class="op">==</span>F,])</a></code></pre></div>
+<pre><code>##                       locAuthID check
+## 1                 Aberdeen City FALSE
+## 40             Bristol, City of FALSE
+## 71            City of Edinburgh FALSE
+## 80                County Durham FALSE
+## 96                  Dundee City FALSE
+## 130                Glasgow City FALSE
+## 152    Herefordshire, County of FALSE
+## 171 Kingston upon Hull, City of FALSE
+## 172        Kingston upon Thames FALSE
+## 208         Newcastle upon Tyne FALSE
+## 253        Richmond upon Thames FALSE
+## 303                  St. Helens FALSE</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">print</span>(l3[l3<span class="op">$</span>check<span class="op">==</span>F,])</a></code></pre></div>
+<pre><code>##                 areaName check
+## 24                  Hull FALSE
+## 109        Herefordshire FALSE
+## 134            St Helens FALSE
+## 139               Durham FALSE
+## 270  Newcastle-upon-Tyne FALSE
+## 308     Northern Ireland FALSE
+## 339               Dundee FALSE
+## 345             Aberdeen FALSE
+## 347 Kingston-upon-Thames FALSE
+## 348              Bristol FALSE
+## 360              Glasgow FALSE
+## 366 Richmond-upon-Thames FALSE
+## 374            Edinburgh FALSE
+## 382            Gibraltar FALSE</code></pre>
+<p>Given these erroneous labels, we can then correct these errors (and drop two areas from our analysis).</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># Given these mislabelled regions, alter the names</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">resultsData<span class="op">$</span>areaName &lt;-<span class="st"> </span><span class="kw">recode</span>(</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">  resultsData<span class="op">$</span>areaName,</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">  <span class="dt">Hull =</span> <span class="st">&quot;Kingston upon Hull, City of&quot;</span>,</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">  <span class="dt">Herefordshire =</span> <span class="st">&quot;Herefordshire, County of&quot;</span>,</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">  <span class="st">`</span><span class="dt">St Helens</span><span class="st">`</span> =<span class="st"> &quot;St. Helens&quot;</span>,</a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">  <span class="dt">Durham =</span> <span class="st">&quot;County Durham&quot;</span>,</a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">  <span class="st">`</span><span class="dt">Newcastle-upon-Tyne</span><span class="st">`</span> =<span class="st"> &quot;Newcastle upon Tyne&quot;</span>,</a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">  <span class="dt">Dundee =</span> <span class="st">&quot;Dundee City&quot;</span>,</a>
+<a class="sourceLine" id="cb10-10" data-line-number="10">  <span class="dt">Aberdeen =</span> <span class="st">&quot;Aberdeen City&quot;</span>,</a>
+<a class="sourceLine" id="cb10-11" data-line-number="11">  <span class="st">`</span><span class="dt">Kingston-upon-Thames</span><span class="st">`</span> =<span class="st"> &quot;Kingston upon Thames&quot;</span>,</a>
+<a class="sourceLine" id="cb10-12" data-line-number="12">  <span class="dt">Bristol =</span> <span class="st">&quot;Bristol, City of&quot;</span>,</a>
+<a class="sourceLine" id="cb10-13" data-line-number="13">  <span class="dt">Glasgow =</span> <span class="st">&quot;Glasgow City&quot;</span>,</a>
+<a class="sourceLine" id="cb10-14" data-line-number="14">  <span class="st">`</span><span class="dt">Richmond-upon-Thames</span><span class="st">`</span> =<span class="st"> &quot;Richmond upon Thames&quot;</span>,</a>
+<a class="sourceLine" id="cb10-15" data-line-number="15">  <span class="dt">Edinburgh =</span> <span class="st">&quot;City of Edinburgh&quot;</span>)</a>
+<a class="sourceLine" id="cb10-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co"># Drop NI and Gibraltar</span></a>
+<a class="sourceLine" id="cb10-18" data-line-number="18">mapDataSummary &lt;-<span class="st"> </span>resultsData[<span class="kw">c</span>(<span class="op">-</span><span class="dv">308</span>, <span class="dv">-382</span>)]</a></code></pre></div>
+<p>
+ 
+</p>
+</div>
+<div id="calculate-the-centrepoint-of-the-local-authority" class="section level3">
+<h3>Calculate the centrepoint of the local authority</h3>
+<p>We could use the polygon details that we have to map our data. However, circles on a map would enable us to alter the size of the circle and therefore show the data in more detail. As such, we’ll use R to calculate the centrepoints of each Local Authority.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">mapDataLng &lt;-<span class="st"> </span>localAuthorityCleanDF <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">avLng =</span> <span class="kw">round</span>(<span class="kw">median</span>(long),<span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">  </a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">mapDataLat &lt;-<span class="st"> </span>localAuthorityCleanDF <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="st">  </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">avLat =</span> <span class="kw">round</span>(<span class="kw">median</span>(lat),<span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb11-8" data-line-number="8">  </a>
+<a class="sourceLine" id="cb11-9" data-line-number="9">mapDataLngLat &lt;-<span class="st"> </span>mapDataLat <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="st">  </span><span class="kw">left_join</span>(mapDataLng, <span class="dt">by =</span> <span class="st">&quot;id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">areaName =</span> id)</a></code></pre></div>
+<p>
+ 
+</p>
+</div>
+<div id="join-and-amend-the-data" class="section level3">
+<h3>Join and amend the data</h3>
+<p>We can then join the map data to the voting data and determine the proportion of leave votes, along with the total number of votes cast in each Local Authority. The following interactive table provides the details.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">mapDataFinal &lt;-<span class="st"> </span>mapDataSummary <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(mapDataLngLat, <span class="dt">by =</span> <span class="st">&quot;areaName&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">leaveShare =</span> <span class="kw">round</span>(leaveVotes<span class="op">/</span>(leaveVotes <span class="op">+</span><span class="st"> </span>remainVotes),<span class="dv">2</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">size =</span> leaveVotes <span class="op">+</span><span class="st"> </span>remainVotes)</a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">  </a>
+<a class="sourceLine" id="cb12-6" data-line-number="6">mapDataFinal &lt;-<span class="st"> </span>mapDataFinal[<span class="kw">complete.cases</span>(mapDataFinal),]</a>
+<a class="sourceLine" id="cb12-7" data-line-number="7">  </a>
+<a class="sourceLine" id="cb12-8" data-line-number="8">dt &lt;-<span class="st"> </span><span class="kw">datatable</span>(</a>
+<a class="sourceLine" id="cb12-9" data-line-number="9">  mapDataFinal, </a>
+<a class="sourceLine" id="cb12-10" data-line-number="10">  <span class="dt">rownames =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb12-11" data-line-number="11">  <span class="dt">options =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb12-12" data-line-number="12">    <span class="dt">dom =</span> <span class="st">&#39;tip&#39;</span>, </a>
+<a class="sourceLine" id="cb12-13" data-line-number="13">    <span class="dt">autoWidth =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb12-14" data-line-number="14">    <span class="dt">order =</span> <span class="kw">list</span>(<span class="dv">5</span>, <span class="st">&#39;desc&#39;</span>), </a>
+<a class="sourceLine" id="cb12-15" data-line-number="15">    <span class="dt">columnDefs =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb12-16" data-line-number="16">      <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb12-17" data-line-number="17">        <span class="dt">className =</span> <span class="st">&#39;dt-left&#39;</span>, </a>
+<a class="sourceLine" id="cb12-18" data-line-number="18">        <span class="dt">targets =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb12-19" data-line-number="19">      ), </a>
+<a class="sourceLine" id="cb12-20" data-line-number="20">    <span class="dt">pageLength =</span> <span class="dv">10</span>, </a>
+<a class="sourceLine" id="cb12-21" data-line-number="21">    <span class="dt">fillContainer =</span> T</a>
+<a class="sourceLine" id="cb12-22" data-line-number="22">    )</a>
+<a class="sourceLine" id="cb12-23" data-line-number="23">  )</a>
+<a class="sourceLine" id="cb12-24" data-line-number="24">  </a>
+<a class="sourceLine" id="cb12-25" data-line-number="25"><span class="kw">frameWidget</span>(dt, <span class="dt">width =</span> <span class="dv">750</span>, <span class="dt">height =</span> <span class="dv">500</span>)</a></code></pre></div>
+<div id="htmlwidget-1" style="width:750px;height:500px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/post/2016-10-19-R-package-for-that_files/figure-html//widgets/widget_unnamed-chunk-8.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+ 
+</p>
+</div>
+<div id="plotting-the-votes" class="section level3">
+<h3>Plotting the votes</h3>
+<p>We’re now ready to plot the data. When we do so, some regional trends become immediately apparent.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">pal &lt;-<span class="st"> </span><span class="kw">colorNumeric</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">domain =</span> mapDataFinal<span class="op">$</span>leaveShare)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">  </a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">map &lt;-<span class="st"> </span><span class="kw">leaflet</span>(mapDataFinal) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="st">  </span><span class="kw">addProviderTiles</span>(<span class="st">&quot;CartoDB.Positron&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="st">  </span><span class="kw">setView</span>(<span class="dt">lng =</span> <span class="dv">-3</span>, <span class="dt">lat =</span> <span class="fl">53.5</span>, <span class="dt">zoom =</span> <span class="dv">6</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="st">  </span><span class="kw">addCircles</span>(<span class="dt">lng =</span> <span class="op">~</span>mapDataFinal<span class="op">$</span>avLng, </a>
+<a class="sourceLine" id="cb13-7" data-line-number="7">             <span class="dt">lat =</span> <span class="op">~</span>mapDataFinal<span class="op">$</span>avLat, </a>
+<a class="sourceLine" id="cb13-8" data-line-number="8">             <span class="dt">color =</span> <span class="op">~</span><span class="kw">pal</span>(mapDataFinal<span class="op">$</span>leaveShare), </a>
+<a class="sourceLine" id="cb13-9" data-line-number="9">             <span class="dt">radius =</span> <span class="op">~</span><span class="dv">20</span><span class="op">*</span><span class="kw">sqrt</span>(size), </a>
+<a class="sourceLine" id="cb13-10" data-line-number="10">             <span class="dt">stroke =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb13-11" data-line-number="11">             <span class="dt">fillOpacity =</span> <span class="fl">0.9</span>,</a>
+<a class="sourceLine" id="cb13-12" data-line-number="12">             <span class="dt">popup =</span> <span class="kw">paste</span>(mapDataFinal<span class="op">$</span>areaName, <span class="st">&quot;had &quot;</span>, <span class="kw">round</span>(<span class="dv">100</span><span class="op">*</span>mapDataFinal<span class="op">$</span>leaveShare, <span class="dv">1</span>), <span class="st">&quot;% voting for Leave and &quot;</span>, mapDataFinal<span class="op">$</span>size, <span class="st">&quot;total voters&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="st">  </span><span class="kw">addLegend</span>(<span class="st">&quot;topright&quot;</span>, <span class="dt">pal =</span> pal,</a>
+<a class="sourceLine" id="cb13-14" data-line-number="14">            <span class="dt">values =</span> <span class="op">~</span>mapDataFinal<span class="op">$</span>leaveShare,</a>
+<a class="sourceLine" id="cb13-15" data-line-number="15">            <span class="dt">title =</span> <span class="st">&quot;% of Leave voters&quot;</span>,</a>
+<a class="sourceLine" id="cb13-16" data-line-number="16">            <span class="dt">labFormat =</span> <span class="kw">labelFormat</span>(),</a>
+<a class="sourceLine" id="cb13-17" data-line-number="17">            <span class="dt">opacity =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb13-18" data-line-number="18">  </a>
+<a class="sourceLine" id="cb13-19" data-line-number="19"><span class="kw">frameWidget</span>(map, <span class="dt">height =</span> <span class="dv">400</span>)</a></code></pre></div>
+<div id="htmlwidget-2" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"url":"/post/2016-10-19-R-package-for-that_files/figure-html//widgets/widget_unnamed-chunk-9.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+ 
+</p>
+</div>
+<div id="theres-a-package-for-that" class="section level3">
+<h3>There’s a package for that</h3>
+<p>And that’s it! Hopefully, this page has given you a quick appreciation of the variety of techniques that you can fruitfully employ in R.</p>
+<p>
+ 
+</p>
+<hr />
+</div>

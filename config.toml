@@ -20,9 +20,9 @@ relativeurls = true
   description = "A geek's personal website, majoring on rstats, investment and sport"
   copyright = ""
   sidebarAbout = [
-    "At work, I use investment techniques and data science to analyse asset managers.",
-    "I also volunteer with DataKind to help charities to get more from their data.", 
-    "Any free time is wasted on supporting sports teams that rarely win. "
+"Work: Analysing asset managers, using investment techniques and data science",
+"Volunteering: Helping charities to get more from their data with DataKind", 
+"Remaining free time: Wasted on supporting sports teams that rarely win"
   ]
   # Contact page
      # Since this template is static, the contact form uses www.formspree.io as a

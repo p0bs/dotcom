@@ -1,3 +1,7 @@
+.sidebar-content {
+    padding-right: 48px;
+}
+
 #sidebar .sidebar-content .copyright p {
   text-align: left !important;
   font-size: 8pt;
@@ -189,3 +193,5 @@ div.col-md-8 p.author-category {
   overflow-y: scroll !important;
   max-height: 75vh !important;
  }
+ 
+
