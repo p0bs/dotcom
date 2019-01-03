@@ -14,7 +14,9 @@ output:
     highlight: pygments
 ---
 
-Before the big game tonight -- which won't really alter the PremPredict leaderboard -- the podium places are unchanged from my last update. For that reason, the congratulations still go to *Luke Finnis*. He's still leading from *Roger* and *Neil*, albeit with a better score. As for Neil, he must have mixed feelings, as he almost always puts heart above head and predicts Liverpool to win ... except for this year.
+Before the big game tonight -- which won't really alter the PremPredict leaderboard -- the podium places are unchanged from my last update. 
+
+For that reason, the congratulations still go to *Luke Finnis*. He's still leading from *Roger* and *Neil*, albeit with a better score. As for Neil, he must have mixed feelings, as he almost always puts heart above head and predicts Liverpool to win ... except for this year.
 
 <p style="height: .5em;">&nbsp;</p>
 
