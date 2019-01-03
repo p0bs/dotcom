@@ -1,5 +1,5 @@
 ---
-title: "Early Standings"
+title: "Before the big game"
 author: "Robin Penfold"
 date: "2018-11-16"
 type: "post"
@@ -7,14 +7,14 @@ showonlyimage: false
 draft: false
 slug: "early-standings"
 image: "img/portfolio/PPlogo.jpg"
-description: "Well done, Luke!"
+description: "Happy 2019, Luke!"
 weight: 2
 output:
   blogdown::html_page:
     highlight: pygments
 ---
 
-With a third of the season gone, early congratulations go to *Luke Finnis*. He's leading with a really good score, but doesn't have City to win, so there's still a chance for *Roger*, *Neil* and others.
+Before the big game tonight -- which won't really alter the PremPredict leaderboard -- the podium places are unchanged from my last update. For that reason, the congratulations still go to *Luke Finnis*. He's still leading from *Roger* and *Neil*, albeit with a better score. As for Neil, he must have mixed feelings, as he almost always puts heart above head and predicts Liverpool to win ... except for this year.
 
 <p style="height: .5em;">&nbsp;</p>
 
@@ -23,22 +23,22 @@ With a third of the season gone, early congratulations go to *Luke Finnis*. He's
 Here's what you really want to know, though ...
 
 ```{r thecode191, echo=FALSE, message=FALSE, warning=FALSE}
-suppressMessages(library(tidyverse))
-library(DT)
-library(ggridges)
 library(premPredictor)
-library(widgetframe)
 
 player_data <- get_player_data("https://www.dropbox.com/s/uin6zk4w5cyk2m1/PremPredict-18-19.csv")
-   
+  
 get_latest_standings(data_input = player_data)
 ```
 
 </br>
 
+Oh, and my folks might not want to look at the lower half of the table!
+
+</br>
+
 I'll be in touch in a month or two with more standings, so stay tuned. 
 
-All the best ...
+All the best and happy 2019 ...
 
 </br>
 
@@ -46,7 +46,7 @@ All the best ...
 
 ### Appendix
 
-For completeness (and reproducibility), here's the code that I used to calculate what's above.
+For completeness, here's the code that I used to calculate what's above.
 
 ```{r showthecode191, ref.label='thecode191', eval=FALSE}
 ```

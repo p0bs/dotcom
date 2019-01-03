@@ -1,5 +1,5 @@
 ---
-title: "Early Standings"
+title: "Before the big game"
 author: "Robin Penfold"
 date: "2018-11-16"
 type: "post"
@@ -7,7 +7,7 @@ showonlyimage: false
 draft: false
 slug: "early-standings"
 image: "img/portfolio/PPlogo.jpg"
-description: "Well done, Luke!"
+description: "Happy 2019, Luke!"
 weight: 2
 output:
   blogdown::html_page:
@@ -79,52 +79,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 
-<p>With a third of the season gone, early congratulations go to <em>Luke Finnis</em>. He’s leading with a really good score, but doesn’t have City to win, so there’s still a chance for <em>Roger</em>, <em>Neil</em> and others.</p>
+<p>Before the big game tonight – which won’t really alter the PremPredict leaderboard – the podium places are unchanged from my last update. For that reason, the congratulations still go to <em>Luke Finnis</em>. He’s still leading from <em>Roger</em> and <em>Neil</em>, albeit with a better score. As for Neil, he must have mixed feelings, as he almost always puts heart above head and predicts Liverpool to win … except for this year.</p>
 <p style="height: .5em;">
  
 </p>
 <div id="latest-standings" class="section level3">
 <h3>Latest standings</h3>
 <p>Here’s what you really want to know, though …</p>
-<pre><code>##               Names Scores Bonus       WorstClub WorstCost
-## 1       Luke Finnis    212     0 AFC Bournemouth        81
-## 2  Roger Gathercole    226   -50 AFC Bournemouth       121
-## 3     Neil Waterman    236   -50 AFC Bournemouth       100
-## 4    Andrea Laporta    244   -50 AFC Bournemouth        49
-## 5      Peter Finnis    264   -50        C Palace        64
-## 6       George Quin    320   -50         Watford       121
-## 7       Les Penfold    320   -50     Southampton       100
-## 8       Alan Finnis    326   -50 AFC Bournemouth        81
-## 9     Imogen Finnis    332     0 AFC Bournemouth        64
-## 10     Laura Finnis    356     0     Southampton       100
-## 11     Beth Penfold    368   -50 AFC Bournemouth        81
-## 12      Mike Finnis    370     0          Fulham       121
-## 13    Robin Penfold    370   -50         Watford       144
-## 14     Scott Harrop    370   -50         Watford       169
-## 15    Hannah Finnis    386     0          Wolves        81
-## 16    Marion Finnis    402     0          Fulham        81
-## 17      Vera Finnis    438     0          Fulham       100
-## 18     Alan Butcher    452     0          Fulham       144
-## 19    Paula Penfold    498     0     Southampton       121
-## 20  Mathew Saunders    506     0          Fulham       121</code></pre>
+<pre><code>##               Names Scores Bonus   WorstClub WorstCost
+## 1       Luke Finnis    152     0   Newcastle        36
+## 2  Roger Gathercole    170     0     Watford        36
+## 3     Neil Waterman    202     0     Burnley        64
+## 4       Mike Finnis    214   -50      Fulham       100
+## 5    Andrea Laporta    226     0 Southampton        36
+## 6       Vera Finnis    272   -50      Fulham        81
+## 7       Alan Finnis    310     0     Burnley        64
+## 8      Laura Finnis    310   -50 Southampton       121
+## 9      Peter Finnis    334     0    West Ham        64
+## 10     Alan Butcher    350   -50      Fulham       121
+## 11      George Quin    352     0     Watford       100
+## 12    Imogen Finnis    354     0      Wolves       100
+## 13    Robin Penfold    366     0     Watford       121
+## 14     Beth Penfold    374     0     Watford        64
+## 15    Hannah Finnis    394     0      Wolves       121
+## 16  Mathew Saunders    398     0      Fulham       100
+## 17     Scott Harrop    398     0     Watford       144
+## 18    Marion Finnis    434   -50   Leicester       100
+## 19      Les Penfold    444     0 Southampton       121
+## 20    Paula Penfold    636     0 Southampton       144</code></pre>
+<p></br></p>
+<p>Oh, and my folks might not want to look at the lower half of the table!</p>
 <p></br></p>
 <p>I’ll be in touch in a month or two with more standings, so stay tuned.</p>
-<p>All the best …</p>
+<p>All the best and happy 2019 …</p>
 <p></br></p>
 <hr />
 </div>
 <div id="appendix" class="section level3">
 <h3>Appendix</h3>
-<p>For completeness (and reproducibility), here’s the code that I used to calculate what’s above.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">suppressMessages</span>(<span class="kw">library</span>(tidyverse))</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">library</span>(DT)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">library</span>(ggridges)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw">library</span>(premPredictor)</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">library</span>(widgetframe)</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">player_data &lt;-<span class="st"> </span><span class="kw">get_player_data</span>(<span class="st">&quot;https://www.dropbox.com/s/uin6zk4w5cyk2m1/PremPredict-18-19.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">   </a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="kw">get_latest_standings</span>(<span class="dt">data_input =</span> player_data)</a></code></pre></div>
+<p>For completeness, here’s the code that I used to calculate what’s above.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(premPredictor)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">player_data &lt;-<span class="st"> </span><span class="kw">get_player_data</span>(<span class="st">&quot;https://www.dropbox.com/s/uin6zk4w5cyk2m1/PremPredict-18-19.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">  </a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">get_latest_standings</span>(<span class="dt">data_input =</span> player_data)</a></code></pre></div>
 <p></br></p>
 <p>And <a href="https://docs.google.com/spreadsheets/d/1KgzlXAdcH5dwFllIU0Nktq-_QTwWwBuj76Di-UYQbtA/edit?usp=sharing">here are your team-by-team predictions</a>, alongside the <a href="http://www.theguardian.com/football/premierleague/table">latest team standings</a>.</p>
 <hr />
