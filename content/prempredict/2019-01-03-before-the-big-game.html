@@ -87,27 +87,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="latest-standings" class="section level3">
 <h3>Latest standings</h3>
 <p>Here’s what you really want to know, though …</p>
-<pre><code>##               Names Scores Bonus   WorstClub WorstCost
-## 1       Luke Finnis    152     0   Newcastle        36
-## 2  Roger Gathercole    170     0     Watford        36
-## 3     Neil Waterman    202     0     Burnley        64
-## 4       Mike Finnis    214   -50      Fulham       100
-## 5    Andrea Laporta    226     0 Southampton        36
-## 6       Vera Finnis    272   -50      Fulham        81
-## 7       Alan Finnis    310     0     Burnley        64
-## 8      Laura Finnis    310   -50 Southampton       121
-## 9      Peter Finnis    334     0    West Ham        64
-## 10     Alan Butcher    350   -50      Fulham       121
-## 11      George Quin    352     0     Watford       100
-## 12    Imogen Finnis    354     0      Wolves       100
-## 13    Robin Penfold    366     0     Watford       121
-## 14     Beth Penfold    374     0     Watford        64
-## 15    Hannah Finnis    394     0      Wolves       121
-## 16  Mathew Saunders    398     0      Fulham       100
-## 17     Scott Harrop    398     0     Watford       144
-## 18    Marion Finnis    434   -50   Leicester       100
-## 19      Les Penfold    444     0 Southampton       121
-## 20    Paula Penfold    636     0 Southampton       144</code></pre>
+<pre><code>##               Names Scores Bonus       WorstClub WorstCost
+## 1  Roger Gathercole    128   -50 AFC Bournemouth        49
+## 2       Luke Finnis    162     0       Newcastle        36
+## 3    Andrea Laporta    190   -50          Wolves        64
+## 4     Neil Waterman    196   -50         Burnley        81
+## 5      Peter Finnis    262   -50          Wolves       100
+## 6       George Quin    272   -50         Watford       100
+## 7       Mike Finnis    278     0          Fulham       100
+## 8       Alan Finnis    302   -50         Burnley        81
+## 9     Robin Penfold    310   -50         Watford       121
+## 10      Les Penfold    312   -50         Burnley        81
+## 11      Vera Finnis    320     0          Fulham        81
+## 12     Scott Harrop    324   -50         Watford       144
+## 13     Beth Penfold    328   -50          Wolves       100
+## 14    Imogen Finnis    352     0          Wolves       144
+## 15     Alan Butcher    356     0          Fulham       121
+## 16  Mathew Saunders    358     0          Fulham       100
+## 17     Laura Finnis    396     0          Wolves       169
+## 18    Hannah Finnis    426     0          Wolves       169
+## 19    Marion Finnis    426     0          Wolves       144
+## 20    Paula Penfold    536     0     Southampton       100</code></pre>
 <p style="height: .5em;">
  
 </p>
@@ -123,11 +123,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="appendix" class="section level3">
 <h3>Appendix</h3>
 <p>For completeness, here’s the code that I used to calculate what’s above.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(premPredictor)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">player_data &lt;-<span class="st"> </span><span class="kw">get_player_data</span>(<span class="st">&quot;https://www.dropbox.com/s/uin6zk4w5cyk2m1/PremPredict-18-19.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">  </a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">get_latest_standings</span>(<span class="dt">data_input =</span> player_data)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(premPredictor)
+player_data &lt;-<span class="st"> </span><span class="kw">get_player_data</span>(<span class="st">&quot;https://www.dropbox.com/s/uin6zk4w5cyk2m1/PremPredict-18-19.csv&quot;</span>)
+<span class="kw">get_latest_standings</span>(<span class="dt">data_input =</span> player_data)</code></pre>
 <p style="height: .5em;">
  
 </p>

@@ -6,8 +6,8 @@ type: "post"
 showonlyimage: false
 draft: false
 slug: "R-package-for-that"
-image: "img/portfolio/package.jpg"
-description: "This post shows the versatility of the R language"
+image: "img/portfolio/hex.jpeg"
+description: "Showing the versatility of the R language"
 weight: 2
 output:
   blogdown::html_page:
