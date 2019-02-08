@@ -44,14 +44,6 @@ relativeurls = true
   url = ""
   
   [[params.navlinks]]
-  name = "Blog"
-  url = "post/"
-  
-  [[params.navlinks]]
-  name = "PremPredict"
-  url = "prempredict/"
-  
-  [[params.navlinks]]
   name = "About"
   url = "about/"
 

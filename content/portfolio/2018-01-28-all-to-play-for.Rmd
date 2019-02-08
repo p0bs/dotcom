@@ -1,0 +1,121 @@
+---
+title: "Relaxing by the Poole"
+author: "Robin Penfold"
+date: "2018-01-27"
+showonlyimage: false
+draft: true
+slug: "all-to-play-for"
+image: "img/portfolio/PPlogo.jpg"
+description: "But there's still all to play for"
+weight: 2
+output:
+  blogdown::html_page:
+    highlight: pygments
+---
+
+![](/portfolio/homer.gif)
+
+</br>
+
+And this is Jon Poole right now -- at least, that's how he's feeling. Take a bow!
+  
+As you can tell, though, things are moving fast. So fast, in fact, that the former bottom two now occupy the top seven. (Well done, **Vera**.)
+  
+Here are the latest standings:
+
+```{r thecode182, eval=TRUE, echo=TRUE, message=FALSE, warning=FALSE, error=TRUE}
+library(tidyverse)
+library(htmlwidgets)
+library(widgetframe)
+library(DT)
+  
+# Start by running this dimmed code (as PP-thin.R):
+# library(rvest)
+# library(xml2)
+# leagueTable <- read_html("http://www.theguardian.com/football/premierleague/table")
+# clubOrder <- leagueTable %>%
+#   html_nodes(".table--striped") %>%
+#   .[[1]] %>%
+#   html_table()
+# saveRDS(clubOrder, "data/clubOrder-270118.rds") # + date
+  
+clubOrder <- readRDS("data/clubOrder-270118.rds")  # Add date
+  
+# Make the league table consistent with our inputs
+clubOrder$Team <- recode(
+  clubOrder$Team,
+  `AFC Bournemouth` = "Bournemouth",
+  `C Palace` = "Crystal Palace",
+  Spurs = "Tottenham")
+  
+clubsABC <- sort(clubOrder$Team)
+  
+dataInput <- read_csv("data/PP-2018.csv")
+clubStandings <- match(dataInput$Club, clubOrder$Team, 0)
+topClub <- match(1, clubStandings, 0)
+  
+predictions <- dataInput[,-1]
+  
+bonus <- -50*(predictions[topClub,]==1)
+ssq <- function(x){(x-clubStandings)^2}
+squares <- apply(predictions,2,ssq)
+  
+Impact <- c(clubsABC, "Bonus")
+bonusSquare <- rbind(squares, bonus)
+bonusSquares <- cbind(Impact, bonusSquare) %>% 
+  as_data_frame() %>% 
+  gather(key = "Player", -Impact, value = "Loss")
+bonusSquares$Loss <- as.integer(bonusSquares$Loss)
+  
+score <- colSums(squares) + bonus
+names <- colnames(score)
+names1 <- str_replace_all(names, "_", " ")
+worst <- apply(squares,2,max)
+findWorst <- function(y){match(worst[y],squares[,y],0)}
+worstClubNo <- sapply(1:ncol(predictions),findWorst)
+worstClub <- clubsABC[worstClubNo]
+  
+output <- rbind(score, bonus, worst, worstClubNo)
+output1 <- data.frame(names1,t(output))
+row.names(output1) <- NULL 
+output2 <- output1 %>% 
+  mutate(worstClub=clubsABC[worstClubNo]) %>%
+  select(-worstClubNo) 
+colnames(output2) <- c("Names", "Scores", "Bonus", "WorstCost", "WorstClub")
+  
+report <- output2 %>% 
+  arrange(Scores) %>% 
+  select(Names, Scores, Bonus, WorstClub, WorstCost) %>% unite(WorstChoice, WorstClub, WorstCost, sep = ": ")
+  
+dtReport <- datatable(
+  report, 
+  rownames = FALSE, 
+  options = list(
+    dom = 't', 
+    pageLength = 23, 
+    order = list(
+      list(1, 'asc'), 
+      list(0, 'asc')),
+    columnDefs = list(
+      list(
+        className = 'dt-left', 
+        targets = c(0)
+        ),
+      list(
+        className = 'dt-right', 
+        targets = c(1, 2, 3)
+        )
+      )
+    )
+  )
+  
+frameWidget(dtReport, width = '100%', height = 800)
+```
+
+<p>&nbsp;</p>
+  
+For more detail, check out the up-to-the-minute [PremPredict Leaderboard](https://robin.shinyapps.io/PremPredict/). (And, for completeness, [here are your team-by-team predictions](https://docs.google.com/spreadsheets/d/18PTMQI_5Zxx7M1exASfGDDA148-6YoydRp5qkpegKKc/edit?usp=sharing) and the [latest team standings](http://www.theguardian.com/football/premierleague/table).)
+
+<p>&nbsp;</p>
+
+***

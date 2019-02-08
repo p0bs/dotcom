@@ -1,0 +1,336 @@
+---
+title: "They think it's all over"
+author: "Robin Penfold"
+date: "2018-05-11"
+showonlyimage: false
+draft: false
+slug: "they-think-it-is-all-over"
+image: "img/portfolio/PPlogo.jpg"
+description: "... But it isn't"
+weight: 2
+output:
+  blogdown::html_page:
+    highlight: pygments
+---
+
+</br>
+
+... but it isn't. In a curious turn of fate, each possible winner has about the same chance as the team that they love or endure:
+
+  * *George Quin* -- 60%, like Arsenal winning away at Huddersfield
+  
+  * *Jon Poole* -- 38%, like Everton winning away at West Ham
+  
+  * *Beth Penfold* -- 4%, like the chance of having to endure watching Chelsea in the Champions League next season; and
+  
+  * *Mike Finnis* has about the same chance as Cambridge United winning next year's FA Cup (i.e. think of a very small number).
+
+Oh, and others may have a tiny chance of winning, but my calculations don't show it. FWIW, here are the gory details.
+
+***
+
+## Current standings
+
+Let's start with the current standings:
+
+```{r thecode18p1, eval=TRUE, echo=TRUE, message=FALSE, warning=FALSE}
+suppressMessages(library(tidyverse))
+library(DT)
+library(magrittr)
+library(lazyeval)
+library(widgetframe)
+    
+clubOrder <- readRDS("data/clubOrder-180511.rds") %>% 
+  as_data_frame(.)
+
+clubOrder$Team <- recode(clubOrder$Team,
+  `AFC Bournemouth` = "Bournemouth",
+  `C Palace` = "Crystal Palace",
+  Spurs = "Tottenham")
+  
+clubsABC <- sort(clubOrder$Team)
+  
+dataInput <- read_csv("data/PP-2018.csv")
+clubStandings <- match(dataInput$Club, clubOrder$Team, 0)
+topClub <- match(1, clubStandings, 0)
+  
+predictions <- dataInput[,-1]
+  
+bonus <- -50*(predictions[topClub,]==1)
+ssq <- function(x){(x-clubStandings)^2}
+squares <- apply(predictions,2,ssq)
+score <- colSums(squares) + bonus
+names <- colnames(score)
+names1 <- str_replace_all(names, "_", " ")
+worst <- apply(squares,2,max)
+findWorst <- function(y){match(worst[y],squares[,y],0)}
+worstClubNo <- sapply(1:ncol(predictions),findWorst)
+worstClub <- clubsABC[worstClubNo]
+  
+output <- rbind(score, bonus, worst, worstClubNo)
+output1 <- data.frame(names1,t(output))
+row.names(output1) <- NULL 
+output2 <- output1 %>% 
+  mutate(worstClub=clubsABC[worstClubNo]) %>%
+  select(-worstClubNo) 
+colnames(output2) <- c("Names", "Scores", "Bonus", "WorstCost", "WorstClub")
+  
+report <- output2 %>% 
+  arrange(Scores) %>% 
+  select(Names, Scores, Bonus, WorstClub, WorstCost)
+  
+dtReport <- datatable(report, 
+          rownames = FALSE, 
+          options = list(dom = 't',
+                         pageLength = 23,
+                         order = list(
+                           list(1, 'asc'), 
+                           list(0, 'asc')
+                           )
+                         )
+          )
+  
+frameWidget(dtReport, width = '100%', height = 800)
+```
+
+***
+
+## Predictions and Positions
+
+Next, we'll consider your team-by-team predictions and each team's latest Position in the league. (Note that you can hover over the table and scroll to the right if you want.)
+
+```{r thecode18p2, eval=TRUE, echo=TRUE, message=FALSE, warning=FALSE}
+Position <- as.vector(1:20)
+clubsOrder <- clubOrder$Team
+clubsOrder1 <- as.data.frame(cbind(clubsOrder, Position)) %>% 
+  rename(Club = clubsOrder) %>% 
+  left_join(dataInput, by = "Club")
+  
+dtClubsOrder1 <- datatable(clubsOrder1,
+          rownames = FALSE,
+          options = list(
+            dom = 't',
+            pageLength = 20,
+            scrollX = TRUE,
+            order = list(1, 'asc'),
+            columnDefs = list(
+              list(
+                className = 'dt-right', 
+                targets = 1)
+              )
+            )
+          )
+  
+frameWidget(dtClubsOrder1, width = '100%', height = 800)
+```
+
+***
+
+## Projections
+
+Finally, we'll project your likely success. (And the success is stable even if we use ten times the number of scenarios.)
+
+```{r thecode18p3, eval=TRUE, echo=TRUE, message=FALSE, warning=FALSE}
+# Change code as shown below if champion has yet to be decided
+iterations <- 10000
+set.seed(6)
+  
+clubOrder %<>% 
+  mutate(fullPts = (1000*Pts) + GD)
+
+clubsABC <- clubOrder %>% 
+  select(Team, fullPts) %>% 
+  arrange(Team)
+
+clubStandings <- match(dataInput$Club, clubOrder$Team, 0)
+
+predictions <- dataInput[,-1]
+nPlayers <- ncol(predictions)
+
+ssq <- function(x){sum((x-clubStandings)^2)}
+score <- as_data_frame(apply(predictions,2,ssq))
+names <- as_data_frame(rownames(score))
+names1 <- as_data_frame(str_replace_all(t(names), "_", " "))
+  
+bookiesInput <- data_frame(
+  game = c("Burnley-Bournemouth", "Crystal Palace-West Brom", "Huddersfield-Arsenal", "Liverpool-Brighton", "Man Utd-Watford", "Newcastle-Chelsea", "Southampton-Man City", "Swansea-Stoke", "Tottenham-Leicester", "West Ham-Everton"),
+  homeValue = c(2.15, 1.75, 5.5, 1.18, 1.36, 6, 7, 1.87, 1.3, 2.35),
+  drawValue = c(3.4, 3.75, 4.25, 7, 5, 4, 4.6, 3.7, 5.5, 3.4), 
+  awayValue = c(3.4, 4.6, 1.57, 13, 9, 1.57, 1.44, 3.9, 9.5, 3))
+  
+oddsData <- bookiesInput %>% 
+  separate(col = game, 
+           into = c("homeTeam", "awayTeam"), 
+           sep = "-", 
+           remove = FALSE)
+  
+gameOddsBuilder <- oddsData %>% 
+  rowwise() %>% 
+  mutate(overround = (1/homeValue) + (1/drawValue) + (1/awayValue),
+         homeLikelihood = 1/(homeValue * overround),
+         drawLikelihood = 1/(drawValue * overround),
+         awayLikelihood = 1/(awayValue * overround),
+         winSlice = homeLikelihood,
+         drawSlice = homeLikelihood + drawLikelihood)
+    
+vectorRandom <- as_vector(
+  ceiling(
+    runif(
+      10*iterations, 
+      min = 0, 
+      max = 7)
+    )
+  )
+    
+netGameGoals <- matrix(data = vectorRandom, ncol = 10)
+colnames(netGameGoals) <- paste0("n", 1:10)
+  
+unitVectorRandom <- as.vector(runif(10*iterations, min = 0, max = 1))
+randomGameValues <- matrix(data = unitVectorRandom, ncol = 10)
+colnames(randomGameValues) <- paste0("r", 1:10)
+
+simulatedCalcs <- data_frame(
+  iteration = seq.int(iterations)) %>% 
+  cbind(randomGameValues, netGameGoals)
+  
+pointsAdjuster <- function(team) {
+  
+  teamName <- enquo(team)
+  
+  matchNo <- teamData$matchNo[teamData$team == uq(teamName)]
+  isHomeTeam <- teamData$isHomeTeam[teamData$team == uq(teamName)]
+  existingPoints <- clubsABC$fullPts[clubsABC == uq(teamName)]
+  winBreakpoint <- teamData$winSlice[teamData$team == uq(teamName)]
+  drawBreakpoint <- teamData$drawSlice[teamData$team == uq(teamName)]
+  workings <- tibble(
+    firstColumn = simulatedCalcs[, (matchNo + 1)],
+    secondColumn = simulatedCalcs[, (matchNo + 11)])
+  
+  existingPoints + if (isHomeTeam == TRUE) {
+    workings %>% 
+      rowwise() %>% 
+      mutate(
+        newPoints = ifelse(
+          firstColumn < winBreakpoint,
+          3000 + secondColumn,
+          ifelse(
+            firstColumn < drawBreakpoint,
+            1000, 
+            -secondColumn)
+          )
+        ) %>% 
+      pull(newPoints)
+    
+  } else {
+    
+    workings %>% 
+      rowwise() %>% 
+      mutate(
+        newPoints = ifelse(
+          firstColumn < winBreakpoint,
+          -secondColumn,
+          ifelse(
+            firstColumn < drawBreakpoint, 
+            1000, 
+            3000 + secondColumn)
+          )
+        ) %>% 
+      pull(newPoints)
+    }
+}
+  
+homeTeamData <- gameOddsBuilder %>% 
+  rownames_to_column(var = "matchNo") %>% 
+  rename(
+    team = homeTeam,
+    otherTeam = awayTeam) %>% 
+  select(team, otherTeam, game, matchNo, homeValue:drawSlice) %>% 
+  mutate(
+    isHomeTeam = TRUE,
+    matchNo = as.integer(matchNo))
+  
+awayTeamData <- gameOddsBuilder %>% 
+    rownames_to_column(var = "matchNo") %>% 
+  rename(
+    team = awayTeam,
+    otherTeam = homeTeam) %>% 
+  select(team, otherTeam, game, matchNo, homeValue:drawSlice) %>% 
+  mutate(
+    isHomeTeam = FALSE,
+    matchNo = as.integer(matchNo))
+  
+teamData <- bind_rows(homeTeamData, awayTeamData) %>% 
+  arrange(matchNo, desc(isHomeTeam))
+  
+adjustedPoints <- clubsABC$Team %>% 
+  map(pointsAdjuster) %>% 
+  as.data.frame()
+  
+colnames(adjustedPoints) <- clubsABC$Team
+  
+simClubOrderString <- as.integer(apply(-adjustedPoints, 1, rank, ties.method="average"))
+tsimClubOrder <- matrix(simClubOrderString, nrow = 20)
+  
+simClubOrder <- as.data.frame(t(tsimClubOrder))
+colnames(simClubOrder) <- clubsABC$Team
+  
+simPlayerScores <- matrix(rep(0L, nPlayers*iterations), nrow = iterations)
+tPredictions <- t(predictions)
+  
+for (i in 1:nPlayers){
+  
+  mPredictions <- matrix(
+    rep(tPredictions[i,], iterations), 
+    nrow = iterations, 
+    byrow = TRUE)
+  
+  workingMisses <- (simClubOrder - mPredictions)^2
+  bonusScore <- -50 * (tPredictions[i,4] == 1)   # Change if champion isn't certain
+  
+  simPlayerScores[,i] <- rowSums(workingMisses) + bonusScore
+}
+  
+colnames(simPlayerScores) <- t(names1)
+  
+simPlayerRanks <- data.frame(
+  t(
+    apply(simPlayerScores, 1, rank, ties.method='min')
+    )
+  )
+  
+winPlayer <- as.data.frame(simPlayerRanks==1L)
+
+winLikelihood <- as.data.frame(
+  apply(winPlayer, 2, sum)
+  )
+  
+colnames(winLikelihood)[1] <- "Frequency"
+colnames(names1)[1] <- "Name"
+  
+winSummary <- cbind(names1, winLikelihood) %>% 
+  filter(Frequency > 0) %>% 
+  arrange(-Frequency) %>% 
+  mutate(Likelihood = Frequency/iterations) %>% 
+  select(Name, Likelihood) %>% 
+  as_tibble(.)
+  
+dtWinSummary <- datatable(winSummary,
+          rownames = FALSE,
+          options = list(dom = 't',
+                         pageLength = 20,
+                         order = list(1, 'desc'),
+                         columnDefs = list(list(
+            className = 'dt-left', targets = 0),list(
+            className = 'dt-right', targets = 1)))) %>% 
+  formatPercentage('Likelihood', 1)
+  
+frameWidget(dtWinSummary, width = '100%', height = 250)
+```
+  
+By the way, these calculations also suggest that Chelsea have only a `r 100*table(simClubOrder$Chelsea)[1]/iterations`% chance of being in the Champions League next season. <grimace>
+  
+For more detail, check out the up-to-the-minute [PremPredict Leaderboard](https://robin.shinyapps.io/PremPredict/).
+
+</br>
+
+***

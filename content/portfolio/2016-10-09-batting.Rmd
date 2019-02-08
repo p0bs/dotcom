@@ -1,0 +1,101 @@
+---
+title: "On batsmen and batting order"
+author: "Robin Penfold"
+date: "2016-10-09"
+showonlyimage: false
+draft: false
+slug: "batting"
+image: "img/portfolio/bat.jpg"
+description: "Where in the order have the best batsmen batted?"
+weight: 2
+output:
+  blogdown::html_page:
+    highlight: pygments
+---
+
+Cricket commentators often bang on about changes in batting quality through the ages. Or they say that batting order matters to averages ... or vice-versa. But is there anything in these questions? In this post, I try and find out a bit.
+
+I've scraped the top 200 averages for each batting order from the wonderful stats engine at [espnCricinfo](http://stats.espncricinfo.com/ci/engine/stats/index.html). I've then excluded averages from players with fewer than twenty innings. I've also only considered results against Australia, England, India, New Zealand, Pakistan, South Africa, Sri Lanka and the West Indies.
+
+Anyway, here are the charts. Some things to note:
+
+  * There are actually many charts, each representing a different batting order (from 1 to 11)
+  
+  * Each player represents a different dot in a chart. Some players appear in more than one chart, as they batted a lot in different positions in the order
+  
+  * The colour of a dot shows the country that the player represented
+  
+  * The vertical position of a dot shows the player's average
+  
+  * The horizontal position of a dot shows the decade in which the player's career began
+
+<br></br>
+
+```{r thecodeb, error=TRUE, message=FALSE, warning=FALSE, include=FALSE}
+library(tidyverse)
+library(htmlwidgets)
+library(plotly)
+# library(gganimate)
+
+theme_set(theme_bw())
+
+batOrder <- read_csv("data/BattingOrder.csv")
+
+batOrder1 <- batOrder %>% 
+  mutate(Name = word(Player, start = 1L, end = -2L)) %>% 
+  mutate(fullCountry = word(Player, -1)) %>% 
+  mutate(Country = str_sub(fullCountry, 2,-2)) %>% 
+  filter(Country %in% c("Aus", "Ban", "Eng", "India", "NZ", "Pak", "SA", "SL", "WI")) %>% 
+  mutate(Start = as.integer(str_sub(Span, 1, 4))) %>% 
+  mutate(Decade = 10*trunc(Start/10)) %>% 
+  rename(Innings = Inns) %>% 
+  select(Name, Country, Start, Decade, Ave, Innings, Runs, Bat)
+
+p <- ggplot(batOrder1, 
+             aes(x = Decade, 
+                 y = Ave,
+                 color = Country, 
+                 size = Innings,
+                 frame = Bat)) +
+  geom_point(alpha = 1) +
+  labs(x = "", title = "Comparing batsmen by batting order over time. Order: \n ", y = "")
+
+# gg_animate(p, "output.mp4")
+
+p1 <- ggplot(batOrder1, aes(x = Decade, y = Ave, text = Name, color = Country)) + geom_point() +
+facet_wrap(~ Bat) +
+  labs(x = "", title = "", y = "") + 
+  theme(legend.position="none")
+
+config(displayModeBar = F, 
+       displaylogo = F,
+       showLink = F,
+       p = p1)
+
+p1 <- ggplotly(p1)
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+layout(p1, hovermode = "closest")
+```
+
+<br></br>
+
+I think the results are interesting. It doesn't seem like averages have changed that much over time (although the number of lower-order players with more than twenty innings has increased over the decades).
+
+That said, batting order matters. Whether that's a self-fulfilling prophecy or not is harder to measure, but it matters -- particularly when you get to eighth or ninth. Players coming in at seven, eight and nine seem to have improved over the decades, although the sample is small.
+
+FWIW, I also generated an animated version of these charts:
+  
+![](/portfolio/battingOrder.gif).
+
+***
+
+Finally, here's the code:
+
+```{r thecodeb, eval=FALSE, echo=TRUE}
+```
+
+***
+
