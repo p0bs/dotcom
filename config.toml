@@ -16,7 +16,7 @@ relativeurls = true
 [params]
   # Style options: default (pink), blue, green, pink, red, sea, violet
   # Use custom.css for your custom styling
-  style = "blue"
+  style = "sea"
   description = "A geek's personal website, majoring on rstats, investment and sport"
   copyright = ""
   sidebarAbout = [
