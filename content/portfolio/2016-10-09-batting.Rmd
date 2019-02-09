@@ -1,5 +1,5 @@
 ---
-title: "On batsmen and batting order"
+title: "Who bats best?"
 author: "Robin Penfold"
 date: "2018-10-09"
 showonlyimage: false
