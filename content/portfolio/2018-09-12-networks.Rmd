@@ -1,0 +1,20 @@
+---
+title: "Who you know?"
+author: "Robin Penfold"
+date: 2016-10-20T19:13:14+01:00
+showonlyimage: false
+draft: false
+image: "img/portfolio/evaluation.png"
+description: "Finding networks in asset management"
+weight: 2
+output:
+  blogdown::html_page:
+    highlight: pygments
+---
+
+Add detail on eaRl 2018, with link
+
+<p class="half-line">&nbsp;</p>
+
+<object width="420" height="315" data="https://www.p0bs.com/portfolio/EARL-2018.pdf"></object>
+
