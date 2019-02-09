@@ -33,9 +33,5 @@ And here's that video that I mentioned:
 
 <p class="half-line">&nbsp;</p>
 
-```{r}
-blogdown::shortcode('figure', link='https://www.p0bs.com/portfolio/EARL-2018.pdf')
-```
+<object data="https://www.p0bs.com/portfolio/EARL-2018.pdf"></object>
 
-
-***
