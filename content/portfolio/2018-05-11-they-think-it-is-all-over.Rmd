@@ -27,7 +27,7 @@ output:
 
 Oh, and others may have a tiny chance of winning, but my calculations don't show it. FWIW, here are the gory details.
 
-***
+</br>
 
 ## Current standings
 
@@ -93,7 +93,7 @@ dtReport <- datatable(report,
 frameWidget(dtReport, width = '100%', height = 800)
 ```
 
-***
+</br>
 
 ## Predictions and Positions
 
@@ -124,7 +124,7 @@ dtClubsOrder1 <- datatable(clubsOrder1,
 frameWidget(dtClubsOrder1, width = '100%', height = 800)
 ```
 
-***
+</br>
 
 ## Projections
 
@@ -333,4 +333,3 @@ For more detail, check out the up-to-the-minute [PremPredict Leaderboard](https:
 
 </br>
 
-***
