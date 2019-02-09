@@ -1,10 +1,10 @@
 ---
 title: "Who you know?"
 author: "Robin Penfold"
-date: 2016-10-20T19:13:14+01:00
+date: 2016-11-20T19:13:14+01:00
 showonlyimage: false
 draft: false
-image: "img/portfolio/evaluation.png"
+image: "img/portfolio/network.jpeg"
 description: "Finding networks in asset management"
 weight: 2
 output:
@@ -12,9 +12,13 @@ output:
     highlight: pygments
 ---
 
-Add detail on eaRl 2018, with link
+I recently presented some of my work at [eaRl](https://earlconf.com), the main conference for R in the UK. As the slides went on the public website, I can share them.
+
+As you'll see, we're looking to use colleague networks of investment managers in order to find interesting managers that we haven't yet rated. To do so, we use our existing ratings and propogated them through the network.
+
+Here are the slides:
 
 <p class="half-line">&nbsp;</p>
 
-<object width="420" height="315" data="https://www.p0bs.com/portfolio/EARL-2018.pdf"></object>
+<object width="630" height="468" data="https://www.p0bs.com/portfolio/EARL-2018.pdf"></object>
 
