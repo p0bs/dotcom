@@ -18,7 +18,5 @@ As you'll see, we're looking to use colleague networks of investment managers in
 
 Here are the slides:
 
-<p class="half-line">&nbsp;</p>
-
-<object width="630" height="468" data="EARL-2018.pdf"></object>
+<object width="630" height="468" data="/portfolio/EARL-2018.pdf"></object>
 
