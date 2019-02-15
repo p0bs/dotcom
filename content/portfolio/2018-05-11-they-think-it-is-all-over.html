@@ -204,7 +204,7 @@ predictions &lt;-<span class="st"> </span>dataInput[,<span class="op">-</span><s
 nPlayers &lt;-<span class="st"> </span><span class="kw">ncol</span>(predictions)
 
 ssq &lt;-<span class="st"> </span><span class="cf">function</span>(x){<span class="kw">sum</span>((x<span class="op">-</span>clubStandings)<span class="op">^</span><span class="dv">2</span>)}
-score &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(<span class="kw">apply</span>(predictions,<span class="dv">2</span>,ssq))
+score &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">apply</span>(predictions,<span class="dv">2</span>,ssq))
 names &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(<span class="kw">rownames</span>(score))
 names1 &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(<span class="kw">str_replace_all</span>(<span class="kw">t</span>(names), <span class="st">&quot;_&quot;</span>, <span class="st">&quot; &quot;</span>))
   

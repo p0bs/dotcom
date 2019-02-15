@@ -148,7 +148,7 @@ predictions <- dataInput[,-1]
 nPlayers <- ncol(predictions)
 
 ssq <- function(x){sum((x-clubStandings)^2)}
-score <- as_data_frame(apply(predictions,2,ssq))
+score <- as.data.frame(apply(predictions,2,ssq))
 names <- as_data_frame(rownames(score))
 names1 <- as_data_frame(str_replace_all(t(names), "_", " "))
   
