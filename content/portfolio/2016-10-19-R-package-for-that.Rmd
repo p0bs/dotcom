@@ -6,7 +6,7 @@ showonlyimage: false
 draft: false
 slug: "R-package-for-that"
 image: "img/portfolio/hex.jpeg"
-description: "On Brexit and R's versatility"
+description: "Understanding Brexit with R's versatility"
 weight: 2
 output:
   blogdown::html_page:
