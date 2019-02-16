@@ -92,7 +92,8 @@ output <- data[, c('code', 'city', 'home', 'country', 'minutes')] %>%
   mutate(
     distance = airport_distance(home, code),
     City = str_to_lower(City)
-    )
+    ) %>% 
+  filter(code != "YYT")
   
 # temp_data <- read_html('https://en.m.wikipedia.org/wiki/List_of_cities_by_average_temperature') %>%
 #   html_nodes("table") %>% 

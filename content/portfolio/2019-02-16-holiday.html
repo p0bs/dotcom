@@ -161,7 +161,8 @@ output &lt;-<span class="st"> </span>data[, <span class="kw">c</span>(<span clas
 <span class="st">  </span><span class="kw">mutate</span>(
     <span class="dt">distance =</span> <span class="kw">airport_distance</span>(home, code),
     <span class="dt">City =</span> <span class="kw">str_to_lower</span>(City)
-    )
+    ) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(code <span class="op">!=</span><span class="st"> &quot;YYT&quot;</span>)
   
 <span class="co"># temp_data &lt;- read_html(&#39;https://en.m.wikipedia.org/wiki/List_of_cities_by_average_temperature&#39;) %&gt;%</span>
 <span class="co">#   html_nodes(&quot;table&quot;) %&gt;% </span>
