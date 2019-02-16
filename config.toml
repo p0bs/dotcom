@@ -49,7 +49,7 @@ relativeurls = true
   url = "about/"
 
   [params.social]
-  email         = "robinpenfold@icloud.com"
   twitter       = "https://twitter.com/p0bs"
   stackoverflow = "https://stackoverflow.com/users/3588823/p0bs"
+  github        = "https://github.com/p0bs"
   linkedin      = "https://www.linkedin.com/in/robinpenfold/"
