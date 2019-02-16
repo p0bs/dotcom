@@ -1,7 +1,7 @@
 ---
 title: "Who bats best?"
 author: "Robin Penfold"
-date: "2018-10-09"
+date: "2019-02-16"
 showonlyimage: false
 draft: false
 slug: "batting"
@@ -15,25 +15,11 @@ output:
 
 Cricket commentators often bang on about changes in batting quality through the ages. Or they say that batting order matters to averages ... or vice-versa. But is there anything in these questions? In this post, I try and find out a bit.
 
-I've downloaded the top 200 averages for each batting order from the wonderful stats engine at [espnCricinfo](http://stats.espncricinfo.com/ci/engine/stats/index.html). I've then excluded averages from players with fewer than twenty innings. I've also only considered results against Australia, England, India, New Zealand, Pakistan, South Africa, Sri Lanka and the West Indies.
+#### The data
 
-Here are the charts and the associated code. 
+A couple of years ago, I downloaded the top 200 averages for each batting order from the wonderful stats engine at [espnCricinfo](http://stats.espncricinfo.com/ci/engine/stats/index.html). I then excluded averages from players with fewer than twenty innings. I also only considered results against Australia, England, India, New Zealand, Pakistan, South Africa, Sri Lanka and the West Indies. 
 
-Some things to note: 
-
-  * There are actually many charts, each representing a different batting order (from 1 to 11)
-  
-  * Each player represents a different dot in a chart. Some players appear in more than one chart, as they batted a lot in different positions in the order
-  
-  * The colour of a dot shows the country that the player represented
-  
-  * The vertical position of a dot shows the player's average
-  
-  * The horizontal position of a dot shows the decade in which the player's career began
-
-<br></br>
-
-First, I tidy the data that I received from espnCricinfo.
+Having done so, I now tidy this data below and show its first six rows, for reference.
 
 ```{r, error=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -56,12 +42,14 @@ batOrder <- read_csv("data/BattingOrder.csv") %>%
     ) %>% 
   select(Name, Country, Start, Decade, Ave, Innings = Inns, Runs, Bat)
 
-glimpse(batOrder)
+head(batOrder)
 ```
 
 </br>
 
-Next, I create the animation, using the splendid `gganimate`.
+#### Charts
+
+I then create the animation, using the splendid `gganimate`.
 
 ```{r, eval=FALSE, error=TRUE, message=FALSE, warning=FALSE}
 batOrder %>% 
@@ -94,35 +82,55 @@ batOrder %>%
 
 ![](/portfolio/output.gif)
 
+</br>
+
+Finally, I can show this data statically and enable pop-ups to access the names of the batsmen in question.
+
 ```{r, error=TRUE, message=FALSE, warning=FALSE}
 p1 <- batOrder %>% 
   ggplot(
     aes(
       x = Decade, 
-      y = Ave, 
-      text = Name, 
-      color = Country
+      y = Ave
       )
     ) + 
-  geom_point() + 
-  facet_wrap(~ Bat) +
+  geom_point(
+    aes(
+      text = Name, 
+      color = Country,
+      size = Innings
+      )
+    ) + 
+  facet_wrap(~ Bat, ncol = 3) +
+  geom_smooth(method = 'auto') +
   labs(
-    x = "", 
-    title = "", 
-    y = ""
+    x = "",
+    y = "",
+    title = ""
     ) + 
   theme(legend.position="none")
-  
-# config(displayModeBar = F, 
-#        displaylogo = F,
-#        showLink = F,
-#        p = p1)
-#   
+ 
 p1 <- ggplotly(p1)
 
 layout(p1, hovermode = "closest")
 ```
 
-I think the results are interesting. It doesn't seem like averages have changed that much over time (although the number of lower-order players with more than twenty innings has increased over the decades).
+In the chart above, note that: 
 
-That said, batting order matters. Whether that's a self-fulfilling prophecy or not is harder to measure, but it matters -- particularly when you get to eighth or ninth. Players coming in at seven, eight and nine seem to have improved over the decades, although the sample is small.
+  * There are actually many charts, each representing a different batting order (from 1 to 11)
+  
+  * Each player represents a different dot in a chart. Some players appear in more than one chart, as they batted a lot in different positions in the order
+  
+  * The colour of a dot shows the country that the player represented
+  
+  * The vertical position of a dot shows the player's average when at that spot in the batting order
+  
+  * The horizontal position of a dot shows the decade in which the player's career began
+
+</br>
+
+#### Results
+
+Taken together, the charts tell a story. After all, it doesn't seem like averages have changed that much over time (although the number of lower-order players with more than twenty innings has increased over the decades).
+
+That said, batting order matters. Whether that's a self-fulfilling prophecy or not is harder to measure, but it matters -- particularly when you get to seventh or eighth.
