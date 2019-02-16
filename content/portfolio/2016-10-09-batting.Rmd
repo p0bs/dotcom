@@ -1,7 +1,7 @@
 ---
 title: "Who bats best?"
 author: "Robin Penfold"
-date: "2019-02-16"
+date: "2019-02-15"
 showonlyimage: false
 draft: false
 slug: "batting"

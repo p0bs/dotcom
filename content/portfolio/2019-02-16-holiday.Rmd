@@ -1,0 +1,154 @@
+---
+title: "Holiday decisions"
+author: "Robin Penfold"
+date: "2019-02-15"
+showonlyimage: false
+draft: false
+slug: "holiday"
+image: "img/portfolio/globe.png"
+description: "Considering flight times and temperature"
+weight: 2
+output:
+  blogdown::html_page:
+    highlight: pygments
+---
+
+Yes, it is a first world problem, but we always struggle with holiday destinations. I prefer flying upside down to somewhere different, whilst my wife and boy aren't keen on heat or long flights. 
+
+For that reason, I made this map to find somewhere that suits us all.
+
+```{r holiday1, echo=FALSE, message=FALSE, error=FALSE, warning=FALSE}
+library(airportr)
+library(crosstalk)
+library(DT)
+library(leaflet)
+library(rvest)
+library(tidyverse)
+library(widgetframe)
+library(xml2)
+ 
+temp_max <- 270
+time_max <- 7200
+
+index_page_LHR <- 'https://www.flightsfrom.com/LHR/destinations'
+index_page_LGW <- 'https://www.flightsfrom.com/LGW/destinations'
+
+# airports_LHR <- read_html(index_page_LHR) %>%
+#   html_nodes(".airport-content-destination-list-name") %>% 
+#   html_text() %>% 
+#   str_trim()
+  
+# times_LHR <- read_html(index_page_LHR) %>%
+#   html_nodes(".airport-content-destination-list-time") %>% 
+#   html_text() %>% 
+#   str_trim()
+  
+# airports_LGW <- read_html(index_page_LGW) %>%
+#   html_nodes(".airport-content-destination-list-name") %>% 
+#   html_text() %>% 
+#   str_trim()
+  
+# times_LGW <- read_html(index_page_LGW) %>%
+#   html_nodes(".airport-content-destination-list-time") %>% 
+#   html_text() %>% 
+#   str_trim()
+  
+# data <- bind_rows(
+#   tibble(airports = airports_LHR, times = times_LHR, home = 'LHR'),
+#   tibble(airports = airports_LGW, times = times_LGW, home = 'LGW')
+# ) %>% 
+#   arrange(home) %>% 
+#   group_by(airports) %>% 
+#   slice(1) %>% 
+#   ungroup() %>% 
+#   arrange(airports) %>% 
+#   rowwise() %>% 
+#   mutate(
+#     code = str_extract(airports, '[[:upper:]][[:upper:]][[:upper:]]'),
+#     position = str_locate_all(airports, '[[:upper:]][[:upper:]][[:upper:]]')
+#     ) %>% 
+#   separate(col = times, into = c('split', 'detail'), sep = ": ") %>% 
+#   separate(col = detail, into = c('hours', 'mins'), sep = "h ") %>% 
+#   rowwise() %>% 
+#   mutate(
+#     mins = as.integer(str_sub(mins, start = 1L, end = -2L)),
+#     hours = as.integer(hours),
+#     minutes = (60 * hours) + mins,
+#     position1 = position[[1]] - 2, 
+#     position2 = position[[2]] + 2,
+#     city = str_trim(str_to_lower(str_sub(string = airports, start = 1L, end = position1))),
+#     country = str_trim(str_to_lower(str_sub(string = airports, start = position2, end = -1L))))
+  
+# write_rds(x = data, path = "data/data_hols.rds")
+  
+data <- read_rds("data/data_hols.rds")
+  
+airport_data <- airportr::airports
+  
+output <- data[, c('code', 'city', 'home', 'country', 'minutes')] %>% 
+  left_join(airport_data, by = c('code' = 'IATA')) %>% 
+  filter(!is.na(ICAO)) %>% 
+  rowwise() %>% 
+  mutate(
+    distance = airport_distance(home, code),
+    City = str_to_lower(City)
+    )
+  
+# temp_data <- read_html('https://en.m.wikipedia.org/wiki/List_of_cities_by_average_temperature') %>%
+#   html_nodes("table") %>% 
+#   html_table(header = TRUE) %>% 
+#   bind_rows() %>% 
+#   select(-Year, -Ref.) %>% 
+#   mutate_at(vars(-Country, -City), str_remove, '\\s*\\([^\\)]+\\)') %>% 
+#   mutate_at(vars(-Country, -City), as.numeric) %>% 
+#   mutate(
+#     City = str_to_lower(City),
+#     Country = str_to_lower(Country)) %>% 
+#   arrange(City)
+  
+# write_rds(x = temp_data, path = "data/data_temp.rds")
+
+temp_data <- read_rds("data/data_temp.rds")
+  
+overall <- output %>% 
+  left_join(temp_data, by = c('City' = 'City')) %>% 
+  select(code, City, Country.x, minutes, ICAO, Latitude, Longitude, UTC, distance, Aug) %>% 
+  filter(
+    !is.na(Aug),
+    minutes <= time_max,
+    Aug <= temp_max
+    ) %>% 
+  arrange(code) %>% 
+  group_by(Country.x, City) %>% 
+  slice(1) %>% 
+  ungroup() %>% 
+  arrange(City)
+
+pal <- colorNumeric(
+  palette = "Reds",
+  domain = overall$Aug)
+ 
+map_widget <- leaflet(overall) %>% 
+  addTiles() %>% 
+  setView(
+    lng = 0, 
+    lat = 20, 
+    zoom = 1.5) %>% 
+  addCircles(
+    lng = ~Longitude, 
+    lat = ~Latitude, 
+    weight = 2,
+    radius = ~sqrt(minutes) * 10000, 
+    popup = ~paste(City, "- time: ", round(minutes/60, 1), "hrs; temp: ", Aug, "C"), 
+    color = ~pal(Aug)
+  )
+
+frameWidget(map_widget, width = '100%', height = 250)
+```
+
+</br>
+
+And here's the code that built it.
+
+```{r holiday1, eval=FALSE, include=TRUE, echo=TRUE}
+```
