@@ -1,7 +1,7 @@
 ---
 title: "Asset manager evaluation"
 author: "Robin Penfold"
-date: 2016-10-20T19:13:14+01:00
+date: 2018-10-20T19:13:14+01:00
 showonlyimage: false
 draft: false
 image: "img/portfolio/evaluation.png"
