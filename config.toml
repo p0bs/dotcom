@@ -1,6 +1,6 @@
 baseurl = "https://www.p0bs.com/"
 # baseurl = "/"
-title = "Robin Penfold"
+title = "A Data Science and Investment Nerd"
 theme = "hugo-creative-portfolio-theme"
 languageCode = "en-gb"
 # Enable comments by entering your Disqus shortname
@@ -17,12 +17,12 @@ relativeurls = true
   # Style options: default (pink), blue, green, pink, red, sea, violet
   # Use custom.css for your custom styling
   style = "default"
-  description = "A geek's personal website on rstats, investment and sport"
+  description = "Covering data science and institutional investment, including asset management, manager research and programming in R (rstats)"
   copyright = ""
   sidebarAbout = [
-"Work: Analysing asset managers, using investment techniques and data science",
-"Volunteering: Helping charities to get more from their data with DataKind", 
-"Remaining free time: Wasted on supporting sports teams that rarely win"
+"At work, I analyze asset managers, using investment techniques and data science",
+"I also volunteer with DataKind to help charities to get more from their data", 
+"Otherwise, you'll find me with my family and friends ... or supporting sports teams that rarely win"
   ]
   # Contact page
      # Since this template is static, the contact form uses www.formspree.io as a
