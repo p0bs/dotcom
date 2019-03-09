@@ -3,7 +3,7 @@ date = "2017-11-07T17:05:33+00:00"
 title = "About me"
 +++
 
-Hi. I'm Robin Penfold, and I live in an English village with my wife and boy. I love family, friends, travel, sport, weather and all things nerdy.
+Hi, I'm Robin, and I live in an English village with my wife and boy. I love family, friends, travel, sport, weather and all things nerdy.
 
 ![This is me][1]
 
