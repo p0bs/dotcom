@@ -1,7 +1,7 @@
 ---
 title: "Package-tastic"
 author: "Robin Penfold"
-date: "2018-10-19"
+date: "2016-10-19"
 showonlyimage: false
 draft: false
 slug: "R-package-for-that"
