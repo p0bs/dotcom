@@ -41,7 +41,7 @@ All the best ...
 
 ### Appendix
 
-For completeness, here's the code that I used to calculate what's above.
+For completeness, here's the code that I used to calculate what's above, using [this package](https://github.com/p0bs/premPredictor).
 
 ```{r showthecode191, ref.label='thecode191', eval=FALSE}
 ```
