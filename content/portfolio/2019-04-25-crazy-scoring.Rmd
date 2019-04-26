@@ -6,7 +6,7 @@ showonlyimage: false
 draft: false
 slug: "crazy-scoring"
 image: "img/portfolio/PPlogo.jpg"
-description: "Well done, Roger and Luke!"
+description: "Well done, Roger, Luke and Neil!"
 weight: 2
 output:
   blogdown::html_page:
@@ -31,9 +31,9 @@ get_latest_standings(data_input = player_data)
 
 </br>
 
-I'll be in touch before the final game, so stay tuned. 
+Just like the Premier League, this will be an exciting end to a competition that I'll be watching closely. I'll be in touch before the final game with all the probabilities, so stay tuned. 
 
-All the best ...
+All the best to you all ...
 
 </br>
 
