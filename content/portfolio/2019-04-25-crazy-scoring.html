@@ -115,7 +115,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Appendix</h3>
 <p>For completeness, here’s the code that I used to calculate what’s above, using <a href="https://github.com/p0bs/premPredictor">this package</a>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(premPredictor)
+  
 player_data &lt;-<span class="st"> </span><span class="kw">get_player_data</span>(<span class="st">&quot;https://www.dropbox.com/s/uin6zk4w5cyk2m1/PremPredict-18-19.csv&quot;</span>)
+  
 <span class="kw">get_latest_standings</span>(<span class="dt">data_input =</span> player_data)</code></pre>
 <p style="height: .5em;">
  
