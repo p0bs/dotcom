@@ -77,7 +77,7 @@ mtcars %>%
 
 #### Mutate in bulk
 
-```{r, eval=FALSE}
+```{r}
 iris %>% 
   mutate_at(
     .cols = vars(-Species),
