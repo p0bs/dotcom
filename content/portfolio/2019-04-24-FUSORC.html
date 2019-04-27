@@ -140,158 +140,15 @@ Add ...</code></pre>
 <span class="st">  </span><span class="kw">mutate_at</span>(
     <span class="dt">.cols =</span> <span class="kw">vars</span>(<span class="op">-</span>Species),
     <span class="dt">.funs =</span> <span class="kw">funs</span>(. <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)
-    )</code></pre>
-<pre><code>##     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
-## 1            510         350          140          20     setosa
-## 2            490         300          140          20     setosa
-## 3            470         320          130          20     setosa
-## 4            460         310          150          20     setosa
-## 5            500         360          140          20     setosa
-## 6            540         390          170          40     setosa
-## 7            460         340          140          30     setosa
-## 8            500         340          150          20     setosa
-## 9            440         290          140          20     setosa
-## 10           490         310          150          10     setosa
-## 11           540         370          150          20     setosa
-## 12           480         340          160          20     setosa
-## 13           480         300          140          10     setosa
-## 14           430         300          110          10     setosa
-## 15           580         400          120          20     setosa
-## 16           570         440          150          40     setosa
-## 17           540         390          130          40     setosa
-## 18           510         350          140          30     setosa
-## 19           570         380          170          30     setosa
-## 20           510         380          150          30     setosa
-## 21           540         340          170          20     setosa
-## 22           510         370          150          40     setosa
-## 23           460         360          100          20     setosa
-## 24           510         330          170          50     setosa
-## 25           480         340          190          20     setosa
-## 26           500         300          160          20     setosa
-## 27           500         340          160          40     setosa
-## 28           520         350          150          20     setosa
-## 29           520         340          140          20     setosa
-## 30           470         320          160          20     setosa
-## 31           480         310          160          20     setosa
-## 32           540         340          150          40     setosa
-## 33           520         410          150          10     setosa
-## 34           550         420          140          20     setosa
-## 35           490         310          150          20     setosa
-## 36           500         320          120          20     setosa
-## 37           550         350          130          20     setosa
-## 38           490         360          140          10     setosa
-## 39           440         300          130          20     setosa
-## 40           510         340          150          20     setosa
-## 41           500         350          130          30     setosa
-## 42           450         230          130          30     setosa
-## 43           440         320          130          20     setosa
-## 44           500         350          160          60     setosa
-## 45           510         380          190          40     setosa
-## 46           480         300          140          30     setosa
-## 47           510         380          160          20     setosa
-## 48           460         320          140          20     setosa
-## 49           530         370          150          20     setosa
-## 50           500         330          140          20     setosa
-## 51           700         320          470         140 versicolor
-## 52           640         320          450         150 versicolor
-## 53           690         310          490         150 versicolor
-## 54           550         230          400         130 versicolor
-## 55           650         280          460         150 versicolor
-## 56           570         280          450         130 versicolor
-## 57           630         330          470         160 versicolor
-## 58           490         240          330         100 versicolor
-## 59           660         290          460         130 versicolor
-## 60           520         270          390         140 versicolor
-## 61           500         200          350         100 versicolor
-## 62           590         300          420         150 versicolor
-## 63           600         220          400         100 versicolor
-## 64           610         290          470         140 versicolor
-## 65           560         290          360         130 versicolor
-## 66           670         310          440         140 versicolor
-## 67           560         300          450         150 versicolor
-## 68           580         270          410         100 versicolor
-## 69           620         220          450         150 versicolor
-## 70           560         250          390         110 versicolor
-## 71           590         320          480         180 versicolor
-## 72           610         280          400         130 versicolor
-## 73           630         250          490         150 versicolor
-## 74           610         280          470         120 versicolor
-## 75           640         290          430         130 versicolor
-## 76           660         300          440         140 versicolor
-## 77           680         280          480         140 versicolor
-## 78           670         300          500         170 versicolor
-## 79           600         290          450         150 versicolor
-## 80           570         260          350         100 versicolor
-## 81           550         240          380         110 versicolor
-## 82           550         240          370         100 versicolor
-## 83           580         270          390         120 versicolor
-## 84           600         270          510         160 versicolor
-## 85           540         300          450         150 versicolor
-## 86           600         340          450         160 versicolor
-## 87           670         310          470         150 versicolor
-## 88           630         230          440         130 versicolor
-## 89           560         300          410         130 versicolor
-## 90           550         250          400         130 versicolor
-## 91           550         260          440         120 versicolor
-## 92           610         300          460         140 versicolor
-## 93           580         260          400         120 versicolor
-## 94           500         230          330         100 versicolor
-## 95           560         270          420         130 versicolor
-## 96           570         300          420         120 versicolor
-## 97           570         290          420         130 versicolor
-## 98           620         290          430         130 versicolor
-## 99           510         250          300         110 versicolor
-## 100          570         280          410         130 versicolor
-## 101          630         330          600         250  virginica
-## 102          580         270          510         190  virginica
-## 103          710         300          590         210  virginica
-## 104          630         290          560         180  virginica
-## 105          650         300          580         220  virginica
-## 106          760         300          660         210  virginica
-## 107          490         250          450         170  virginica
-## 108          730         290          630         180  virginica
-## 109          670         250          580         180  virginica
-## 110          720         360          610         250  virginica
-## 111          650         320          510         200  virginica
-## 112          640         270          530         190  virginica
-## 113          680         300          550         210  virginica
-## 114          570         250          500         200  virginica
-## 115          580         280          510         240  virginica
-## 116          640         320          530         230  virginica
-## 117          650         300          550         180  virginica
-## 118          770         380          670         220  virginica
-## 119          770         260          690         230  virginica
-## 120          600         220          500         150  virginica
-## 121          690         320          570         230  virginica
-## 122          560         280          490         200  virginica
-## 123          770         280          670         200  virginica
-## 124          630         270          490         180  virginica
-## 125          670         330          570         210  virginica
-## 126          720         320          600         180  virginica
-## 127          620         280          480         180  virginica
-## 128          610         300          490         180  virginica
-## 129          640         280          560         210  virginica
-## 130          720         300          580         160  virginica
-## 131          740         280          610         190  virginica
-## 132          790         380          640         200  virginica
-## 133          640         280          560         220  virginica
-## 134          630         280          510         150  virginica
-## 135          610         260          560         140  virginica
-## 136          770         300          610         230  virginica
-## 137          630         340          560         240  virginica
-## 138          640         310          550         180  virginica
-## 139          600         300          480         180  virginica
-## 140          690         310          540         210  virginica
-## 141          670         310          560         240  virginica
-## 142          690         310          510         230  virginica
-## 143          580         270          510         190  virginica
-## 144          680         320          590         230  virginica
-## 145          670         330          570         250  virginica
-## 146          670         300          520         230  virginica
-## 147          630         250          500         190  virginica
-## 148          650         300          520         200  virginica
-## 149          620         340          540         230  virginica
-## 150          590         300          510         180  virginica</code></pre>
+    ) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">head</span>()</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          510         350          140          20  setosa
+## 2          490         300          140          20  setosa
+## 3          470         320          130          20  setosa
+## 4          460         310          150          20  setosa
+## 5          500         360          140          20  setosa
+## 6          540         390          170          40  setosa</code></pre>
 <p>As with the previous shortcut, I often need to mutate all but a few columns. Running the code directly above multiplies all columns in <code>iris</code> by 100 except for the <code>Species</code>. As with many of these snippets, the example shows the principle, which can be applied in many ways.</p>
 <p></br></p>
 </div>
@@ -320,7 +177,7 @@ Add ...</code></pre>
 <pre><code>##        Team GP  W D  L  F  A GD Pts
 ## 1 Liverpool 36 28 7  1 84 20 64  91
 ## 2  Man City 35 29 2  4 89 22 67  89
-## 3     Spurs 35 23 1 11 65 35 30  70
+## 3     Spurs 36 23 1 12 65 36 29  70
 ## 4   Chelsea 35 20 7  8 59 38 21  67
 ## 5   Arsenal 35 20 6  9 69 46 23  66
 ## 6   Man Utd 35 19 7  9 63 50 13  64</code></pre>

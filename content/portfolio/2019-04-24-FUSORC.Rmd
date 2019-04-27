@@ -82,7 +82,8 @@ iris %>%
   mutate_at(
     .cols = vars(-Species),
     .funs = funs(. * 100)
-    )
+    ) %>% 
+  head()
 ```
 
 As with the previous shortcut, I often need to mutate all but a few columns. Running the code directly above multiplies all columns in `iris` by 100 except for the `Species`. As with many of these snippets, the example shows the principle, which can be applied in many ways.
