@@ -22,10 +22,11 @@ A couple of years ago, I downloaded the top 200 averages for each batting order 
 Having done so, I now tidy this data below and show its first six rows, for reference.
 
 ```{r, error=FALSE, message=FALSE, warning=FALSE}
-library(tidyverse)
+suppressMessages(library(tidyverse))
 library(gganimate)
+library(ggiraph)
 library(glue)
-library(plotly)
+library(htmlwidgets)
 theme_set(theme_bw())
   
 batOrder <- read_csv("data/BattingOrder.csv") %>% 
@@ -38,7 +39,8 @@ batOrder <- read_csv("data/BattingOrder.csv") %>%
     ) %>% 
   mutate(
     Start = as.integer(str_sub(Span, 1, 4)),
-    Decade = 10*trunc(Start/10)
+    Decade = 10*trunc(Start/10),
+    Name = str_replace_all(Name, "'", " ") 
     ) %>% 
   select(Name, Country, Start, Decade, Ave, Innings = Inns, Runs, Bat)
 
@@ -93,26 +95,35 @@ p1 <- batOrder %>%
       x = Decade, 
       y = Ave
       )
-    ) + 
-  geom_point(
+    ) +
+  geom_point_interactive(
     aes(
-      text = Name, 
+      tooltip = Name,
       color = Country,
       size = Innings
       )
+    ) + labs(
+    x = "\n Last decade of the batsman's career",
+    y = ""
+    ) + 
+  geom_smooth(method = 'auto') +
+  ggtitle(
+    'Best players batting at this position',
+    subtitle = 'Average when batting at this position'
     ) + 
   facet_wrap(~ Bat, ncol = 3) +
-  geom_smooth(method = 'auto') +
-  labs(
-    x = "",
-    y = "",
-    title = ""
-    ) + 
-  theme(legend.position="none")
- 
-p1 <- ggplotly(p1)
+  theme(
+    strip.text = element_text(
+      size = 6, 
+      face = "bold"
+      )
+    )
 
-layout(p1, hovermode = "closest")
+girafe(
+  code = print(p1), 
+  width_svg = 9, 
+  height_svg = 5
+  )
 ```
 
 In the chart above, note that: 
