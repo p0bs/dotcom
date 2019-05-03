@@ -126,6 +126,8 @@ girafe(
   )
 ```
 
+</br>
+
 In the chart above, note that: 
 
   * There are actually many charts, each representing a different batting order (from 1 to 11)
