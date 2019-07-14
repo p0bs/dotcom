@@ -3,7 +3,7 @@ title: "Is it all over?"
 author: "Robin Penfold"
 date: "2019-05-07"
 showonlyimage: false
-draft: true
+draft: false
 slug: "they-think-it-is-all-over"
 image: "img/portfolio/PPlogo.jpg"
 description: "Projecting the competition winner one week out"
@@ -97,37 +97,39 @@ player_data &lt;-<span class="st"> </span><span class="kw">get_player_data</span
 odds_info &lt;-<span class="st"> &quot;https://www.dropbox.com/s/cb5qyxyexksvez1/odds.csv&quot;</span>
 odds_data &lt;-<span class="st"> </span><span class="kw">get_odds_data</span>(<span class="dt">url_value =</span> odds_info)
 
-<span class="kw">get_latest_standings</span>(<span class="dt">data_input =</span> player_data)</code></pre>
-<pre><code>##               Names Scores Bonus   WorstClub WorstCost
-## 1  Roger Gathercole     28   -50     Watford        16
-## 2       Luke Finnis     88     0      Wolves        25
-## 3     Neil Waterman     92   -50     Burnley        49
-## 4    Andrea Laporta    118   -50      Wolves        64
-## 5       Alan Finnis    166   -50      Wolves        81
-## 6       George Quin    196   -50     Watford        64
-## 7       Mike Finnis    204     0      Fulham       100
-## 8      Peter Finnis    206   -50      Wolves       100
-## 9       Vera Finnis    228     0      Fulham        81
-## 10    Robin Penfold    238   -50      Fulham        81
-## 11     Scott Harrop    240   -50     Watford       100
-## 12     Alan Butcher    280     0      Fulham       121
-## 13  Mathew Saunders    288     0      Fulham       100
-## 14    Imogen Finnis    302     0      Wolves       144
-## 15     Beth Penfold    330   -50      Wolves       100
-## 16    Hannah Finnis    348     0      Wolves       169
-## 17      Les Penfold    348   -50 Southampton        81
-## 18     Laura Finnis    440     0      Wolves       169
-## 19    Marion Finnis    440     0      Wolves       144
-## 20    Paula Penfold    668     0    Brighton       144</code></pre>
+<span class="kw">get_latest_standings</span>(<span class="dt">data_input =</span> player_data, <span class="dt">use_saved_data =</span> T, <span class="dt">data_file =</span> <span class="st">&#39;data/201819_penultimate.rds&#39;</span>)</code></pre>
+<pre><code>##               Names Scores Bonus       WorstClub WorstCost
+## 1  Roger Gathercole     46   -50 AFC Bournemouth        16
+## 2       Luke Finnis     92     0       Newcastle        25
+## 3     Neil Waterman     98   -50         Burnley        49
+## 4    Andrea Laporta    110   -50          Wolves        64
+## 5       Alan Finnis    178   -50          Wolves        81
+## 6       Mike Finnis    202     0          Fulham       100
+## 7       George Quin    204   -50         Watford        64
+## 8      Peter Finnis    212   -50          Wolves       100
+## 9     Robin Penfold    228   -50          Fulham        81
+## 10      Vera Finnis    234     0          Fulham        81
+## 11     Scott Harrop    240   -50         Watford       100
+## 12  Mathew Saunders    276     0          Fulham       100
+## 13     Alan Butcher    282     0          Fulham       121
+## 14    Imogen Finnis    306     0          Wolves       144
+## 15      Les Penfold    328   -50     Southampton        81
+## 16     Beth Penfold    342   -50          Wolves       100
+## 17    Hannah Finnis    356     0          Wolves       169
+## 18    Marion Finnis    428     0          Wolves       144
+## 19     Laura Finnis    450     0          Wolves       169
+## 20    Paula Penfold    628     0        Brighton       144</code></pre>
 <p></br></p>
 </div>
 <div id="who-will-win-prempredict" class="section level2">
 <h2>Who will win PremPredict?</h2>
 <p>But here’s what we really want to know: What are our chances of winning?</p>
 <pre class="sourceCode r"><code class="sourceCode r">project_players &lt;-<span class="st"> </span><span class="kw">get_projection</span>(
-  <span class="dt">url_odds =</span> odds_info, 
-  <span class="dt">url_predictions =</span> player_info, 
-  <span class="dt">project_players =</span> <span class="ot">TRUE</span>, 
+  <span class="dt">url_odds =</span> odds_info,
+  <span class="dt">url_predictions =</span> player_info,
+  <span class="dt">project_players =</span> <span class="ot">TRUE</span>,
+  <span class="dt">use_saved_data =</span> T,
+  <span class="dt">data_file =</span> <span class="st">&quot;data/201819_penultimate.rds&quot;</span>,
   <span class="dt">runs =</span> iterations)
 
 winPlayer &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(project_players<span class="op">==</span>1L)
@@ -148,8 +150,8 @@ winSummary</code></pre>
 <pre><code>## # A tibble: 2 x 2
 ##   Name             Likelihood
 ##   &lt;chr&gt;                 &lt;dbl&gt;
-## 1 Roger.Gathercole     0.958 
-## 2 Luke.Finnis          0.0454</code></pre>
+## 1 Roger.Gathercole      0.919
+## 2 Luke.Finnis           0.084</code></pre>
 <p>Well, unless your name is Roger or Luke then the answer is zero. (Or, more specifically, in the 10,000 scenarios that I ran, you didn’t win any of them.)</p>
 <p></br></p>
 </div>
@@ -160,6 +162,8 @@ winSummary</code></pre>
   <span class="dt">url_odds =</span> odds_info, 
   <span class="dt">url_predictions =</span> player_info, 
   <span class="dt">project_players =</span> <span class="ot">FALSE</span>,
+  <span class="dt">use_saved_data =</span> T,
+  <span class="dt">data_file =</span> <span class="st">&quot;data/201819_penultimate.rds&quot;</span>,
   <span class="dt">runs =</span> iterations)
 
 project_team <span class="op">%&gt;%</span><span class="st"> </span>
@@ -168,11 +172,11 @@ project_team <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">chance =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(chance))</code></pre>
 <pre><code>## # A tibble: 3 x 4
-##   Liverpool `Man City`     n   chance
-##       &lt;int&gt;      &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;
-## 1         2          1  9025 0.902   
-## 2         1          2   972 0.0972  
-## 3         1          1     3 0.000300</code></pre>
+##   Liverpool `Man City`     n chance
+##       &lt;int&gt;      &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
+## 1         2          1  8745 0.874 
+## 2         1          2  1244 0.124 
+## 3         1          1    11 0.0011</code></pre>
 <p></br></p>
 </div>
 <div id="does-each-player-depend-upon-a-team-to-win" class="section level2">
@@ -184,11 +188,11 @@ project_team <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">chance =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">arrange</span>(<span class="st">`</span><span class="dt">Man City</span><span class="st">`</span>, <span class="kw">desc</span>(chance))</code></pre>
 <pre><code>## # A tibble: 5 x 6
-##   Roger.Gathercole Luke.Finnis `Man City` Liverpool     n   chance
-##   &lt;lgl&gt;            &lt;lgl&gt;            &lt;int&gt;     &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;
-## 1 TRUE             FALSE                1         2  9025 0.902   
-## 2 TRUE             FALSE                1         1     3 0.000300
-## 3 TRUE             FALSE                2         1   518 0.0518  
-## 4 FALSE            TRUE                 2         1   416 0.0416  
-## 5 TRUE             TRUE                 2         1    38 0.0038</code></pre>
+##   Roger.Gathercole Luke.Finnis `Man City` Liverpool     n chance
+##   &lt;lgl&gt;            &lt;lgl&gt;            &lt;int&gt;     &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
+## 1 TRUE             FALSE                1         2  8745 0.874 
+## 2 TRUE             FALSE                1         1    11 0.0011
+## 3 FALSE            TRUE                 2         1   810 0.081 
+## 4 TRUE             FALSE                2         1   404 0.0404
+## 5 TRUE             TRUE                 2         1    30 0.003</code></pre>
 </div>

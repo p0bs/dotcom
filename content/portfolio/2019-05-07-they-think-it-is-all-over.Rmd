@@ -3,7 +3,7 @@ title: "Is it all over?"
 author: "Robin Penfold"
 date: "2019-05-07"
 showonlyimage: false
-draft: true
+draft: false
 slug: "they-think-it-is-all-over"
 image: "img/portfolio/PPlogo.jpg"
 description: "Projecting the competition winner one week out"
@@ -39,7 +39,7 @@ player_data <- get_player_data(url_value = player_info)
 odds_info <- "https://www.dropbox.com/s/cb5qyxyexksvez1/odds.csv"
 odds_data <- get_odds_data(url_value = odds_info)
 
-get_latest_standings(data_input = player_data)
+get_latest_standings(data_input = player_data, use_saved_data = T, data_file = 'data/201819_penultimate.rds')
 ```
 
 </br>
@@ -50,9 +50,11 @@ But here's what we really want to know: What are our chances of winning?
 
 ```{r eval=TRUE, echo=TRUE, message=FALSE, warning=FALSE}
 project_players <- get_projection(
-  url_odds = odds_info, 
-  url_predictions = player_info, 
-  project_players = TRUE, 
+  url_odds = odds_info,
+  url_predictions = player_info,
+  project_players = TRUE,
+  use_saved_data = T,
+  data_file = "data/201819_penultimate.rds",
   runs = iterations)
 
 winPlayer <- as.data.frame(project_players==1L)
@@ -86,6 +88,8 @@ project_team <- get_projection(
   url_odds = odds_info, 
   url_predictions = player_info, 
   project_players = FALSE,
+  use_saved_data = T,
+  data_file = "data/201819_penultimate.rds",
   runs = iterations)
 
 project_team %>% 
