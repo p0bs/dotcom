@@ -101,7 +101,7 @@ project_team %>%
 
 ## Does each player depend upon a team to win?
 
-By the way, these calculations also show who the bookies feel will be champions. 
+In short, will Luke really support Liverpool?
 
 ```{r eval=TRUE, echo=TRUE, message=FALSE, warning=FALSE}
 bind_cols(winPlayer, project_team) %>% 

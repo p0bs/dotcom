@@ -182,7 +182,7 @@ project_team <span class="op">%&gt;%</span><span class="st"> </span>
 </div>
 <div id="does-each-player-depend-upon-a-team-to-win" class="section level2">
 <h2>Does each player depend upon a team to win?</h2>
-<p>By the way, these calculations also show who the bookies feel will be champions.</p>
+<p>In short, will Luke really support Liverpool?</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bind_cols</span>(winPlayer, project_team) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(<span class="dt">Roger =</span> Roger.Gathercole, <span class="dt">Luke =</span> Luke.Finnis, <span class="st">`</span><span class="dt">Man City</span><span class="st">`</span>, Liverpool) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">count</span>(Roger, Luke, <span class="st">`</span><span class="dt">Man City</span><span class="st">`</span>, Liverpool) <span class="op">%&gt;%</span><span class="st"> </span>
