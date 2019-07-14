@@ -105,8 +105,8 @@ By the way, these calculations also show who the bookies feel will be champions.
 
 ```{r eval=TRUE, echo=TRUE, message=FALSE, warning=FALSE}
 bind_cols(winPlayer, project_team) %>% 
-  select(Roger.Gathercole, Luke.Finnis, `Man City`, Liverpool) %>% 
-  count(Roger.Gathercole, Luke.Finnis, `Man City`, Liverpool) %>% 
+  select(Roger = Roger.Gathercole, Luke = Luke.Finnis, `Man City`, Liverpool) %>% 
+  count(Roger, Luke, `Man City`, Liverpool) %>% 
   mutate(chance = n / sum(n)) %>% 
   arrange(`Man City`, desc(chance))
 ```
