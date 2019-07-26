@@ -64,18 +64,43 @@ That gives us some data, but it is an unhelpful format, as R would read it with 
 ```{r, eval=TRUE, echo=TRUE, results='markup', warning=FALSE, message=FALSE}
 lWebData <- length(webData)
   
-areaName <- webData[seq(from = 1, to = lWebData-2, by = 3)]
-remainVotes <- webData[seq(from = 2, to = lWebData-1, by = 3)]
-leaveVotes <- webData[seq(from = 3, to = lWebData, by = 3)]
+areaName <- webData[seq(
+  from = 1, 
+  to = lWebData-2, 
+  by = 3
+  )]
+
+remainVotes <- webData[seq(
+  from = 2, 
+  to = lWebData-1, 
+  by = 3
+  )]
+
+leaveVotes <- webData[seq(
+  from = 3, 
+  to = lWebData, 
+  by = 3
+  )]
   
 remainVotes <- gsub(",([0-9])", "\\1", remainVotes)
 leaveVotes <- gsub(",([0-9])", "\\1", leaveVotes)
   
-resultsData <- as.data.frame(t(rbind(areaName, remainVotes, leaveVotes)), stringsAsFactors = F)
+resultsData <- as.data.frame(
+  t(
+    rbind(
+      areaName, remainVotes, leaveVotes
+      )
+    ), 
+  stringsAsFactors = F
+  )
   
-resultsData$remainVotes <- as.numeric(resultsData$remainVotes)
+resultsData$remainVotes <- as.numeric(
+  resultsData$remainVotes
+  )
   
-resultsData$leaveVotes <- as.numeric(resultsData$leaveVotes)
+resultsData$leaveVotes <- as.numeric(
+  resultsData$leaveVotes
+  )
 ```
 
 <p>&nbsp;</p>
@@ -85,17 +110,31 @@ resultsData$leaveVotes <- as.numeric(resultsData$leaveVotes)
 To understand this data even more, it would help to map it. And the amount of  boundary files available for UK maps is extraordinary. R helps us to use these maps, so that we can map each local authority (the areas over which the referendum votes were amalgamated). (As before, I've run the dimmed-out code beforehand and saved the RDS, for use on this page.)
 
 ```{r, eval=TRUE, echo=TRUE, results='markup', warning=FALSE, message=FALSE}
-# localAuthorityRaw <- readShapeSpatial("Local_Authority_District_(GB)_2015_boundaries_(generalised_clipped)/LAD_DEC_2015_GB_BGC.shp", proj4string=CRS("+init=epsg:27700"))
+# localAuthorityRaw <- readShapeSpatial(
+#   "Local_Authority_District_(GB)_2015_boundaries_(generalised_clipped)/LAD_DEC_2015_GB_BGC.shp", 
+#   proj4string=CRS("+init=epsg:27700")
+#   )
   
 # # Transform the data to use with ggmap
-# localAuthorityClean <- spTransform(localAuthorityRaw, CRS("+init=epsg:4326"))
+# localAuthorityClean <- spTransform(
+#   localAuthorityRaw, 
+#   CRS("+init=epsg:4326")
+#   )
   
 # # Turns the data into a dataframe
-# localAuthorityCleanDF <- fortify(localAuthorityClean, region = "LAD15NM")
+# localAuthorityCleanDF <- fortify(
+#   localAuthorityClean, 
+#   region = "LAD15NM"
+#   )
   
-# saveRDS(localAuthorityCleanDF, "localAuthorityCleanDF.rds")
+# saveRDS(
+#   localAuthorityCleanDF,
+#   "localAuthorityCleanDF.rds"
+#   )
   
-localAuthorityCleanDF <- readRDS("data/localAuthorityCleanDF.rds")
+localAuthorityCleanDF <- readRDS(
+  "data/localAuthorityCleanDF.rds"
+  )
 ```
 
 <p>&nbsp;</p>
@@ -105,12 +144,21 @@ localAuthorityCleanDF <- readRDS("data/localAuthorityCleanDF.rds")
 Being real-world data, though, the Local Authorities that we scraped from the web do not all match those for which we have boundary files. Fortuntately, R can help us to understand the erroneous labels in the data. 
 
 ```{r, eval=TRUE, echo=TRUE, results='markup', warning=FALSE, message=FALSE}
-l1 <- as.data.frame(unique(localAuthorityCleanDF$id), stringsAsFactors = F)
+l1 <- as.data.frame(
+  unique(localAuthorityCleanDF$id),
+  stringsAsFactors = F
+  )
+
 colnames(l1)[1] <- "locAuthID"
-areaNameDF <- as.data.frame(areaName, stringsAsFactors = F)
-  
+areaNameDF <- as.data.frame(
+  areaName, 
+  stringsAsFactors = F
+  )
+
 l2 <- l1 %>%
-  mutate(check = locAuthID %in% areaNameDF$areaName)
+  mutate(
+    check = locAuthID %in% areaNameDF$areaName
+    )
   
 l3 <- areaNameDF %>%
   mutate(check = areaName %in% l1$locAuthID)
@@ -171,8 +219,14 @@ We can then join the map data to the voting data and determine the proportion of
 ```{r, eval=TRUE, echo=TRUE, results='markup', warning=FALSE, message=FALSE}
 mapDataFinal <- mapDataSummary %>% 
   left_join(mapDataLngLat, by = "areaName") %>% 
-  mutate(leaveShare = round(leaveVotes/(leaveVotes + remainVotes),2)) %>% 
-  mutate(size = leaveVotes + remainVotes)
+  mutate(
+    leaveShare = round(
+      leaveVotes/(leaveVotes + remainVotes)
+      ,2
+      )
+    ,
+    size = leaveVotes + remainVotes
+    )
   
 mapDataFinal <- mapDataFinal[complete.cases(mapDataFinal),]
   
@@ -203,23 +257,40 @@ frameWidget(dt, width = 750, height = 500)
 We're now ready to plot the data. When we do so, some regional trends become immediately apparent.
 
 ```{r, eval=TRUE, echo=TRUE, results='markup', warning=FALSE, message=FALSE}
-pal <- colorNumeric(palette = "YlOrRd", domain = mapDataFinal$leaveShare)
+pal <- colorNumeric(
+  palette = "YlOrRd", 
+  domain = mapDataFinal$leaveShare
+  )
   
 map <- leaflet(mapDataFinal) %>%
-  addProviderTiles("CartoDB.Positron") %>%
-  setView(lng = -3, lat = 53.5, zoom = 6) %>%
-  addCircles(lng = ~mapDataFinal$avLng, 
-             lat = ~mapDataFinal$avLat, 
-             color = ~pal(mapDataFinal$leaveShare), 
-             radius = ~20*sqrt(size), 
-             stroke = FALSE, 
-             fillOpacity = 0.9,
-             popup = paste(mapDataFinal$areaName, "had ", round(100*mapDataFinal$leaveShare, 1), "% voting for Leave and ", mapDataFinal$size, "total voters")) %>% 
-  addLegend("topright", pal = pal,
-            values = ~mapDataFinal$leaveShare,
-            title = "% of Leave voters",
-            labFormat = labelFormat(),
-            opacity = 1)
+  setView(
+    lng = -3, 
+    lat = 53.5, 
+    zoom = 6
+    ) %>%
+  addCircles(
+    lng = ~mapDataFinal$avLng, 
+    lat = ~mapDataFinal$avLat, 
+    color = ~pal(mapDataFinal$leaveShare), 
+    radius = ~20*sqrt(size), 
+    stroke = FALSE, 
+    fillOpacity = 0.9,
+    popup = paste(
+      mapDataFinal$areaName, 
+      "had ", 
+      round(100*mapDataFinal$leaveShare, 1), 
+      "% voting for Leave and ", 
+      mapDataFinal$size, 
+      "total voters")
+    ) %>% 
+  addLegend(
+    "topright", 
+    pal = pal,
+    values = ~mapDataFinal$leaveShare,
+    title = "% of Leave voters",
+    labFormat = labelFormat(),
+    opacity = 1
+    )
   
 frameWidget(map, height = 400)
 ```

@@ -126,18 +126,43 @@ webData &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span clas
 <p>That gives us some data, but it is an unhelpful format, as R would read it with a character that has a comma in the middle. Fortunately, R can manipulate strings so that they make sense, such as removing those commas:</p>
 <pre class="sourceCode r"><code class="sourceCode r">lWebData &lt;-<span class="st"> </span><span class="kw">length</span>(webData)
   
-areaName &lt;-<span class="st"> </span>webData[<span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">1</span>, <span class="dt">to =</span> lWebData<span class="dv">-2</span>, <span class="dt">by =</span> <span class="dv">3</span>)]
-remainVotes &lt;-<span class="st"> </span>webData[<span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">2</span>, <span class="dt">to =</span> lWebData<span class="dv">-1</span>, <span class="dt">by =</span> <span class="dv">3</span>)]
-leaveVotes &lt;-<span class="st"> </span>webData[<span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">3</span>, <span class="dt">to =</span> lWebData, <span class="dt">by =</span> <span class="dv">3</span>)]
+areaName &lt;-<span class="st"> </span>webData[<span class="kw">seq</span>(
+  <span class="dt">from =</span> <span class="dv">1</span>, 
+  <span class="dt">to =</span> lWebData<span class="dv">-2</span>, 
+  <span class="dt">by =</span> <span class="dv">3</span>
+  )]
+
+remainVotes &lt;-<span class="st"> </span>webData[<span class="kw">seq</span>(
+  <span class="dt">from =</span> <span class="dv">2</span>, 
+  <span class="dt">to =</span> lWebData<span class="dv">-1</span>, 
+  <span class="dt">by =</span> <span class="dv">3</span>
+  )]
+
+leaveVotes &lt;-<span class="st"> </span>webData[<span class="kw">seq</span>(
+  <span class="dt">from =</span> <span class="dv">3</span>, 
+  <span class="dt">to =</span> lWebData, 
+  <span class="dt">by =</span> <span class="dv">3</span>
+  )]
   
 remainVotes &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;,([0-9])&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>, remainVotes)
 leaveVotes &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;,([0-9])&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>, leaveVotes)
   
-resultsData &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(<span class="kw">rbind</span>(areaName, remainVotes, leaveVotes)), <span class="dt">stringsAsFactors =</span> F)
+resultsData &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(
+  <span class="kw">t</span>(
+    <span class="kw">rbind</span>(
+      areaName, remainVotes, leaveVotes
+      )
+    ), 
+  <span class="dt">stringsAsFactors =</span> F
+  )
   
-resultsData<span class="op">$</span>remainVotes &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(resultsData<span class="op">$</span>remainVotes)
+resultsData<span class="op">$</span>remainVotes &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(
+  resultsData<span class="op">$</span>remainVotes
+  )
   
-resultsData<span class="op">$</span>leaveVotes &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(resultsData<span class="op">$</span>leaveVotes)</code></pre>
+resultsData<span class="op">$</span>leaveVotes &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(
+  resultsData<span class="op">$</span>leaveVotes
+  )</code></pre>
 <p>
  
 </p>
@@ -145,17 +170,31 @@ resultsData<span class="op">$</span>leaveVotes &lt;-<span class="st"> </span><sp
 <div id="map-and-boundary-data" class="section level3">
 <h3>Map and boundary data</h3>
 <p>To understand this data even more, it would help to map it. And the amount of boundary files available for UK maps is extraordinary. R helps us to use these maps, so that we can map each local authority (the areas over which the referendum votes were amalgamated). (As before, I’ve run the dimmed-out code beforehand and saved the RDS, for use on this page.)</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># localAuthorityRaw &lt;- readShapeSpatial(&quot;Local_Authority_District_(GB)_2015_boundaries_(generalised_clipped)/LAD_DEC_2015_GB_BGC.shp&quot;, proj4string=CRS(&quot;+init=epsg:27700&quot;))</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># localAuthorityRaw &lt;- readShapeSpatial(</span>
+<span class="co">#   &quot;Local_Authority_District_(GB)_2015_boundaries_(generalised_clipped)/LAD_DEC_2015_GB_BGC.shp&quot;, </span>
+<span class="co">#   proj4string=CRS(&quot;+init=epsg:27700&quot;)</span>
+<span class="co">#   )</span>
   
 <span class="co"># # Transform the data to use with ggmap</span>
-<span class="co"># localAuthorityClean &lt;- spTransform(localAuthorityRaw, CRS(&quot;+init=epsg:4326&quot;))</span>
+<span class="co"># localAuthorityClean &lt;- spTransform(</span>
+<span class="co">#   localAuthorityRaw, </span>
+<span class="co">#   CRS(&quot;+init=epsg:4326&quot;)</span>
+<span class="co">#   )</span>
   
 <span class="co"># # Turns the data into a dataframe</span>
-<span class="co"># localAuthorityCleanDF &lt;- fortify(localAuthorityClean, region = &quot;LAD15NM&quot;)</span>
+<span class="co"># localAuthorityCleanDF &lt;- fortify(</span>
+<span class="co">#   localAuthorityClean, </span>
+<span class="co">#   region = &quot;LAD15NM&quot;</span>
+<span class="co">#   )</span>
   
-<span class="co"># saveRDS(localAuthorityCleanDF, &quot;localAuthorityCleanDF.rds&quot;)</span>
+<span class="co"># saveRDS(</span>
+<span class="co">#   localAuthorityCleanDF,</span>
+<span class="co">#   &quot;localAuthorityCleanDF.rds&quot;</span>
+<span class="co">#   )</span>
   
-localAuthorityCleanDF &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;data/localAuthorityCleanDF.rds&quot;</span>)</code></pre>
+localAuthorityCleanDF &lt;-<span class="st"> </span><span class="kw">readRDS</span>(
+  <span class="st">&quot;data/localAuthorityCleanDF.rds&quot;</span>
+  )</code></pre>
 <p>
  
 </p>
@@ -163,12 +202,21 @@ localAuthorityCleanDF &lt;-<span class="st"> </span><span class="kw">readRDS</sp
 <div id="understand-any-mislabelling" class="section level3">
 <h3>Understand any mislabelling</h3>
 <p>Being real-world data, though, the Local Authorities that we scraped from the web do not all match those for which we have boundary files. Fortuntately, R can help us to understand the erroneous labels in the data.</p>
-<pre class="sourceCode r"><code class="sourceCode r">l1 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">unique</span>(localAuthorityCleanDF<span class="op">$</span>id), <span class="dt">stringsAsFactors =</span> F)
+<pre class="sourceCode r"><code class="sourceCode r">l1 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(
+  <span class="kw">unique</span>(localAuthorityCleanDF<span class="op">$</span>id),
+  <span class="dt">stringsAsFactors =</span> F
+  )
+
 <span class="kw">colnames</span>(l1)[<span class="dv">1</span>] &lt;-<span class="st"> &quot;locAuthID&quot;</span>
-areaNameDF &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(areaName, <span class="dt">stringsAsFactors =</span> F)
-  
+areaNameDF &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(
+  areaName, 
+  <span class="dt">stringsAsFactors =</span> F
+  )
+
 l2 &lt;-<span class="st"> </span>l1 <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">check =</span> locAuthID <span class="op">%in%</span><span class="st"> </span>areaNameDF<span class="op">$</span>areaName)
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">check =</span> locAuthID <span class="op">%in%</span><span class="st"> </span>areaNameDF<span class="op">$</span>areaName
+    )
   
 l3 &lt;-<span class="st"> </span>areaNameDF <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">check =</span> areaName <span class="op">%in%</span><span class="st"> </span>l1<span class="op">$</span>locAuthID)
@@ -249,8 +297,14 @@ mapDataLngLat &lt;-<span class="st"> </span>mapDataLat <span class="op">%&gt;%</
 <p>We can then join the map data to the voting data and determine the proportion of leave votes, along with the total number of votes cast in each Local Authority. The following interactive table provides the details.</p>
 <pre class="sourceCode r"><code class="sourceCode r">mapDataFinal &lt;-<span class="st"> </span>mapDataSummary <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(mapDataLngLat, <span class="dt">by =</span> <span class="st">&quot;areaName&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">leaveShare =</span> <span class="kw">round</span>(leaveVotes<span class="op">/</span>(leaveVotes <span class="op">+</span><span class="st"> </span>remainVotes),<span class="dv">2</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">size =</span> leaveVotes <span class="op">+</span><span class="st"> </span>remainVotes)
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">leaveShare =</span> <span class="kw">round</span>(
+      leaveVotes<span class="op">/</span>(leaveVotes <span class="op">+</span><span class="st"> </span>remainVotes)
+      ,<span class="dv">2</span>
+      )
+    ,
+    <span class="dt">size =</span> leaveVotes <span class="op">+</span><span class="st"> </span>remainVotes
+    )
   
 mapDataFinal &lt;-<span class="st"> </span>mapDataFinal[<span class="kw">complete.cases</span>(mapDataFinal),]
   
@@ -281,23 +335,40 @@ dt &lt;-<span class="st"> </span><span class="kw">datatable</span>(
 <div id="plotting-the-votes" class="section level3">
 <h3>Plotting the votes</h3>
 <p>We’re now ready to plot the data. When we do so, some regional trends become immediately apparent.</p>
-<pre class="sourceCode r"><code class="sourceCode r">pal &lt;-<span class="st"> </span><span class="kw">colorNumeric</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">domain =</span> mapDataFinal<span class="op">$</span>leaveShare)
+<pre class="sourceCode r"><code class="sourceCode r">pal &lt;-<span class="st"> </span><span class="kw">colorNumeric</span>(
+  <span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, 
+  <span class="dt">domain =</span> mapDataFinal<span class="op">$</span>leaveShare
+  )
   
 map &lt;-<span class="st"> </span><span class="kw">leaflet</span>(mapDataFinal) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">addProviderTiles</span>(<span class="st">&quot;CartoDB.Positron&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">setView</span>(<span class="dt">lng =</span> <span class="dv">-3</span>, <span class="dt">lat =</span> <span class="fl">53.5</span>, <span class="dt">zoom =</span> <span class="dv">6</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">addCircles</span>(<span class="dt">lng =</span> <span class="op">~</span>mapDataFinal<span class="op">$</span>avLng, 
-             <span class="dt">lat =</span> <span class="op">~</span>mapDataFinal<span class="op">$</span>avLat, 
-             <span class="dt">color =</span> <span class="op">~</span><span class="kw">pal</span>(mapDataFinal<span class="op">$</span>leaveShare), 
-             <span class="dt">radius =</span> <span class="op">~</span><span class="dv">20</span><span class="op">*</span><span class="kw">sqrt</span>(size), 
-             <span class="dt">stroke =</span> <span class="ot">FALSE</span>, 
-             <span class="dt">fillOpacity =</span> <span class="fl">0.9</span>,
-             <span class="dt">popup =</span> <span class="kw">paste</span>(mapDataFinal<span class="op">$</span>areaName, <span class="st">&quot;had &quot;</span>, <span class="kw">round</span>(<span class="dv">100</span><span class="op">*</span>mapDataFinal<span class="op">$</span>leaveShare, <span class="dv">1</span>), <span class="st">&quot;% voting for Leave and &quot;</span>, mapDataFinal<span class="op">$</span>size, <span class="st">&quot;total voters&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">addLegend</span>(<span class="st">&quot;topright&quot;</span>, <span class="dt">pal =</span> pal,
-            <span class="dt">values =</span> <span class="op">~</span>mapDataFinal<span class="op">$</span>leaveShare,
-            <span class="dt">title =</span> <span class="st">&quot;% of Leave voters&quot;</span>,
-            <span class="dt">labFormat =</span> <span class="kw">labelFormat</span>(),
-            <span class="dt">opacity =</span> <span class="dv">1</span>)
+<span class="st">  </span><span class="kw">setView</span>(
+    <span class="dt">lng =</span> <span class="dv">-3</span>, 
+    <span class="dt">lat =</span> <span class="fl">53.5</span>, 
+    <span class="dt">zoom =</span> <span class="dv">6</span>
+    ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">addCircles</span>(
+    <span class="dt">lng =</span> <span class="op">~</span>mapDataFinal<span class="op">$</span>avLng, 
+    <span class="dt">lat =</span> <span class="op">~</span>mapDataFinal<span class="op">$</span>avLat, 
+    <span class="dt">color =</span> <span class="op">~</span><span class="kw">pal</span>(mapDataFinal<span class="op">$</span>leaveShare), 
+    <span class="dt">radius =</span> <span class="op">~</span><span class="dv">20</span><span class="op">*</span><span class="kw">sqrt</span>(size), 
+    <span class="dt">stroke =</span> <span class="ot">FALSE</span>, 
+    <span class="dt">fillOpacity =</span> <span class="fl">0.9</span>,
+    <span class="dt">popup =</span> <span class="kw">paste</span>(
+      mapDataFinal<span class="op">$</span>areaName, 
+      <span class="st">&quot;had &quot;</span>, 
+      <span class="kw">round</span>(<span class="dv">100</span><span class="op">*</span>mapDataFinal<span class="op">$</span>leaveShare, <span class="dv">1</span>), 
+      <span class="st">&quot;% voting for Leave and &quot;</span>, 
+      mapDataFinal<span class="op">$</span>size, 
+      <span class="st">&quot;total voters&quot;</span>)
+    ) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">addLegend</span>(
+    <span class="st">&quot;topright&quot;</span>, 
+    <span class="dt">pal =</span> pal,
+    <span class="dt">values =</span> <span class="op">~</span>mapDataFinal<span class="op">$</span>leaveShare,
+    <span class="dt">title =</span> <span class="st">&quot;% of Leave voters&quot;</span>,
+    <span class="dt">labFormat =</span> <span class="kw">labelFormat</span>(),
+    <span class="dt">opacity =</span> <span class="dv">1</span>
+    )
   
 <span class="kw">frameWidget</span>(map, <span class="dt">height =</span> <span class="dv">400</span>)</code></pre>
 <div id="htmlwidget-2" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
