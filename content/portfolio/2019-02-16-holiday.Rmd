@@ -17,7 +17,7 @@ Yes, it is a first world problem, but we always struggle with holiday destinatio
 
 For that reason, I made this app to find somewhere that suits us all.
 
-<iframe width="600" height="433" scrolling="no" frameborder="no"  src="https://robin.shinyapps.io/hols/"> </iframe>
+<iframe width="600" height="1000" scrolling="no" frameborder="no"  src="https://robin.shinyapps.io/hols/"> </iframe>
 
 </p>
 
