@@ -341,6 +341,9 @@ dt &lt;-<span class="st"> </span><span class="kw">datatable</span>(
   )
   
 map &lt;-<span class="st"> </span><span class="kw">leaflet</span>(mapDataFinal) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">addProviderTiles</span>(
+    <span class="dt">provider =</span> <span class="st">&quot;OpenStreetMap.Mapnik&quot;</span>
+    ) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">setView</span>(
     <span class="dt">lng =</span> <span class="dv">-3</span>, 
     <span class="dt">lat =</span> <span class="fl">53.5</span>, 

@@ -263,6 +263,9 @@ pal <- colorNumeric(
   )
   
 map <- leaflet(mapDataFinal) %>%
+  addProviderTiles(
+    provider = "OpenStreetMap.Mapnik"
+    ) %>% 
   setView(
     lng = -3, 
     lat = 53.5, 
