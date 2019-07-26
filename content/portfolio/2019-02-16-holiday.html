@@ -80,7 +80,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <p>Yes, it is a first world problem, but we always struggle with holiday destinations. I prefer flying upside down to somewhere different, whilst my wife and boy aren’t keen on heat or long flights.</p>
 <p>For that reason, I made this app to find somewhere that suits us all.</p>
-<iframe width="900" height="650" scrolling="no" frameborder="no" src="https://robin.shinyapps.io/hols/">
+<iframe width="600" height="433" scrolling="no" frameborder="no" src="https://robin.shinyapps.io/hols/">
 </iframe>
 </p>
 <p></br></p>
@@ -121,9 +121,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="co">#   str_trim()</span>
 
 <span class="co"># data &lt;- bind_rows(</span>
-<span class="co">#   tibble(airports = airports_LHR, times = times_LHR, home = &#39;LHR&#39;),</span>
-<span class="co">#   tibble(airports = airports_LGW, times = times_LGW, home = &#39;LGW&#39;)</span>
-<span class="co"># ) %&gt;%</span>
+<span class="co">#   tibble(</span>
+<span class="co">#     airports = airports_LHR, </span>
+<span class="co">#     times = times_LHR, </span>
+<span class="co">#     home = &#39;LHR&#39;</span>
+<span class="co">#     ),</span>
+<span class="co">#   tibble(</span>
+<span class="co">#     airports = airports_LGW, </span>
+<span class="co">#     times = times_LGW, </span>
+<span class="co">#     home = &#39;LGW&#39;</span>
+<span class="co">#     )</span>
+<span class="co">#   ) %&gt;%</span>
 <span class="co">#   arrange(home) %&gt;%</span>
 <span class="co">#   group_by(airports) %&gt;%</span>
 <span class="co">#   slice(1) %&gt;%</span>
@@ -131,57 +139,100 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="co">#   arrange(airports) %&gt;%</span>
 <span class="co">#   rowwise() %&gt;%</span>
 <span class="co">#   mutate(</span>
-<span class="co">#     code = str_extract(airports, &#39;[[:upper:]][[:upper:]][[:upper:]]&#39;),</span>
-<span class="co">#     position = str_locate_all(airports, &#39;[[:upper:]][[:upper:]][[:upper:]]&#39;)</span>
+<span class="co">#     code = str_extract(</span>
+<span class="co">#       airports, </span>
+<span class="co">#       &#39;[[:upper:]][[:upper:]][[:upper:]]&#39;</span>
+<span class="co">#       ),</span>
+<span class="co">#     position = str_locate_all(</span>
+<span class="co">#       airports, </span>
+<span class="co">#       &#39;[[:upper:]][[:upper:]][[:upper:]]&#39;</span>
+<span class="co">#       )</span>
 <span class="co">#     ) %&gt;%</span>
-<span class="co">#   separate(col = times, into = c(&#39;split&#39;, &#39;detail&#39;), sep = &quot;: &quot;) %&gt;%</span>
-<span class="co">#   separate(col = detail, into = c(&#39;hours&#39;, &#39;mins&#39;), sep = &quot;h &quot;) %&gt;%</span>
+<span class="co">#   separate(</span>
+<span class="co">#     col = times, </span>
+<span class="co">#     into = c(&#39;split&#39;, &#39;detail&#39;), </span>
+<span class="co">#     sep = &quot;: &quot;</span>
+<span class="co">#     ) %&gt;%</span>
+<span class="co">#   separate(</span>
+<span class="co">#     col = detail, </span>
+<span class="co">#     into = c(&#39;hours&#39;, &#39;mins&#39;), </span>
+<span class="co">#     sep = &quot;h &quot;</span>
+<span class="co">#     ) %&gt;%</span>
 <span class="co">#   rowwise() %&gt;%</span>
 <span class="co">#   mutate(</span>
-<span class="co">#     mins = as.integer(str_sub(mins, start = 1L, end = -2L)),</span>
+<span class="co">#     mins = as.integer(</span>
+<span class="co">#       str_sub(mins, start = 1L, end = -2L)</span>
+<span class="co">#       ),</span>
 <span class="co">#     hours = as.integer(hours),</span>
 <span class="co">#     minutes = (60 * hours) + mins,</span>
 <span class="co">#     position1 = position[[1]] - 2,</span>
 <span class="co">#     position2 = position[[2]] + 2,</span>
-<span class="co">#     city = str_trim(str_to_lower(str_sub(string = airports, start = 1L, end = position1))),</span>
-<span class="co">#     country = str_trim(str_to_lower(str_sub(string = airports, start = position2, end = -1L))))</span>
+<span class="co">#     city = str_trim(</span>
+<span class="co">#       str_to_lower(</span>
+<span class="co">#         str_sub(</span>
+<span class="co">#           string = airports, </span>
+<span class="co">#           start = 1L, </span>
+<span class="co">#           end = position1)</span>
+<span class="co">#         )</span>
+<span class="co">#       ),</span>
+<span class="co">#     country = str_trim(</span>
+<span class="co">#       str_to_lower(</span>
+<span class="co">#         str_sub(</span>
+<span class="co">#           string = airports, </span>
+<span class="co">#           start = position2, </span>
+<span class="co">#           end = -1L)</span>
+<span class="co">#         )</span>
+<span class="co">#       )</span>
+<span class="co">#     )</span>
   
 <span class="co"># airport_data &lt;- airportr::airports</span>
   
-<span class="co"># output &lt;- data[, c(&#39;code&#39;, &#39;city&#39;, &#39;home&#39;, &#39;country&#39;, &#39;minutes&#39;)] %&gt;% </span>
-<span class="co">#   left_join(airport_data, by = c(&#39;code&#39; = &#39;IATA&#39;)) %&gt;% </span>
-<span class="co">#   filter(!is.na(ICAO)) %&gt;% </span>
-<span class="co">#   rowwise() %&gt;% </span>
+<span class="co"># output &lt;- data[, c(&#39;code&#39;, &#39;city&#39;, &#39;home&#39;, &#39;country&#39;, </span>
+<span class="co">#                    &#39;minutes&#39;)] %&gt;%</span>
+<span class="co">#   left_join(airport_data, by = c(&#39;code&#39; = &#39;IATA&#39;)) %&gt;%</span>
+<span class="co">#   filter(!is.na(ICAO)) %&gt;%</span>
+<span class="co">#   rowwise() %&gt;%</span>
 <span class="co">#   mutate(</span>
 <span class="co">#     distance = airport_distance(home, code),</span>
 <span class="co">#     City = str_to_lower(City)</span>
-<span class="co">#     ) %&gt;% </span>
+<span class="co">#     ) %&gt;%</span>
 <span class="co">#   filter(code != &quot;YYT&quot;)</span>
 
-<span class="co"># temp_data &lt;- read_html(&#39;https://en.m.wikipedia.org/wiki/List_of_cities_by_average_temperature&#39;) %&gt;%</span>
-<span class="co">#   html_nodes(&quot;table&quot;) %&gt;% </span>
-<span class="co">#   html_table(header = TRUE) %&gt;% </span>
-<span class="co">#   bind_rows() %&gt;% </span>
-<span class="co">#   select(-Year, -Ref.) %&gt;% </span>
-<span class="co">#   mutate_at(vars(-Country, -City), str_remove, &#39;\\s*\\([^\\)]+\\)&#39;) %&gt;% </span>
-<span class="co">#   mutate_at(vars(-Country, -City), as.numeric) %&gt;% </span>
+<span class="co"># temp_data &lt;- read_html(</span>
+<span class="co">#   &#39;https://en.m.wikipedia.org/wiki/List_of_cities_by_average_temperature&#39;</span>
+<span class="co">#   ) %&gt;%</span>
+<span class="co">#   html_nodes(&quot;table&quot;) %&gt;%</span>
+<span class="co">#   html_table(header = TRUE) %&gt;%</span>
+<span class="co">#   bind_rows() %&gt;%</span>
+<span class="co">#   select(-Year, -Ref.) %&gt;%</span>
+<span class="co">#   mutate_at(</span>
+<span class="co">#     vars(-Country, -City), </span>
+<span class="co">#     str_remove, </span>
+<span class="co">#     &#39;\\s*\\([^\\)]+\\)&#39;</span>
+<span class="co">#     ) %&gt;%</span>
+<span class="co">#   mutate_at(</span>
+<span class="co">#     vars(-Country, -City), </span>
+<span class="co">#     as.numeric</span>
+<span class="co">#     ) %&gt;%</span>
 <span class="co">#   mutate(</span>
 <span class="co">#     City = str_to_lower(City),</span>
-<span class="co">#     Country = str_to_lower(Country)) %&gt;% </span>
+<span class="co">#     Country = str_to_lower(Country)</span>
+<span class="co">#     ) %&gt;%</span>
 <span class="co">#   arrange(City)</span>
   
-<span class="co"># overall &lt;- output %&gt;% </span>
-<span class="co">#   left_join(temp_data, by = c(&#39;City&#39; = &#39;City&#39;)) %&gt;% </span>
-<span class="co">#   select(code, City, Country.x, minutes, ICAO, Latitude, Longitude, UTC, distance, Aug) %&gt;% </span>
+<span class="co"># overall &lt;- output %&gt;%</span>
+<span class="co">#   left_join(temp_data, by = c(&#39;City&#39; = &#39;City&#39;)) %&gt;%</span>
+<span class="co">#   select(code, City, Country.x, minutes, ICAO, Latitude,</span>
+<span class="co">#          Longitude, UTC, distance, Aug) %&gt;%</span>
 <span class="co">#   filter(</span>
 <span class="co">#     !is.na(Aug),</span>
 <span class="co">#     minutes &lt;= time_max,</span>
 <span class="co">#     Aug &lt;= temp_max</span>
-<span class="co">#     ) %&gt;% </span>
-<span class="co">#   arrange(code) %&gt;% </span>
-<span class="co">#   group_by(Country.x, City) %&gt;% </span>
-<span class="co">#   slice(1) %&gt;% </span>
-<span class="co">#   ungroup() %&gt;% </span>
+<span class="co">#     ) %&gt;%</span>
+<span class="co">#   arrange(code) %&gt;%</span>
+<span class="co">#   group_by(Country.x, City) %&gt;%</span>
+<span class="co">#   slice(1) %&gt;%</span>
+<span class="co">#   ungroup() %&gt;%</span>
 <span class="co">#   arrange(City)</span>
 
 <span class="co"># write_rds(x = output, path = &quot;output.rds&quot;)</span>
@@ -194,7 +245,8 @@ pal &lt;-<span class="st"> </span><span class="kw">colorNumeric</span>(
 
 ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
 
-    <span class="kw">titlePanel</span>(<span class="st">&quot;What&#39;s the best holiday destination from London?&quot;</span>),
+    <span class="kw">titlePanel</span>(<span class="st">&quot;What&#39;s the best holiday destination</span>
+<span class="st">               from London?&quot;</span>),
     <span class="kw">br</span>(),
     <span class="kw">br</span>(),
 
@@ -261,7 +313,14 @@ server &lt;-<span class="st"> </span><span class="cf">function</span>(input, out
                 <span class="dt">lat =</span> <span class="op">~</span>Latitude, 
                 <span class="dt">weight =</span> <span class="dv">2</span>,
                 <span class="dt">radius =</span> <span class="op">~</span><span class="kw">sqrt</span>(minutes) <span class="op">*</span><span class="st"> </span><span class="dv">10000</span>, 
-                <span class="dt">popup =</span> <span class="op">~</span><span class="kw">paste</span>(City, <span class="st">&quot;- time: &quot;</span>, <span class="kw">round</span>(minutes<span class="op">/</span><span class="dv">60</span>, <span class="dv">1</span>), <span class="st">&quot;hrs; temp: &quot;</span>, Aug, <span class="st">&quot;C&quot;</span>), 
+                <span class="dt">popup =</span> <span class="op">~</span><span class="kw">paste</span>(
+                  City, 
+                  <span class="st">&quot;- time: &quot;</span>, 
+                  <span class="kw">round</span>(minutes<span class="op">/</span><span class="dv">60</span>, <span class="dv">1</span>), 
+                  <span class="st">&quot;hrs; temp: &quot;</span>, 
+                  Aug, 
+                  <span class="st">&quot;C&quot;</span>
+                  ), 
                 <span class="dt">color =</span> <span class="op">~</span><span class="kw">pal</span>(Aug)
             )
     })
