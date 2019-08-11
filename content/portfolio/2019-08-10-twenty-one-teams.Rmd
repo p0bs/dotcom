@@ -106,7 +106,7 @@ And we collectively feel that Sheffield United will come last. But will we be mo
 
 For completeness (and reproducibility), here's the code that I used to calculate what's above.
 
-```{r showthecode201, ref.label='thecode191', eval=FALSE}
+```{r showthecode201, ref.label='thecode201', eval=FALSE}
 ```
 
 </br>
@@ -115,7 +115,7 @@ For completeness (and reproducibility), here's the code that I used to calculate
 
 </br>
 
-```{r showcollExp20, ref.label='collExp19', eval=FALSE}
+```{r showcollExp20, ref.label='collExp20', eval=FALSE}
 ```
 
 (Finally, [here are your team-by-team predictions](https://www.dropbox.com/s/uin6zk4w5cyk2m1/PremPredict-19-20.csv), alongside the [latest team standings](http://www.theguardian.com/football/premierleague/table).)
