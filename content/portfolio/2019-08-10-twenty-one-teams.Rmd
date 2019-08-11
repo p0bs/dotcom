@@ -3,7 +3,7 @@ title: "XXXX ahead"
 author: "Robin Penfold"
 date: "2019-08-10"
 showonlyimage: false
-draft: true
+draft: false
 slug: "twenty-one-teams"
 image: "img/portfolio/PPlogo.jpg"
 description: "But what are our collective predictions?"
