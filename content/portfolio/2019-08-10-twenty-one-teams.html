@@ -143,7 +143,6 @@ player_data &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span
   )</code></pre>
 <p></br></p>
 <p>… and …</p>
-<p></br></p>
 <pre class="sourceCode r"><code class="sourceCode r">data_input1 &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(player_data)
 averageView &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">rowMeans</span>(data_input1[, <span class="dv">-1</span>]), <span class="dv">2</span>)
 views &lt;-<span class="st"> </span><span class="kw">cbind</span>(data_input1[,<span class="dv">1</span>], averageView)
@@ -186,6 +185,7 @@ data_input2 &lt;-<span class="st"> </span>data_input1 <span class="op">%&gt;%</s
     <span class="dt">title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>), 
     <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">6</span>)
     )</code></pre>
+<p></br></p>
 <p>(Finally, <a href="https://www.dropbox.com/s/uin6zk4w5cyk2m1/PremPredict-19-20.csv">here are your team-by-team predictions</a>, alongside the <a href="http://www.theguardian.com/football/premierleague/table">latest team standings</a>.)</p>
 <hr />
 </div>
