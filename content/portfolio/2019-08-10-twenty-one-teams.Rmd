@@ -120,5 +120,3 @@ For completeness (and reproducibility), here's the code that I used to calculate
 </br>
 
 (Finally, [here are your team-by-team predictions](https://www.dropbox.com/s/uin6zk4w5cyk2m1/PremPredict-19-20.csv), alongside the [latest team standings](http://www.theguardian.com/football/premierleague/table).)
-
-***
