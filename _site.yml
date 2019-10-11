@@ -1,0 +1,12 @@
+name: "dotcom1"
+title: "Robin Penfold"
+description: |
+  Robin Penfold
+output_dir: "docs"
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
+output: distill::distill_article
