@@ -1,9 +1,28 @@
 ---
-title: "About this blog"
-description: |
-  Some additional details about the blog
+title: "A data science and investment nerd"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+```{r, layout="l-screen-inset"}
+knitr::include_graphics('images/p0bs.jpg')
+```
+
+</br>
+
+  * At work -- Leading [my firm's](https://www.willistowerswatson.com/en-US/Solutions/investments) quant analysis of asset managers, using investment techniques and data science
+  
+  * As a volunteer -- Helping charities to get more from their data with [DataKind](https://www.datakind.org/chapters/datakind-uk)
+  
+  * Otherwise -- With my family and friends, and supporting sports teams that rarely win
+
+
+<p style="height: .5em;">&nbsp;</p>
+
+Here are some tweets that interested me recently:
+
+<a class="twitter-timeline" data-lang="en" data-width="500" data-height="5000" data-chrome="noheader nofooter" data-link-color="#996633" href="https://twitter.com/P0BS"></a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+</div>

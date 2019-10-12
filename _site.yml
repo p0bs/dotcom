@@ -1,12 +1,23 @@
-name: "dotcom1"
+name: "dotcom"
 title: "Robin Penfold"
 description: |
-  Robin Penfold
-output_dir: "docs"
+  A data science and investment nerd. 
+  At work, I analyze asset managers, using investment techniques and data science
+  I also volunteer with DataKind to help charities to get more from their data
+  Otherwise, you'll find me with my family and friends, or supporting sports teams that rarely win
+output_dir: "public"
+# base_url: "https://www.p0bs.com/"
+collections:
+  posts:
+    citations: false
 navbar:
   right:
     - text: "Home"
       href: index.html
     - text: "About"
       href: about.html
-output: distill::distill_article
+    - icon: fa fa-rss
+      href: index.xml
+output:
+  distill::distill_article:
+    css: theme.css
