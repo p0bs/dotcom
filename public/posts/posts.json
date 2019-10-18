@@ -50,5 +50,22 @@
     ],
     "preview": "posts/FUSORC/R.jpeg",
     "last_modified": "2019-10-18T17:35:12+01:00"
+  },
+  {
+    "path": "posts/holiday/",
+    "title": "Holiday ideas",
+    "description": "Yes, it is a first world problem, but we always struggle with holiday destinations. I prefer flying upside down to somewhere different, whilst my wife and boy aren't keen on heat or long flights. \nFor that reason, I made this app to find somewhere that suits us all.",
+    "author": [
+      {
+        "name": "Robin Penfold",
+        "url": {}
+      }
+    ],
+    "date": "2019-02-15",
+    "categories": [
+      "geo-viz"
+    ],
+    "preview": "posts/holiday/globe.png",
+    "last_modified": "2019-10-18T18:15:40+01:00"
   }
 ]
