@@ -1,0 +1,36 @@
+[
+  {
+    "path": "posts/twenty-one-teams/",
+    "title": "Noisy boys ahead",
+    "description": "In this year's PremPredict, there are twenty teams, twenty-one players and a massive £105 up for grabs. Unfortunately, though, the noisy boys are currently on top: Yes, the old man, the brother and the best man. Please make it change!\nIn this post, I'll also show our collective expectations for the season.",
+    "author": [
+      {
+        "name": "Robin Penfold",
+        "url": {}
+      }
+    ],
+    "date": "2019-08-10",
+    "categories": [
+      "prempredict"
+    ],
+    "preview": "posts/twenty-one-teams/twenty-one-teams_files/figure-html5/collExp20-1.png",
+    "last_modified": "2019-10-18T15:57:03+01:00"
+  },
+  {
+    "path": "posts/they-think-it-is-all-over/",
+    "title": "Is it all over?",
+    "description": "I run 10,000 simulations on the final round of matches in the Premier League season, so as to project the odds of each player winning this year's PremPredict competition.",
+    "author": [
+      {
+        "name": "Robin Penfold",
+        "url": {}
+      }
+    ],
+    "date": "2019-05-07",
+    "categories": [
+      "prempredict"
+    ],
+    "preview": "posts/they-think-it-is-all-over/PPlogo.jpg",
+    "last_modified": "2019-10-18T12:00:14+01:00"
+  }
+]
