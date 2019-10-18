@@ -16,7 +16,7 @@ output:
     highlight: pygments
 ---
 
-<iframe width="800" height="1300" scrolling="yes" frameborder="no"  src="https://robin.shinyapps.io/hols/"> </iframe>
+<iframe width="800" height="1200" scrolling="yes" frameborder="no"  src="https://robin.shinyapps.io/hols/"> </iframe>
 
 </p>
 
