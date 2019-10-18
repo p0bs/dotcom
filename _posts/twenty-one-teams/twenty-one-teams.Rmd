@@ -7,7 +7,7 @@ categories:
 draft: false
 slug: twenty-one-teams
 description: |
-  Welcome to this year's PremPredict, where there are twenty teams, twenty-one players and a massive £105 up for grabs. But what's worse is that the noisy boys are on top: Yes, the old man, the brother and the best man. Please make it change!
+  In this year's PremPredict, there are twenty teams, twenty-one players and a massive £105 up for grabs. Unfortunately, though, the noisy boys are currently on top: Yes, the old man, the brother and the best man. Please make it change!
   In this post, I'll also consider our collective expectations for the season.
 output:
   distill::distill_article:
