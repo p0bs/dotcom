@@ -34,7 +34,7 @@ get_latest_standings(data_input = player_data)
 
 Doing so generates the following results.
 
-![](output.png){width=200px}
+![](output.png)
   
 Please feel free to try it out (and post an issue if required).
 
