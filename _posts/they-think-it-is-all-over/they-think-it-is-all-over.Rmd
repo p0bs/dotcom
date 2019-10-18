@@ -5,23 +5,19 @@ date: 2019-05-07
 categories:
   - prempredict
 draft: false
-preview: PPlogo.jpg
+preview: PPLOGO.jpeg
 slug: they-think-it-is-all-over
 description: |
-  I run 10,000 simulations on the final round of matches in the Premier League season, so as to project the odds of each player winning this year's PremPredict competition.
+  I run 10,000 simulations on the final round of matches in the Premier League season, so as to project the odds of each player winning my PremPredict competition.
 output:
   distill::distill_article:
     self_contained: false
     highlight: pygments
 ---
 
-</br>
-
 > "Some people are on the pitch. They think it's all over ..." 
 
 But it isn't. It could be Roger or Luke.
-
-</br>
 
 ## Current standings
 
@@ -50,8 +46,6 @@ results <- get_latest_standings(
 ```{r ttiao1a, echo=FALSE, layout="l-body-outset"}
 knitr::kable(results)
 ```
-
-</br>
 
 ## Who will win PremPredict?
 
@@ -82,11 +76,8 @@ winSummary <- tibble(
 
 knitr::kable(winSummary)
 ```
-  
 
 Well, unless your name is Roger or Luke then the answer is zero. (Or, more specifically, in the 10,000 scenarios that I ran, you didn't win any of them.)
-
-</br>
 
 ## Who will win the Premier League?
 
@@ -108,8 +99,6 @@ project_team %>%
   arrange(desc(chance)) %>% 
   knitr::kable()
 ```
-
-</br>
 
 ## Does each player depend upon a team to win?
 
@@ -139,28 +128,21 @@ For completeness and reproducibility, I now show the calculations used in this a
 ```{r ttiao1a, eval=FALSE, echo=TRUE}
 ```
 
-</br>
-
 ## Who will win PremPredict? {.appendix}
 
 ```{r ttiao2, eval=FALSE, echo=TRUE}
 ```
-
-</br>
 
 ## Who will win the Premier League? {.appendix}
 
 ```{r ttiao3, eval=FALSE, echo=TRUE}
 ```
 
-</br>
-
 ## Does each player depend upon a team to win? {.appendix}
 
 ```{r ttiao3, eval=FALSE, echo=TRUE}
 ```
 
-</br>
 ## System settings {.appendix}
 
 ```{r, eval=TRUE, echo=FALSE}

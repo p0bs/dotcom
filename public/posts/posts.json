@@ -19,7 +19,7 @@
   {
     "path": "posts/they-think-it-is-all-over/",
     "title": "Is it all over?",
-    "description": "I run 10,000 simulations on the final round of matches in the Premier League season, so as to project the odds of each player winning this year's PremPredict competition.",
+    "description": "I run 10,000 simulations on the final round of matches in the Premier League season, so as to project the odds of each player winning my PremPredict competition.",
     "author": [
       {
         "name": "Robin Penfold",
@@ -30,7 +30,7 @@
     "categories": [
       "prempredict"
     ],
-    "preview": "posts/they-think-it-is-all-over/PPlogo.jpg",
-    "last_modified": "2019-10-18T12:00:14+01:00"
+    "preview": "posts/they-think-it-is-all-over/PPLOGO.jpeg",
+    "last_modified": "2019-10-18T16:21:16+01:00"
   }
 ]
