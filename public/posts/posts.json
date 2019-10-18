@@ -33,5 +33,22 @@
     ],
     "preview": "posts/they-think-it-is-all-over/PPLOGO.jpeg",
     "last_modified": "2019-10-18T16:37:16+01:00"
+  },
+  {
+    "path": "posts/FUSORC/",
+    "title": "My R code snippets",
+    "description": "Here are a number of shortcuts that I use in R. I hope they help you, too.",
+    "author": [
+      {
+        "name": "Robin Penfold",
+        "url": {}
+      }
+    ],
+    "date": "2019-04-24",
+    "categories": [
+      "programming"
+    ],
+    "preview": "posts/FUSORC/R.jpg",
+    "last_modified": "2019-10-18T17:27:13+01:00"
   }
 ]

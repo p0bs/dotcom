@@ -1,0 +1,186 @@
+---
+title: "My R code snippets"
+author: Robin Penfold
+date: 2019-04-24
+categories:
+  - programming
+draft: false
+preview: R.jpg
+slug: they-think-it-is-all-over
+description: |
+  Here are a number of shortcuts that I use in R. I hope they help you, too.
+output:
+  distill::distill_article:
+    self_contained: false
+    highlight: pygments
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(tidyverse)
+```
+
+I keep a list of frequently-used code snippets that I find valuable and -- in the spirit of the R community -- I thought it best to share them.
+
+In no particular order, here they are ...
+
+## Begin an R notebook
+
+I use the following code to start an R notebook.
+
+```{r, eval=FALSE}
+---
+title: ""
+author: "Robin Penfold"
+date: ""
+output: 
+  html_notebook:
+    theme: sandstone
+    highlight: pygments
+    code_folding: "show"
+    toc: true
+    toc_float: true
+    toc_depth: 4
+---
+
+***
+
+### Introduction
+
+Add ...
+
+```
+
+I also reduce the ouput by adding the following to the first code chunk (and setting `message` to `FALSE`):
+
+```{r, eval=FALSE}
+suppressMessages(library(tidyverse))
+```
+
+## Count outcomes
+
+Simple but frequently used.
+
+```{r}
+mtcars %>% 
+  count(cyl, gear)
+
+mtcars %>%
+  count(cyl, gear) %>%
+  count(gear)
+```
+
+## Mutate in bulk
+
+```{r}
+iris %>% 
+  mutate_at(
+    .cols = vars(-Species),
+    .funs = funs(. * 100)
+    ) %>% 
+  head()
+```
+
+As with the previous shortcut, I often need to mutate all but a few columns. Running the code directly above multiplies all columns in `iris` by 100 except for the `Species`. As with many of these snippets, the example shows the principle, which can be applied in many ways.
+
+## Reduce ifelse calls
+
+Taken from [Advanced R](https://adv-r.hadley.nz) by Hadley Wickham, this infix function provides a default value in the case where the output of another function is `NULL`.
+
+```{r, eval=FALSE}
+library(rlang)
+
+# `%||%` <- function(a, b) if (!is.null(a)) a else b
+
+function_that_might_return_NULL() %||% default_value
+```
+
+## Scrape web data
+
+I tend to use the format `read_html(index_page) %>% html_nodes("a") %>% html_attr("href")`.
+
+```{r}
+library(rvest)
+library(xml2)
+
+read_html("http://www.theguardian.com/football/premierleague/table") %>%
+  html_nodes(".table--striped") %>%
+  .[[1]] %>%
+  html_table() %>% 
+  select(Team:Pts) %>% 
+  head()
+```
+
+## Select some columns
+
+I often need to select all but a few columns that end in a certain way. 
+
+```{r}
+iris %>%
+  select(
+    everything(), 
+    -ends_with("Width")
+    ) %>%
+  head()  
+```
+
+## Show ggplot2 in Rmd
+
+This code chunk metadata enables a ggplot2 object to appear nicely in Rmarkdown.
+
+> ```{r, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE, fig.show='hold', fig.width = 6, fig.asp=0.618, out.width="70%", fig.align="center"}```
+
+## Summarise tidily
+
+Do you ever need to summarise all columns in a dataframe using certain functions. I find this shortcut really helpful for doing so in a tidy way.
+
+```{r}
+mtcars %>% 
+  map_df(
+    .x = .,
+    .f = ~tibble(
+      sum = sum(.x),
+      iqr = IQR(.x),
+      min = min(.x)
+      ),
+    .id = "var_name"
+    )
+```
+
+## Translate dplyr to SQL
+
+Even better, you can choose the dialect of SQL!
+
+```{r, message=FALSE}
+library(dplyr)
+library(dbplyr)
+
+df <- tibble(
+  y = c('a', 'b', 'c'), 
+  z = c(2, 3, 4)
+  )
+
+x <- tbl_lazy(
+  df, 
+  con = simulate_mssql()
+  )
+
+x %>% 
+  filter(y != 'a') %>% 
+  summarise(x = sd(z, na.rm = TRUE)) %>% 
+  show_query()
+```
+
+## Miscellanea
+
+  *  Use `recode` and `recode_factor`
+  
+  * To replace NAs in the variable **style* with *Other*: `replace_na(list(style = “Other”))`
+  
+  * `complete(date, locality, fill = list(collisions = 0))` — For blank entries for collisions in each locality and date, set collisions equal to zero
+  
+  * `coord_flip()` to swap axes
+  
+  * `readr::parse_number()` extracts only the numerical elements of an object
+  
+* `extract(title, “year”, “([12]//d//d//d)”, convert = TRUE, remove = FALSE)` adds a numeric year column if there's a four digit year in the *title* string that begins with a 1 or a 2
