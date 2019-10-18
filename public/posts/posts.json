@@ -37,7 +37,7 @@
   {
     "path": "posts/FUSORC/",
     "title": "My R code snippets",
-    "description": "Here are a number of shortcuts that I use in R. I hope they help you, too.",
+    "description": "I keep a list of frequently-used code snippets that I find valuable and, in the spirit of the R community, I thought it best to share them.",
     "author": [
       {
         "name": "Robin Penfold",
@@ -48,7 +48,7 @@
     "categories": [
       "programming"
     ],
-    "preview": "posts/FUSORC/R.jpg",
-    "last_modified": "2019-10-18T17:27:13+01:00"
+    "preview": "posts/FUSORC/R.jpeg",
+    "last_modified": "2019-10-18T17:35:12+01:00"
   }
 ]
