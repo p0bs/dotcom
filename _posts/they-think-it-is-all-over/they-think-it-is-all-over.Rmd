@@ -43,7 +43,7 @@ results <- get_latest_standings(
   )
 ```
 
-```{r ttiao1a, echo=FALSE, layout="l-body-outset"}
+```{r ttiao1a, echo=FALSE, layout="l-body"}
 knitr::kable(results)
 ```
 

@@ -19,8 +19,6 @@ Welcome to the 2019/20 season of PremPredict!
 
 And, after a whole week, let's start with where everyone is currently placed.
 
-<p style="height: .5em;">&nbsp;</p>
-
 ## Latest standings
 
 ```{r thecode201, echo=FALSE, results='hide', error=TRUE, message=FALSE, warning=FALSE, layout="l-body-outset"}
@@ -41,16 +39,11 @@ results <- get_latest_standings(
   )
 ```
 
-
-```{r thecode201a, echo=FALSE, layout="l-body-outset"}
+```{r thecode201a, echo=FALSE, layout="l-body"}
 knitr::kable(results)
 ```
 
-</br>
-
 Fortunately, there's still a long way to go!
-
-</br>
 
 ## Collective expectations
 
@@ -103,8 +96,6 @@ ggplot(
     )
 ```
 
-<p>&nbsp;</p>
-
 And we collectively feel that Sheffield United will come last. But will we be more accurate than before?!
 
 ***
@@ -115,8 +106,6 @@ For completeness (and reproducibility), here's the code that I used to calculate
 
 ```{r showthecode201, ref.label='thecode201', echo=TRUE, eval=FALSE}
 ```
-
-</br>
 
 ## Collective expectations {.appendix}
   
@@ -130,8 +119,6 @@ And here are the two inputs to these calculations:
   * Your [team-by-team predictions](https://www.dropbox.com/s/uin6zk4w5cyk2m1/PremPredict-19-20.csv)
   
   * The [latest team standings in the Premier League](http://www.theguardian.com/football/premierleague/table)
-
-</br>
 
 ## System settings {.appendix}
 
