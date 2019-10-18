@@ -1,5 +1,5 @@
 ---
-title: "A data science and investment nerd"
+title: "Data science & investing nerd"
 ---
 
 ```{r setup, include=FALSE}
