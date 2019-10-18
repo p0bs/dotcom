@@ -1,0 +1,140 @@
+---
+title: "Noisy boys ahead"
+author: Robin Penfold
+date: 2019-08-10
+categories:
+  - prempredict
+draft: false
+slug: twenty-one-teams
+description: |
+  Welcome to this year's PremPredict, where there are twenty teams, twenty-one players and a massive £105 up for grabs. But what's worse is that the noisy boys are on top: Yes, the old man, the brother and the best man. Please make it change!
+  In this post, I'll also consider our collective expectations for the season.
+output:
+  distill::distill_article:
+    self_contained: false
+    highlight: pygments
+---
+
+Welcome to the 2019/20 season of PremPredict!
+
+And, after a whole week, let's start with where everyone is currently placed.
+
+<p style="height: .5em;">&nbsp;</p>
+
+## Latest standings
+
+```{r thecode201, echo=FALSE, results='hide', error=TRUE, message=FALSE, warning=FALSE, layout="l-body-outset"}
+library(ggridges)
+library(premPredictor)
+suppressMessages(library(tidyverse))
+  
+# player_info <- 
+#   "https://www.dropbox.com/s/uin6zk4w5cyk2m1/PremPredict-19-20.csv"
+# player_data <- get_player_data(url_value = player_info)
+
+player_data <- read_rds('data_input_2019-20.rds')
+
+results <- get_latest_standings(
+  data_input = player_data, 
+  use_saved_data = T, 
+  data_file = '201920_week1.rds'
+  )
+```
+
+
+```{r thecode201a, echo=FALSE, layout="l-body-outset"}
+knitr::kable(results)
+```
+
+</br>
+
+Fortunately, there's still a long way to go!
+
+</br>
+
+## Collective expectations
+
+But what are we collectively expecting from the Premier League this season? Are we expecting it to be a repeat of last season?
+
+By the look of our picks, we seem to side with the bookies. As a group, we predict Manchester City to finish highest on average, with the recently-promoted teams struggling.
+
+```{r collExp20, echo=FALSE, error=TRUE, layout="l-body-outset", preview=TRUE}
+data_input1 <- as_tibble(player_data)
+averageView <- round(rowMeans(data_input1[, -1]), 2)
+views <- cbind(data_input1[,1], averageView)
+  
+data_input2 <- data_input1 %>% 
+  gather(key = "Player", -Club, value = "Prediction") %>% 
+  left_join(views, by = "Club")
+  
+ggplot(
+  data = data_input2,
+  mapping = aes(
+    y = reorder(Club, -averageView), 
+    x = Prediction, 
+    fill = averageView, 
+    color = averageView
+    )
+  ) + 
+  geom_ridgeline(
+    stat = "binline", 
+    bins = 20, scale = 0.95, 
+    draw_baseline = FALSE
+    ) + 
+  scale_x_continuous(
+    breaks = c(5, 10, 15, 20), 
+    labels = c(5, 10, 15, 20)
+    ) + 
+  labs(
+    y = "", x = "", 
+    title = "\n Our collective predictions for this season \n"
+    ) + 
+  scale_fill_gradient(
+    low = "green", high = "red", 
+    guide=FALSE
+    ) + 
+  scale_color_gradient(
+    low = "green", high = "red", 
+    guide=FALSE
+    ) +
+  theme(
+    title = element_text(size = 10), 
+    axis.text.y = element_text(size = 6)
+    )
+```
+
+<p>&nbsp;</p>
+
+And we collectively feel that Sheffield United will come last. But will we be more accurate than before?!
+
+***
+
+For completeness (and reproducibility), here's the code that I used to calculate what's above.
+
+## Latest standings {.appendix}
+
+```{r showthecode201, ref.label='thecode201', echo=TRUE, eval=FALSE}
+```
+
+</br>
+
+## Collective expectations {.appendix}
+  
+```{r showcollExp20, ref.label='collExp20', echo=TRUE, eval=FALSE}
+```
+
+## Calculation inputs {.appendix}
+
+And here are the two inputs to these calculations:
+
+  * Your [team-by-team predictions](https://www.dropbox.com/s/uin6zk4w5cyk2m1/PremPredict-19-20.csv)
+  
+  * The [latest team standings in the Premier League](http://www.theguardian.com/football/premierleague/table)
+
+</br>
+
+## System settings {.appendix}
+
+```{r, eval=TRUE, echo=FALSE}
+sessionInfo()
+```

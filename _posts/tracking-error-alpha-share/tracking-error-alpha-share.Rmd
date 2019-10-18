@@ -1,0 +1,80 @@
+---
+title: "Imputing tracking error from active share and the number of stocks"
+author: Robin Penfold
+date: 2018-08-09
+categories:
+  - papers
+  - performance
+draft: false
+slug: tracking-error-alpha-share
+preview: tracking-error2.jpg
+bibliography: Sapra.bib
+description: |
+  Some  done.
+output:
+  distill::distill_article:
+    self_contained: false
+    highlight: pygments
+---
+
+```{r te_as1, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Let's start with some theory.
+
+## Theory
+
+As Steve Sapra at PIMCO shows [@Sapra2013], tracking error can be linearly expressed in terms of active share ...
+
+After a little manipulation, it can be shown that:
+
+\(S = \omega / (\bar{\sigma _{e}} \sqrt{2\pi / n})\)    , where:
+
+  * \(S\) -- the expected active share of the product
+  
+  * \(\omega\) -- the expected tracking error of the product
+  
+  * \(\bar{\sigma _{e}}\) -- the average idiosyncratic risk of all stocks in the investible universe
+  
+  * \(n\) -- the number of active stocks in the product
+
+  
+Put another way:
+
+\(\omega / S = \bar{\sigma _{e}} \sqrt{2\pi / n} = \bar{\sigma _{e}} \sqrt{2\pi}(1 / \sqrt{n})\)
+
+In other words, if I were to regress \(\omega / S\) against \(1 / \sqrt{n}\) for all the products in a mandate, the resulting beta coefficient would be the empirical estimate of \(\bar{\sigma _{e}} \sqrt{2\pi}\) -- which I could divide by \(\sqrt{2\pi}\) to obtain the emprical estimate of \(\bar{\sigma _{e}}\) for the mandate.
+
+etc 
+
+***
+
+For completeness and reproducibility, I now show the calculations used in this analysis.
+
+## Calibration {.appendix}
+
+```{r te_as2, eval=FALSE, echo=TRUE}
+```
+
+</br>
+
+## Coefficients {.appendix}
+
+```{r te_as3, eval=FALSE, echo=TRUE}
+```
+
+</br>
+
+## Conclusion {.appendix}
+
+```{r te_as4, eval=FALSE, echo=TRUE}
+```
+
+</br>
+
+## System settings {.appendix}
+
+```{r, eval=TRUE, echo=FALSE}
+sessionInfo()
+```
