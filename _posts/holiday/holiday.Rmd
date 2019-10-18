@@ -270,6 +270,7 @@ server <- function(input, output) {
                     ), 
             rownames = FALSE,
             options=list(
+                pageLength = 3,
                 dom = 'tp',
                 deferRender=TRUE, 
                 scrollY=300, 
