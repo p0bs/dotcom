@@ -107,6 +107,9 @@ For completeness (and reproducibility), here's the code that I used to calculate
 ```{r showthecode201, ref.label='thecode201', echo=TRUE, eval=FALSE}
 ```
 
+```{r showthecode201a, ref.label='thecode201a', echo=TRUE, eval=FALSE}
+```
+
 ## Collective expectations {.appendix}
   
 ```{r showcollExp20, ref.label='collExp20', echo=TRUE, eval=FALSE}
