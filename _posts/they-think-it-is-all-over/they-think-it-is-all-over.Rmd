@@ -1,0 +1,168 @@
+---
+title: "Is it all over?"
+author: Robin Penfold
+date: 2019-05-07
+categories:
+  - prempredict
+draft: false
+slug: they-think-it-is-all-over
+preview: PPlogo.jpg
+description: |
+  I run 10,000 simulations on the final round of matches in the Premier League season, so as to project the odds of each player winning this year's PremPredict competition.
+output:
+  distill::distill_article:
+    self_contained: false
+    highlight: pygments
+---
+
+</br>
+
+> "Some people are on the pitch. They think it's all over ..." 
+
+But it isn't. It could be Roger or Luke.
+
+</br>
+
+## Current standings
+
+Let's start with the current standings:
+
+```{r ttiao1, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
+library(premPredictor)
+suppressMessages(library(tidyverse))
+
+iterations <- 10000
+  
+player_info <- 
+  "https://www.dropbox.com/s/uin6zk4w5cyk2m1/PremPredict-18-19.csv"
+player_data <- get_player_data(url_value = player_info)
+
+odds_info <- "https://www.dropbox.com/s/cb5qyxyexksvez1/odds.csv"
+odds_data <- get_odds_data(url_value = odds_info)
+
+results <- get_latest_standings(
+  data_input = player_data, 
+  use_saved_data = T, 
+  data_file = '201819_penultimate.rds'
+  )
+```
+
+```{r ttiao1a, echo=FALSE, layout="l-body-outset"}
+knitr::kable(results)
+```
+
+</br>
+
+## Who will win PremPredict?
+
+But here's what we really want to know: What are our chances of winning? 
+
+```{r ttiao2, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+project_players <- get_projection(
+  url_odds = odds_info,
+  url_predictions = player_info,
+  project_players = TRUE,
+  use_saved_data = T,
+  data_file = "201819_penultimate.rds",
+  runs = iterations)
+
+winPlayer <- as.data.frame(project_players==1L)
+
+winLikelihood <- as.data.frame(
+  apply(winPlayer, 2, sum)
+)
+
+winSummary <- tibble(
+  Name = colnames(project_players), 
+  Frequency = pull(winLikelihood, 1)) %>% 
+  filter(Frequency > 0) %>% 
+  arrange(-Frequency) %>%
+  mutate(Likelihood = Frequency/iterations) %>%
+  select(Name, Likelihood)
+
+knitr::kable(winSummary)
+```
+  
+
+Well, unless your name is Roger or Luke then the answer is zero. (Or, more specifically, in the 10,000 scenarios that I ran, you didn't win any of them.)
+
+</br>
+
+## Who will win the Premier League?
+
+By the way, these calculations also show who the bookies feel will be champions. 
+
+```{r ttiao3, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+project_team <- get_projection(
+  url_odds = odds_info, 
+  url_predictions = player_info, 
+  project_players = FALSE,
+  use_saved_data = T,
+  data_file = "201819_penultimate.rds",
+  runs = iterations)
+
+project_team %>% 
+  select(Liverpool, `Man City`) %>% 
+  count(Liverpool, `Man City`) %>% 
+  mutate(chance = n / sum(n)) %>% 
+  arrange(desc(chance)) %>% 
+  knitr::kable()
+```
+
+</br>
+
+## Does each player depend upon a team to win?
+
+In short, will Luke really support Liverpool?
+
+```{r ttiao4, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+bind_cols(winPlayer, project_team) %>% 
+  select(
+    Roger = Roger.Gathercole, 
+    Luke = Luke.Finnis, 
+    `Man City`, Liverpool) %>% 
+  count(Roger, Luke, `Man City`, Liverpool) %>% 
+  mutate(chance = n / sum(n)) %>% 
+  arrange(`Man City`, desc(chance)) %>% 
+  knitr::kable()
+```
+
+***
+
+For completeness and reproducibility, I now show the calculations used in this analysis.
+
+## Current standings {.appendix}
+
+```{r ttiao1, eval=FALSE, echo=TRUE}
+```
+
+```{r ttiao1a, eval=FALSE, echo=TRUE}
+```
+
+</br>
+
+## Who will win PremPredict? {.appendix}
+
+```{r ttiao2, eval=FALSE, echo=TRUE}
+```
+
+</br>
+
+## Who will win the Premier League? {.appendix}
+
+```{r ttiao3, eval=FALSE, echo=TRUE}
+```
+
+</br>
+
+## Does each player depend upon a team to win? {.appendix}
+
+```{r ttiao3, eval=FALSE, echo=TRUE}
+```
+
+</br>
+## System settings {.appendix}
+
+```{r, eval=TRUE, echo=FALSE}
+sessionInfo()
+```
