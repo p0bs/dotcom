@@ -5,8 +5,8 @@ date: 2019-05-07
 categories:
   - prempredict
 draft: false
-slug: they-think-it-is-all-over
 preview: PPlogo.jpg
+slug: they-think-it-is-all-over
 description: |
   I run 10,000 simulations on the final round of matches in the Premier League season, so as to project the odds of each player winning this year's PremPredict competition.
 output:

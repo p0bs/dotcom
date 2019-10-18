@@ -1,12 +1,11 @@
 ---
 title: "Noisy boys ahead"
 author: Robin Penfold
-date: 2018-08-09
+date: 2019-08-10
 categories:
   - prempredict
 draft: false
 slug: twenty-one-teams
-preview: PPlogo.jpg
 description: |
   Welcome to this year's PremPredict, where there are twenty teams, twenty-one players and a massive £105 up for grabs. But what's worse is that the noisy boys are on top: Yes, the old man, the brother and the best man. Please make it change!
   In this post, I'll also consider our collective expectations for the season.
@@ -59,8 +58,8 @@ But what are we collectively expecting from the Premier League this season? Are 
 
 By the look of our picks, we seem to side with the bookies. As a group, we predict Manchester City to finish highest on average, with the recently-promoted teams struggling.
 
-```{r collExp20, echo=FALSE, error=TRUE, layout="l-body-outset"}
-data_input1 <- as_data_frame(player_data)
+```{r collExp20, echo=FALSE, error=TRUE, layout="l-body-outset", preview=TRUE}
+data_input1 <- as_tibble(player_data)
 averageView <- round(rowMeans(data_input1[, -1]), 2)
 views <- cbind(data_input1[,1], averageView)
   
