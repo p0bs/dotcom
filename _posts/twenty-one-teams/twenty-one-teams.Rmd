@@ -98,7 +98,7 @@ ggplot(
 
 And we collectively feel that Sheffield United will come last. But will we be more accurate than before?!
 
-***
+##   {.appendix}
 
 For completeness (and reproducibility), here's the code that I used to calculate what's above.
 

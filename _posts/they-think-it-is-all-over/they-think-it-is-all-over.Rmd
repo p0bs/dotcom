@@ -4,6 +4,7 @@ author: Robin Penfold
 date: 2019-05-07
 categories:
   - prempredict
+  - simulation
 draft: false
 preview: PPLOGO.jpeg
 slug: they-think-it-is-all-over
@@ -116,9 +117,9 @@ bind_cols(winPlayer, project_team) %>%
   knitr::kable()
 ```
 
-***
+##   {.appendix}
 
-For completeness and reproducibility, I now show the calculations used in this analysis.
+For completeness (and reproducibility), here's the code that I used to calculate what's above.
 
 ## Current standings {.appendix}
 
