@@ -121,5 +121,23 @@
     ],
     "preview": "posts/evaluation/evaluation.png",
     "last_modified": "2019-10-19T21:15:45+01:00"
+  },
+  {
+    "path": "posts/batting/",
+    "title": "Who bats best?",
+    "description": "Cricket commentators often bang on about changes in batting quality through the ages. Or they say that batting order matters to averages ... or vice-versa. But is there anything in these questions? In this post, I try and find out a bit.",
+    "author": [
+      {
+        "name": "Robin Penfold",
+        "url": {}
+      }
+    ],
+    "date": "2016-10-09",
+    "categories": [
+      "animation",
+      "sport"
+    ],
+    "preview": "posts/batting/bat.jpg",
+    "last_modified": "2019-10-19T22:00:56+01:00"
   }
 ]

@@ -17,7 +17,7 @@ output:
     highlight: pygments
 ---
 
-The idea is pretty simple, which I'll outline below. If you want the details, check out [the formal paper, via SSRN](http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2101771). For a more accessible introduction, I'd recommend the video below that was taken at the International Congress of Actuaries in 2014.
+The idea is pretty simple, which I'll outline below. If you want the details, check out [the formal paper, via SSRN](http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2101771). For a more accessible introduction, I'd recommend the video below that was taken (and won an award) at the International Congress of Actuaries in 2014.
 
 <p class="half-line">&nbsp;</p>
 
