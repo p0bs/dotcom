@@ -1,0 +1,26 @@
+---
+title: "Who you know?"
+author: Robin Penfold
+date: 2018-09-12
+categories:
+  - networks
+  - presentations
+draft: false
+preview: network.jpeg
+slug: networks
+description: |
+  I recently presented some of my work on building networks of investment managers. Here are some more details.
+output:
+  distill::distill_article:
+    self_contained: false
+    highlight: pygments
+---
+
+I recently presented some of my work at [eaRl](https://earlconf.com), the main conference for R in the UK. As the slides went on the public website, I can share them.
+
+As you'll see, we're looking to use colleague networks of investment managers in order to find interesting managers that we haven't yet rated. To do so, we use our existing ratings and propogate them through the network.
+
+Here are the slides:
+
+<object width="630" height="468" data="EARL-2018.pdf"></object>
+

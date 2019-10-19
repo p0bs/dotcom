@@ -85,5 +85,23 @@
     ],
     "preview": "posts/package/package.jpg",
     "last_modified": "2019-10-18T21:30:34+01:00"
+  },
+  {
+    "path": "posts/networks/",
+    "title": "Who you know?",
+    "description": "I recently presented some of my work on building networks of investment managers. Here are some more details.",
+    "author": [
+      {
+        "name": "Robin Penfold",
+        "url": {}
+      }
+    ],
+    "date": "2018-09-12",
+    "categories": [
+      "networks",
+      "presentations"
+    ],
+    "preview": "posts/networks/network.jpeg",
+    "last_modified": "2019-10-19T21:08:23+01:00"
   }
 ]
