@@ -103,5 +103,23 @@
     ],
     "preview": "posts/networks/network.jpeg",
     "last_modified": "2019-10-19T21:08:23+01:00"
+  },
+  {
+    "path": "posts/evaluation/",
+    "title": "Asset manager evaluation",
+    "description": "Back in the day, I wrote research papers about investment practice. One example concerned how asset owners could better evaluate the investment performance of their asset managers. \nAs I still like the idea, I thought that I'd share it with you, given that the materials are already in the public domain. Basically, the idea is to view performance in the way that a Bayesian would.",
+    "author": [
+      {
+        "name": "Robin Penfold",
+        "url": {}
+      }
+    ],
+    "date": "2016-10-20",
+    "categories": [
+      "performance",
+      "presentations"
+    ],
+    "preview": "posts/evaluation/evaluation.png",
+    "last_modified": "2019-10-19T21:15:45+01:00"
   }
 ]
