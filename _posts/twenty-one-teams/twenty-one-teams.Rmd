@@ -16,7 +16,7 @@ output:
 
 Welcome to the 2019/20 season of PremPredict!
 
-Rather than create new posts every few months, I thought that you'd appreciate a page that updated with the latest results every time that you hit refresh.
+Rather than create new posts every few months, I thought you'd appreciate a page that updated with the latest results every time you hit refresh.
 
 With that in mind, here are the very latest standings.
 
