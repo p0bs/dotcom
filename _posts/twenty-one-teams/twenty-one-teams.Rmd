@@ -16,7 +16,7 @@ output:
 
 Welcome to the 2019/20 season of PremPredict!
 
-Rather than create new posts every few months, I thought you'd appreciate a page that updated with the latest results every time you hit refresh.
+Rather than create new posts every few months, I thought you'd appreciate a page that updated with the latest results every time that you hit refresh.
 
 With that in mind, here are the very latest standings.
 
@@ -97,7 +97,7 @@ And we collectively feel that Sheffield United will come last. But will we be mo
 
 ##   {.appendix}
 
-For completeness (and reproducibility), here's the code that I used to calculate what's above. Note that the app does things a little different, but this standalone code should give you the gist of the approach.
+For completeness (and reproducibility), here's the code that I used to calculate what's above. Note that the app does things a little differently, but this standalone code should give you the gist of the approach.
 
 ## Latest standings {.appendix}
 
