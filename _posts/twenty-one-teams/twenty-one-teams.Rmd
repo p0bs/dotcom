@@ -1,5 +1,5 @@
 ---
-title: "Noisy boys ahead"
+title: "PremPredict 2019/20"
 author: Robin Penfold
 date: 2019-08-10
 categories:
@@ -7,8 +7,7 @@ categories:
 draft: false
 slug: twenty-one-teams
 description: |
-  In this year's PremPredict, there are twenty teams, twenty-one players and a massive £105 up for grabs. Unfortunately, though, the noisy boys are currently on top: Yes, the old man, the brother and the best man. Please make it change!
-  In this post, I'll also show our collective expectations for the season.
+  In this year's PremPredict, there are twenty teams, twenty-one players and a massive £105 up for grabs. In this post, I'll show the latest standings and our collective expectations for the season.
 output:
   distill::distill_article:
     self_contained: false
@@ -17,7 +16,9 @@ output:
 
 Welcome to the 2019/20 season of PremPredict!
 
-And, after a whole week, let's start with where everyone is currently placed.
+Rather than create new posts every few months, I thought that you'd appreciate a page that updated with the latest results every time that you hit refresh.
+
+With that in mind, here are the very latest standings.
 
 ## Latest standings
 
@@ -39,11 +40,7 @@ results <- get_latest_standings(
   )
 ```
 
-```{r thecode201a, echo=FALSE, layout="l-body"}
-knitr::kable(results)
-```
-
-Fortunately, there's still a long way to go!
+<iframe width="800" height="417" scrolling="yes" frameborder="no"  src="https://robin.shinyapps.io/PP-shiny/"> </iframe>
 
 ## Collective expectations
 
@@ -100,14 +97,11 @@ And we collectively feel that Sheffield United will come last. But will we be mo
 
 ##   {.appendix}
 
-For completeness (and reproducibility), here's the code that I used to calculate what's above.
+For completeness (and reproducibility), here's the code that I used to calculate what's above. Note that the app does things a little different, but this standalone code should give you the gist of the approach.
 
 ## Latest standings {.appendix}
 
 ```{r showthecode201, ref.label='thecode201', echo=TRUE, eval=FALSE}
-```
-
-```{r showthecode201a, ref.label='thecode201a', echo=TRUE, eval=FALSE}
 ```
 
 ## Collective expectations {.appendix}
