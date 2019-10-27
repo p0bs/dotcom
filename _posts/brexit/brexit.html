@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Brexit vote analysis</title>
+  
+  <meta property="description" itemprop="description" content="ADD ..."/>
+  
+  
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2016-10-09"/>
+  <meta property="article:created" itemprop="dateCreated" content="2016-10-09"/>
+  <meta name="article:author" content="Robin Penfold"/>
+  
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Brexit vote analysis"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="ADD ..."/>
+  <meta property="og:locale" content="en_US"/>
+  
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Brexit vote analysis"/>
+  <meta property="twitter:description" content="ADD ..."/>
+  
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","date","categories","draft","preview","slug","description","output"]}},"value":[{"type":"character","attributes":{},"value":["Brexit vote analysis"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Robin Penfold"]}]}]},{"type":"character","attributes":{},"value":["2016-10-09"]},{"type":"character","attributes":{},"value":["politics","geoviz"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["hex.jpeg"]},{"type":"character","attributes":{},"value":["brexit"]},{"type":"character","attributes":{},"value":["ADD ...\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","highlight"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["pygments"]}]}]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["brexit_files/bowser-1.9.3/bowser.min.js","brexit_files/distill-2.2.21/template.v2.js","brexit_files/jquery-1.11.3/jquery.min.js","brexit_files/webcomponents-2.0.0/webcomponents.js","hex.jpeg"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+  
+  <style type="text/css">
+  
+  body {
+    background-color: white;
+  }
+  
+  .pandoc-table {
+    width: 100%;
+  }
+  
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+  
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+  
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+  
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+  
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+  
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+  
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .shaded .shaded-content {
+    background: white;
+  }
+  
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+  
+  .hidden {
+    display: none !important;
+  }
+  
+  d-article {
+    padding-bottom: 30px;
+  }
+  
+  d-appendix {
+    padding-top: 30px;
+  }
+  
+  d-article>p>img {
+    width: 100%;
+  }
+  
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+  
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+  
+  /* CSS for table of contents */
+  
+  .d-toc {
+    color: rgba(0,0,0,0.8);
+    font-size: 0.8em;
+    line-height: 1em;
+  }
+  
+  .d-toc-header {
+    font-size: 0.6rem;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 1.3em;
+  }
+  
+  .d-toc a {
+    border-bottom: none;
+  }
+  
+  .d-toc ul {
+    padding-left: 0;
+  }
+  
+  .d-toc li>ul {
+    padding-top: 0.8em;
+    padding-left: 16px;
+    margin-bottom: 0.6em;
+  }
+  
+  .d-toc ul,
+  .d-toc li {
+    list-style-type: none;
+  }
+  
+  .d-toc li {
+    margin-bottom: 0.9em;
+  }
+  
+  .d-toc-separator {
+    margin-top: 20px;
+    margin-bottom: 2em;
+  }
+  
+  .d-article-with-toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  
+  
+  
+  /* Tweak code blocks (note that this CSS is repeated above in an injection
+     into the d-code shadow dom) */
+  
+  d-code {
+    overflow-x: auto !important;
+  }
+  
+  pre.d-code code.d-code {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+  
+  pre.text-output {
+  
+    font-size: 12px;
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+  
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+  
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+  
+  @media(min-width: 768px) {
+  
+  d-code {
+    overflow-x: visible !important;
+  }
+  
+  pre.d-code code.d-code  {
+      padding-left: 18px;
+      font-size: 14px;
+  }
+  pre.text-output {
+    font-size: 14px;
+  }
+  }
+  
+  /* Figure */
+  
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+  
+  .figure img {
+    width: 100%;
+  }
+  
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+  
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+  
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+  
+  
+  
+  /* Tweak 1000px media break to show more text */
+  
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+  
+    .grid {
+      grid-column-gap: 16px;
+    }
+  
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+  
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+  
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+  
+  
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+  
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  
+  
+  /* Social footer */
+  
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+  
+  .disqus-comments {
+    margin-right: 30px;
+  }
+  
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+  
+  #disqus_thread {
+    margin-top: 30px;
+  }
+  
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+  
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+  
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+  
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+  
+  
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+  
+  
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+  
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+  
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+  
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+  
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+  
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+  
+  
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+  
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+  
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+  
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+  
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+  
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+  
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+  
+  </style>
+  
+  <script type="application/javascript">
+  
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+  
+  // show body when load is complete
+  function on_load_complete() {
+  
+    // set body to visible
+    document.body.style.visibility = 'visible';
+  
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+  
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+  
+  function init_distill() {
+  
+    init_common();
+  
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+  
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+  
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+  
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+  
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+  
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+  
+    // create d-bibliography
+    var bibliography = $('<d-bibliography></d-bibliography>');
+    $('#distill-bibliography').wrap(bibliography);
+  
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+  
+    // replace citations with <d-cite>
+    $('.citation').each(function(i, val) {
+      appendix = true;
+      var cites = $(this).attr('data-cites').split(" ");
+      var dt_cite = $('<d-cite></d-cite>');
+      dt_cite.attr('key', cites.join());
+      $(this).replaceWith(dt_cite);
+    });
+    // remove refs
+    $('#refs').remove();
+  
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+  
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-toc a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+  
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+  
+    // replace code blocks with d-code
+    $('pre>code').each(function(i, val) {
+      var code = $(this);
+      var pre = code.parent();
+      var clz = "";
+      var language = pre.attr('class');
+      if (language) {
+        // map unknown languages to "clike" (without this they just dissapear)
+        if ($.inArray(language, ["bash", "clike", "css", "go", "html",
+                                 "javascript", "js", "julia", "lua", "markdown",
+                                 "markup", "mathml", "python", "svg", "xml"]) == -1)
+          language = "clike";
+        language = ' language="' + language + '"';
+        var dt_code = $('<d-code block' + language + clz + '></d-code>');
+        dt_code.text(code.text());
+        pre.replaceWith(dt_code);
+      } else {
+        code.addClass('text-output').unwrap().changeElementType('pre');
+      }
+    });
+  
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+  
+      // capture layout
+      var layout = $(this).attr('data-layout');
+  
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('d-code, pre.text-output, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+  
+  
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+  
+    // load distill framework
+    load_distill_framework();
+  
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+  
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+  
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+  
+      // table of contents
+      if (have_authors) // adjust border if we are in authors
+        $('.d-toc').parent().addClass('d-article-with-toc');
+  
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+  
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+  
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+  
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+  
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+  
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+  
+      // inject pre code styles (can't do this with a global stylesheet b/c a shadow root is used)
+      $('d-code').each(function(i, val) {
+        var style = document.createElement('style');
+        style.innerHTML = 'pre code { padding-left: 10px; font-size: 12px; border-left: 2px solid rgba(0,0,0,0.1); } ' +
+                          '@media(min-width: 768px) { pre code { padding-left: 18px; font-size: 14px; } }';
+        if (this.shadowRoot)
+          this.shadowRoot.appendChild(style);
+      });
+  
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+  
+      // clear polling timer
+      clearInterval(tid);
+  
+      // show body now that everything is ready
+      on_load_complete();
+    }
+  
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+  
+  }
+  
+  function init_downlevel() {
+  
+    init_common();
+  
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+  
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+  
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+  
+    // remove toc
+    $('.d-toc-header').remove();
+    $('.d-toc').remove();
+    $('.d-toc-separator').remove();
+  
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+  
+  
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+  
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+  
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+  
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+  
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+  
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+  
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+  
+    $('body').addClass('downlevel');
+  
+    on_load_complete();
+  }
+  
+  
+  function init_common() {
+  
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+  
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+  
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+  
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+  
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+  
+      }
+    });
+  
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+  
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+  
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+  
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+  
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+  
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+  
+  </script>
+  
+  <!--/radix_placeholder_distill-->
+  <script src="brexit_files/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+  <script src="brexit_files/jquery-1.12.4/jquery.min.js"></script>
+  <link href="brexit_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+  <script src="brexit_files/datatables-binding-0.9/datatables.js"></script>
+  <link href="brexit_files/dt-core-1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+  <link href="brexit_files/dt-core-1.10.19/css/jquery.dataTables.extra.css" rel="stylesheet" />
+  <script src="brexit_files/dt-core-1.10.19/js/jquery.dataTables.min.js"></script>
+  <link href="brexit_files/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+  <script src="brexit_files/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+  <link href="brexit_files/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+  <script src="brexit_files/leaflet-1.3.1/leaflet.js"></script>
+  <link href="brexit_files/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+  <script src="brexit_files/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+  <script src="brexit_files/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+  <link href="brexit_files/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+  <script src="brexit_files/leaflet-binding-2.0.2/leaflet.js"></script>
+  <script src="brexit_files/leaflet-providers-1.1.17/leaflet-providers.js"></script>
+  <script src="brexit_files/leaflet-providers-plugin-2.0.2/leaflet-providers-plugin.js"></script>
+  <script src="brexit_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="brexit_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="brexit_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Brexit vote analysis","description":"ADD ...","authors":[{"author":"Robin Penfold","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2016-10-09T00:00:00.000+01:00","citationText":"Penfold, 2016"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Brexit vote analysis</h1>
+<p>ADD …</p>
+</div>
+
+<div class="d-byline">
+  
+  Robin Penfold
+  
+<br/>2016-10-09
+</div>
+
+<div class="d-article">
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<p></br></p>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<p></br></p>
+<div class="layout-chunk" data-layout="l-body">
+<div id="htmlwidget-165b037e6b99a4990aa6" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-165b037e6b99a4990aa6">{"x":{"filter":"none","data":[["Boston","South Holland","Castle Point","Thurrock","Great Yarmouth","Fenland","Mansfield","Bolsover","East Lindsey","North East Lincolnshire","Ashfield","Havering","Hartlepool","Tendring","Stoke-on-Trent","Doncaster","Cannock Chase","Basildon","Barnsley","Harlow","Walsall","Rotherham","Bassetlaw","Kingston upon Hull, City of","Dudley","Tamworth","Blackpool","North Warwickshire","Sandwell","Rochford","Burnley","Wakefield","King's Lynn and West Norfolk","North Lincolnshire","Broxbourne","Hyndburn","Redcar and Cleveland","Nuneaton and Bedworth","Middlesbrough","Gravesham","Forest Heath","South Staffordshire","Staffordshire Moorlands","Breckland","Dartford","Corby","Medway","Gosport","Wigan","Wyre","Thanet","Pendle","East Staffordshire","Telford and Wrekin","Torbay","Wyre Forest","Bexley","Newcastle-under-Lyme","Waveney","North East Derbyshire","Epping Forest","Maldon","Wolverhampton","Swale","Arun","Wellingborough","Havant","Barking and Dagenham","Redditch","North Kesteven","Shepway","Dover","Copeland","South Tyneside","Scarborough","Blaenau Gwent","Isle of Wight","West Lindsey","Stockton-on-Tees","Sunderland","Erewash","Sedgemoor","Tameside","Braintree","Kettering","Weymouth and Portland","Oldham","Peterborough","Torridge","Rossendale","North West Leicestershire","West Somerset","Barrow-in-Furness","East Riding of Yorkshire","Newark and Sherwood","South Derbyshire","Hinckley and Bosworth","Spelthorne","Amber Valley","Carlisle","Rochdale","Chesterfield","South Kesteven","Plymouth","Torfaen","Blaby","Ashford","Stevenage","Herefordshire, County of","Selby","Brentwood","Purbeck","Wrexham","North Norfolk","Lichfield","Christchurch","East Northamptonshire","Maidstone","South Ribble","Forest of Dean","Allerdale","Daventry","Gloucester","Rother","Northampton","Crawley","Bolton","Ipswich","Rushmoor","Poole","Southend-on-Sea","Melton","Portsmouth","St. Helens","Wychavon","New Forest","Caerphilly","East Dorset","County Durham","Halton","Eastbourne","Derby","South Somerset","Pembrokeshire","Fylde","North Devon","Shropshire","Lincoln","Chorley","Gateshead","Salford","Neath Port Talbot","Richmondshire","Rugby","St Edmundsbury","Cornwall","Luton","Hillingdon","Flintshire","North Dorset","Merthyr Tydfil","Ribble Valley","Blackburn with Darwen","Darlington","Solihull","Central Bedfordshire","Newport","Stafford","Calderdale","Tonbridge and Malling","Gedling","Coventry","Bromsgrove","West Lancashire","Ryedale","Mid Suffolk","Fareham","Bournemouth","Hastings","Kirklees","Swindon","Broxtowe","Adur","Oadby and Wigston","Bridgend","Wealden","Sevenoaks","Broadland","Warrington","Slough","South Northamptonshire","Runnymede","Bradford","Babergh","Huntingdonshire","Bury","Northumberland","East Devon","Denbighshire","Conwy","Bracknell Forest","Teignbridge","Southampton","Charnwood","Carmarthenshire","Worcester","Rhondda Cynon Taf","Sutton","Powys","Hambleton","Colchester","North Tyneside","Preston","Mid Devon","Eden","West Devon","Tewkesbury","Welwyn Hatfield","Suffolk Coastal","Worthing","Taunton Deane","Craven","Chelmsford","Tandridge","South Gloucestershire","Eastleigh","Wiltshire","Malvern Hills","North Somerset","Basingstoke and Deane","Test Valley","Bedford","South Norfolk","Stratford-on-Avon","Derbyshire Dales","Knowsley","Swansea","Milton Keynes","Three Rivers","Cheshire East","Lancaster","Canterbury","West Dorset","Sheffield","Surrey Heath","Isle of Anglesey","Chichester","East Cambridgeshire","Hertsmere","Nottingham","Harborough","Dacorum","Uttlesford","Cheshire West and Chester","South Bucks","Rutland","Aylesbury Vale","High Peak","Reigate and Banstead","East Hertfordshire","Birmingham","Watford","Cherwell","Moray","Leeds","Monmouthshire","East Hampshire","Bromley","Vale of Glamorgan","Newcastle upon Tyne","Harrogate","Leicester","Hounslow","Cotswold","Mendip","Horsham","Wirral","West Berkshire","Sefton","Wycombe","Lewes","Epsom and Ewell","Stockport","Hart","Newham","South Lakeland","South Hams","Dumfries and Galloway","Mid Sussex","Mole Valley","West Oxfordshire","Windsor and Maidenhead","Redbridge","Croydon","North Hertfordshire","Stroud","Ceredigion","Harrow","Tunbridge Wells","South Oxfordshire","Aberdeenshire","Chiltern","Na h-Eileanan Siar","Angus","Exeter","Greenwich","Enfield","Highland","Guildford","Woking","Norwich","Cheltenham","Isles of Scilly","Shetland Islands","Vale of White Horse","Wokingham","Falkirk","North Ayrshire","Rushcliffe","Trafford","Clackmannanshire","Bath and North East Somerset","Reading","York","Gwynedd","Liverpool","West Lothian","Waverley","Scottish Borders","East Ayrshire","Fife","Warwick","Winchester","South Ayrshire","Waltham Forest","Elmbridge","Brent","Dundee City","Cardiff","South Cambridgeshire","Ealing","Manchester","Argyll and Bute","Aberdeen City","Perth and Kinross","Kingston upon Thames","Bristol, City of","North Lanarkshire","West Dunbartonshire","Midlothian","Barnet","St Albans","Merton","South Lanarkshire","Orkney Islands","Inverclyde","East Lothian","Renfrewshire","Glasgow City","Tower Hamlets","Stirling","Brighton and Hove","Kensington and Chelsea","Westminster","Richmond upon Thames","Lewisham","Hammersmith and Fulham","Oxford","East Dunbartonshire","Southwark","Cambridge","East Renfrewshire","City of Edinburgh","Camden","Wandsworth","Islington","City of London","Haringey","Hackney","Lambeth"],[7430,13074,14154,22151,14284,15055,16417,12242,23515,23797,20179,42201,14029,25210,36027,46922,16684,30748,38951,13867,43572,44115,20575,36709,56780,13705,21781,12569,49004,17510,14462,58877,28587,29947,17166,13569,24586,23736,21181,18876,9791,23444,21076,26313,19985,11470,49889,16671,58942,22816,26065,16704,22850,32954,27935,21240,47603,25477,24356,22075,28676,14529,44138,28481,34193,15462,26582,27750,17303,25570,22884,24606,14419,30014,22999,13215,30207,20906,38433,51930,25791,26545,43118,33523,21030,14903,42034,34176,16229,15012,22642,8566,14207,78779,26571,22479,25969,22474,29319,23788,41217,22946,33047,53458,19363,22888,28314,18659,44148,21071,19077,11754,28822,26214,26064,12782,21680,36762,26406,21392,22429,20443,26801,23916,43805,22388,57589,27698,20384,35741,39348,12695,41384,39322,32188,47199,39178,24786,113521,27678,22845,51612,42527,29367,19889,24931,78987,18902,27417,44429,47430,32651,11945,25350,26986,140540,36708,58040,37867,18399,12574,15892,28522,24172,53466,69670,32413,34098,46950,32792,30035,67967,26252,28546,14340,27391,32210,41473,20011,98485,51220,29672,16914,14292,33723,44084,32091,35469,52657,24911,25853,20259,104575,25309,45729,46354,82022,40743,23955,30147,29888,37949,49738,43500,47654,25125,53973,49319,36762,25480,44414,52873,30227,22400,14807,16658,25084,27550,37218,28851,30944,16930,47545,24251,74928,36172,137258,23203,59572,48257,36170,41497,38817,38341,22633,34345,58307,63393,25751,107962,35732,40169,31924,130735,25638,18618,35011,23599,27593,59318,27028,42542,25619,95455,20077,11353,52877,27116,40181,42372,223451,23167,40668,24114,194863,28061,37346,92398,36681,65405,48211,70980,58755,28015,33427,43785,88931,48300,76702,49261,30974,23596,85559,30282,55328,34531,29308,43864,46471,29088,35236,44086,69213,92913,42234,40446,21711,64042,35676,46245,76445,32241,8232,32747,35270,65248,76425,70308,44155,31007,37326,37081,803,6907,43462,55272,44987,38394,40522,72293,14691,60878,43385,63617,35517,118453,51560,44341,37952,33891,106754,47976,42878,36265,64156,45841,72523,39688,101788,56128,90024,121823,29494,63985,49641,52533,141027,95549,26794,28217,100210,54208,63003,102568,7189,24688,36026,57119,168335,73011,33112,100648,37601,53928,75396,86955,56188,49424,44534,94293,42682,39345,187796,71295,118463,76420,3312,79991,83398,111584],[22974,36423,37691,57765,35844,37571,39927,29730,56613,55185,46720,96885,32071,57447,81563,104260,36894,67251,83958,29602,92007,93272,43392,76646,118446,28424,45146,25385,98250,34937,28854,116165,56493,58915,33706,26568,48128,46095,40177,35643,18160,43248,38684,47235,35870,20611,88997,29456,104331,40163,46037,28631,39266,56649,47889,36392,80886,43457,41290,37235,48176,24302,73798,47388,56936,25679,44047,46130,28579,42183,37729,40410,23528,49065,37512,21587,49173,33847,61982,82394,40739,41869,67829,52713,32877,23352,65369,53216,25200,23169,34969,13168,21867,120136,40516,34216,39501,34135,44501,35895,62014,34478,49424,79997,28781,33583,41472,27126,64122,30532,27627,16966,41544,37576,37214,18268,30894,52365,37318,30251,31809,28938,37776,33753,61454,31447,80491,38655,28396,49707,54522,17610,57336,54357,44201,64541,53295,33702,153877,37327,30700,69043,56940,39155,26317,33100,104166,24992,36098,58529,62385,43001,15691,33199,35224,182665,47773,74982,48930,23802,16291,20550,36799,30994,68484,89134,41236,43386,58975,41229,37542,85097,32563,35323,17710,33794,39525,50453,24339,118755,61745,35754,20315,17173,40622,52808,38258,42268,62487,29631,30771,24035,123913,29933,54198,54674,96699,48040,28117,35357,35002,44363,57927,50672,55381,29114,62590,57241,42707,29502,51305,60589,34518,25606,16911,18937,28568,31060,41966,32515,34789,18961,53249,27169,83405,39902,151637,25294,64976,52071,39091,44569,41541,40817,24095,36558,61936,67063,27097,113163,37309,41879,33267,136018,26667,19333,36326,24487,28532,61343,27850,43702,26324,98082,20647,11613,53956,27717,40980,42994,227251,23419,41168,23992,192474,27569,36576,90034,35628,63598,46374,67992,56321,26806,32028,41303,83069,44977,71176,45529,28508,21707,77930,27513,49371,30800,26142,38803,41057,25708,30435,37706,59020,78221,35438,33618,18031,53183,29320,37865,62516,26363,6671,26511,28533,52117,60481,55349,34458,24214,29040,28932,621,5315,33192,42229,34271,29110,29888,53018,10736,44352,31382,45983,25665,85101,36948,31601,26962,23942,75466,33642,29886,25241,44395,31162,48881,26697,67816,37061,59017,79991,19202,40729,31614,32737,87418,59400,16426,17251,60823,32237,37097,60024,4193,14010,19738,31010,84474,35224,15787,46027,17138,24268,33410,37518,24054,20913,17840,35209,15117,13596,64498,23838,39421,25180,1087,25855,22868,30340],[52.9416,52.8639,51.5359,51.5085,52.6153,52.5695,53.1783,53.1828,53.4198,53.5598,53.0751,51.5459,54.6502,51.8769,53.0129,53.5684,52.6969,51.5595,53.5304,51.7799,52.5977,53.4103,53.3009,53.76,52.4768,52.6182,53.8222,52.5697,52.5016,51.5831,53.7937,53.6336,52.9363,53.6081,51.7424,53.7685,54.5698,52.4992,54.5276,51.4259,52.3073,52.6207,53.0704,52.5931,51.4449,52.5135,51.4112,50.8048,53.5315,53.9014,51.3493,53.8599,52.8743,52.7671,50.445,52.3593,51.458,52.9723,52.462,53.2597,51.7358,51.7162,52.5861,51.3722,50.8496,52.3283,50.8321,51.5477,52.2756,53.0771,51.0796,51.2767,54.3523,54.9796,54.3608,51.7442,50.7138,53.4411,54.5833,54.9046,52.9474,51.1757,53.4645,51.9609,52.4598,50.5924,53.526,52.6461,50.9224,53.6661,52.7531,51.1553,54.113,53.7743,53.1036,52.8541,52.6361,51.4143,53.0308,54.967,53.6029,53.2487,52.8408,50.3684,51.6685,52.5698,51.1189,51.901,52.1988,53.8018,51.6618,50.6822,52.9864,52.9573,52.7027,50.7422,52.513,51.2015,53.7341,51.863,54.8739,52.3086,51.8413,50.9529,52.2415,51.1337,53.5822,52.0534,51.284,50.7197,51.5393,52.7617,50.8254,53.4517,52.1573,50.8259,51.65,50.8332,54.7512,53.3461,50.8,52.9135,50.9725,51.7753,53.7518,51.0999,52.6827,53.2182,53.6551,54.9311,53.5048,51.666,54.3954,52.3329,52.178,50.3287,51.8928,51.5397,53.2396,50.8863,51.739,53.8788,53.6988,54.5453,52.41,51.9852,51.595,52.8326,53.7158,51.2754,53.018,52.4321,52.3893,53.6237,54.1995,52.2659,50.8626,50.7414,50.873,53.6622,51.6004,52.9871,50.8391,52.5721,51.5331,51.0058,51.2379,52.683,53.3822,51.5031,52.1263,51.3821,53.8145,52.0163,52.3526,53.586,55.2906,50.7833,53.1534,53.1872,51.4045,50.5449,50.9164,52.7346,51.7674,52.1837,51.5951,51.3571,52.4237,54.2916,51.8375,55.0314,53.8234,50.8517,54.6612,50.6627,51.927,51.8042,52.1033,50.8359,51.0466,54.0414,51.6987,51.2166,51.5741,50.9096,51.372,52.2403,51.3853,51.3089,51.046,52.1918,52.5381,52.1785,53.0935,53.4206,51.6261,52.089,51.6633,53.1836,54.0177,51.3033,50.8424,53.4106,51.3291,53.2879,50.8403,52.3018,51.6829,52.9623,52.5237,51.8032,51.8775,53.1978,51.5379,52.6058,51.8678,53.3378,51.2244,51.8633,52.4778,51.6639,51.9831,57.532,53.8442,51.7579,51.0805,51.3965,51.4461,54.9926,53.998,52.6346,51.4715,51.7661,51.2135,50.9527,53.3427,51.3986,53.5406,51.6647,50.8905,51.34,53.3828,51.3035,51.5272,54.2185,50.3327,54.8945,51.0222,51.2006,51.8617,51.4808,51.5819,51.3453,51.9574,51.6876,52.1887,51.5916,51.1217,51.6551,57.367,51.6807,57.6696,56.6758,50.7004,51.4733,51.646,57.5426,51.2653,51.3137,52.6289,51.9021,49.9435,60.3386,51.6508,51.4219,56.0042,55.677,52.8601,53.3928,56.1242,51.3622,51.4645,53.9714,52.8673,53.4126,55.9018,51.1652,55.7376,55.4606,56.1876,52.305,50.9937,55.258,51.5869,51.3629,51.5578,56.4809,51.5067,52.1763,51.529,53.4505,56.1932,57.1274,56.4941,51.3846,51.4691,55.9023,55.9613,55.819,51.6177,51.7536,51.4109,55.6046,59.0761,55.8924,55.9765,55.8494,55.8635,51.5102,56.2015,50.8215,51.5023,51.5162,51.4468,51.4472,51.5043,51.7491,55.9576,51.4858,52.2032,55.7622,55.9449,51.5385,51.4613,51.5465,51.516,51.5868,51.5474,51.4553],[0.0324,0.0615,0.5866,0.413,1.6538,0.1141,-1.1874,-1.3046,0.1125,-0.1762,-1.2771,0.2122,-1.2508,1.2215,-2.1546,-1.1929,-1.9674,0.4939,-1.5398,0.0967,-1.9752,-1.2802,-0.9554,-0.3362,-2.0805,-1.6898,-3.018,-1.6331,-2.0232,0.8018,-2.2577,-1.4313,0.5947,-0.5344,-0.0261,-2.3787,-1.0881,-1.4868,-1.2175,0.3819,0.4977,-2.1782,-1.9511,0.8806,0.2369,-0.6964,0.5997,-1.1409,-2.609,-2.891,1.3665,-2.2241,-1.8268,-2.4786,-3.5303,-2.3018,0.1643,-2.3453,1.5925,-1.42,0.1823,0.7542,-2.118,0.7495,-0.5542,-0.7165,-0.982,0.1274,-1.9551,-0.5267,0.9861,1.2619,-3.3259,-1.4398,-0.6028,-3.1783,-1.3891,-0.3497,-1.2988,-1.4239,-1.328,-2.9976,-2.0853,0.6299,-0.7944,-2.4536,-2.0973,-0.3372,-4.2906,-2.2667,-1.4098,-3.4243,-3.2292,-0.4375,-0.8244,-1.5904,-1.321,-0.461,-1.4844,-2.9661,-2.1827,-1.4155,-0.495,-4.1343,-3.0256,-1.209,0.8142,-0.1952,-2.6934,-1.1186,0.303,-2.0374,-2.9368,0.9931,-1.7865,-1.7782,-0.5522,0.5722,-2.7115,-2.4712,-3.2669,-1.1246,-2.2601,0.4822,-0.8657,-0.2119,-2.5154,1.15,-0.7443,-1.9849,0.6464,-0.8215,-1.0897,-2.676,-2.0725,-1.4786,-3.2118,-1.9287,-1.6984,-2.7282,0.2608,-1.4716,-2.6241,-5.023,-2.9292,-4.0351,-2.6762,-0.5601,-2.6572,-1.6835,-2.3899,-3.8159,-1.7823,-1.3094,0.6478,-4.9582,-0.4117,-0.4832,-3.111,-2.3361,-3.3587,-2.3876,-2.4704,-1.5302,-1.7544,-0.405,-2.9787,-2.1831,-1.8733,0.3864,-1.0945,-1.5433,-2.0277,-2.9043,-0.7811,1.1233,-1.2279,-1.8312,0.5758,-1.6868,-1.7094,-1.2815,-0.2887,-1.097,-3.6529,0.1632,0.1604,1.3114,-2.6026,-0.5738,-1.0697,-0.5102,-1.7728,0.9531,-0.2678,-2.2959,-1.9062,-3.3072,-3.455,-3.8069,-0.7756,-3.6201,-1.3859,-1.1546,-4.3294,-2.2355,-3.4237,-0.1636,-3.2085,-1.3026,0.916,-1.5028,-2.7042,-3.6064,-2.6578,-4.1029,-2.1053,-0.2029,1.4467,-0.3765,-3.1007,-2.1882,0.5177,-0.0204,-2.4124,-1.3119,-1.8741,-2.3982,-2.7273,-1.2209,-1.4829,-0.4299,1.3403,-1.6264,-1.7641,-2.8434,-4.1889,-0.7624,-0.4405,-2.3977,-2.8375,1.1628,-2.5578,-1.5374,-0.7072,-4.5173,-0.7809,0.3774,-0.2841,-1.1868,-0.9139,-0.5502,0.3221,-2.7687,-0.6088,-0.7013,-0.9303,-1.8924,-0.2183,-0.0014,-1.8716,-0.3952,-1.2942,-3.3963,-1.5852,-2.8993,-0.9499,0.0359,-3.3819,-1.6391,-1.4497,-1.1475,-0.3474,-1.8772,-2.5597,-0.4274,-3.0807,-1.293,-2.9785,-0.8385,0.0274,-0.2535,-2.1395,-0.895,0.0225,-2.9949,-3.7872,-4.3041,-0.0981,-0.2662,-1.5212,-0.6647,0.0678,-0.1102,-0.2121,-2.3069,-4.0893,-0.3383,0.4092,-1.0521,-2.2633,-0.6136,-7.1583,-2.7113,-3.5006,0.0227,-0.1174,-5.4961,-0.5395,-0.5357,1.2892,-2.0809,-6.3339,-1.2827,-1.4505,-0.8966,-3.7614,-4.8849,-1.0542,-2.3516,-3.7413,-2.5378,-0.9913,-1.0722,-4.1154,-2.8927,-3.6117,-0.6513,-2.6348,-4.4399,-3.1283,-1.608,-1.2505,-4.6508,0.0057,-0.4195,-0.258,-2.9444,-3.1443,0.0998,-0.3123,-2.2443,-5.8591,-2.0945,-3.578,-0.2989,-2.6245,-3.9882,-4.5013,-3.0922,-0.2034,-0.3418,-0.1842,-3.9046,-2.9213,-4.7522,-2.6458,-4.5651,-4.2737,-0.0276,-4.3104,-0.095,-0.1996,-0.1561,-0.321,-0.0204,-0.2266,-1.2472,-4.2411,-0.0647,0.1196,-4.3675,-3.3632,-0.1447,-0.1785,-0.1045,-0.0922,-0.1172,-0.0749,-0.1156],[0.76,0.74,0.73,0.72,0.72,0.71,0.71,0.71,0.71,0.7,0.7,0.7,0.7,0.7,0.69,0.69,0.69,0.69,0.68,0.68,0.68,0.68,0.68,0.68,0.68,0.67,0.67,0.67,0.67,0.67,0.67,0.66,0.66,0.66,0.66,0.66,0.66,0.66,0.65,0.65,0.65,0.65,0.65,0.64,0.64,0.64,0.64,0.64,0.64,0.64,0.64,0.63,0.63,0.63,0.63,0.63,0.63,0.63,0.63,0.63,0.63,0.63,0.63,0.62,0.62,0.62,0.62,0.62,0.62,0.62,0.62,0.62,0.62,0.62,0.62,0.62,0.62,0.62,0.62,0.61,0.61,0.61,0.61,0.61,0.61,0.61,0.61,0.61,0.61,0.61,0.61,0.61,0.61,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.59,0.59,0.59,0.59,0.59,0.59,0.59,0.59,0.59,0.59,0.59,0.59,0.59,0.59,0.59,0.59,0.59,0.58,0.59,0.58,0.58,0.58,0.58,0.58,0.58,0.58,0.58,0.58,0.58,0.58,0.58,0.58,0.58,0.58,0.57,0.57,0.57,0.57,0.57,0.57,0.57,0.57,0.57,0.57,0.57,0.57,0.57,0.57,0.57,0.57,0.57,0.57,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.54,0.53,0.53,0.53,0.53,0.53,0.53,0.53,0.53,0.53,0.53,0.53,0.53,0.53,0.53,0.52,0.52,0.52,0.52,0.52,0.52,0.52,0.52,0.52,0.52,0.52,0.52,0.51,0.51,0.51,0.51,0.51,0.51,0.51,0.51,0.51,0.51,0.51,0.51,0.51,0.51,0.51,0.51,0.51,0.51,0.51,0.51,0.51,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.49,0.49,0.49,0.49,0.49,0.49,0.49,0.49,0.49,0.49,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.47,0.47,0.47,0.47,0.47,0.47,0.46,0.46,0.46,0.46,0.46,0.45,0.45,0.45,0.45,0.45,0.45,0.45,0.45,0.45,0.45,0.44,0.44,0.44,0.44,0.44,0.44,0.44,0.44,0.43,0.43,0.43,0.43,0.43,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.41,0.41,0.41,0.41,0.41,0.41,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.39,0.39,0.39,0.38,0.38,0.38,0.38,0.38,0.38,0.37,0.37,0.37,0.37,0.36,0.35,0.35,0.33,0.33,0.32,0.31,0.31,0.31,0.31,0.3,0.3,0.3,0.29,0.27,0.26,0.26,0.26,0.25,0.25,0.25,0.25,0.24,0.22,0.21],[30404,49497,51845,79916,50128,52626,56344,41972,80128,78982,66899,139086,46100,82657,117590,151182,53578,97999,122909,43469,135579,137387,63967,113355,175226,42129,66927,37954,147254,52447,43316,175042,85080,88862,50872,40137,72714,69831,61358,54519,27951,66692,59760,73548,55855,32081,138886,46127,163273,62979,72102,45335,62116,89603,75824,57632,128489,68934,65646,59310,76852,38831,117936,75869,91129,41141,70629,73880,45882,67753,60613,65016,37947,79079,60511,34802,79380,54753,100415,134324,66530,68414,110947,86236,53907,38255,107403,87392,41429,38181,57611,21734,36074,198915,67087,56695,65470,56609,73820,59683,103231,57424,82471,133455,48144,56471,69786,45785,108270,51603,46704,28720,70366,63790,63278,31050,52574,89127,63724,51643,54238,49381,64577,57669,105259,53835,138080,66353,48780,85448,93870,30305,98720,93679,76389,111740,92473,58488,267398,65005,53545,120655,99467,68522,46206,58031,183153,43894,63515,102958,109815,75652,27636,58549,62210,323205,84481,133022,86797,42201,28865,36442,65321,55166,121950,158804,73649,77484,105925,74021,67577,153064,58815,63869,32050,61185,71735,91926,44350,217240,112965,65426,37229,31465,74345,96892,70349,77737,115144,54542,56624,44294,228488,55242,99927,101028,178721,88783,52072,65504,64890,82312,107665,94172,103035,54239,116563,106560,79469,54982,95719,113462,64745,48006,31718,35595,53652,58610,79184,61366,65733,35891,100794,51420,158333,76074,288895,48497,124548,100328,75261,86066,80358,79158,46728,70903,120243,130456,52848,221125,73041,82048,65191,266753,52305,37951,71337,48086,56125,120661,54878,86244,51943,193537,40724,22966,106833,54833,81161,85366,450702,46586,81836,48106,387337,55630,73922,182432,72309,129003,94585,138972,115076,54821,65455,85088,172000,93277,147878,94790,59482,45303,163489,57795,104699,65331,55450,82667,87528,54796,65671,81792,128233,171134,77672,74064,39742,117225,64996,84110,138961,58604,14903,59258,63803,117365,136906,125657,78613,55221,66366,66013,1424,12222,76654,97501,79258,67504,70410,125311,25427,105230,74767,109600,61182,203554,88508,75942,64914,57833,182220,81618,72764,61506,108551,77003,121404,66385,169604,93189,149041,201814,48696,104714,81255,85270,228445,154949,43220,45468,161033,86445,100100,162592,11382,38698,55764,88129,252809,108235,48899,146675,54739,78196,108806,124473,80242,70337,62374,129502,57799,52941,252294,95133,157884,101600,4399,105846,106266,141924]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>areaName<\/th>\n      <th>remainVotes<\/th>\n      <th>leaveVotes<\/th>\n      <th>avLat<\/th>\n      <th>avLng<\/th>\n      <th>leaveShare<\/th>\n      <th>size<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"tip","autoWidth":true,"order":[5,"desc"],"columnDefs":[{"className":"dt-left","targets":0},{"className":"dt-right","targets":[1,2,3,4,5,6]}],"pageLength":10,"fillContainer":true,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div id="htmlwidget-4de365356d8de23965d1" style="width:624px;height:384px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4de365356d8de23965d1">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["OpenStreetMap.Mapnik",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircles","args":[[52.9416,52.8639,51.5359,51.5085,52.6153,52.5695,53.1783,53.1828,53.4198,53.5598,53.0751,51.5459,54.6502,51.8769,53.0129,53.5684,52.6969,51.5595,53.5304,51.7799,52.5977,53.4103,53.3009,53.76,52.4768,52.6182,53.8222,52.5697,52.5016,51.5831,53.7937,53.6336,52.9363,53.6081,51.7424,53.7685,54.5698,52.4992,54.5276,51.4259,52.3073,52.6207,53.0704,52.5931,51.4449,52.5135,51.4112,50.8048,53.5315,53.9014,51.3493,53.8599,52.8743,52.7671,50.445,52.3593,51.458,52.9723,52.462,53.2597,51.7358,51.7162,52.5861,51.3722,50.8496,52.3283,50.8321,51.5477,52.2756,53.0771,51.0796,51.2767,54.3523,54.9796,54.3608,51.7442,50.7138,53.4411,54.5833,54.9046,52.9474,51.1757,53.4645,51.9609,52.4598,50.5924,53.526,52.6461,50.9224,53.6661,52.7531,51.1553,54.113,53.7743,53.1036,52.8541,52.6361,51.4143,53.0308,54.967,53.6029,53.2487,52.8408,50.3684,51.6685,52.5698,51.1189,51.901,52.1988,53.8018,51.6618,50.6822,52.9864,52.9573,52.7027,50.7422,52.513,51.2015,53.7341,51.863,54.8739,52.3086,51.8413,50.9529,52.2415,51.1337,53.5822,52.0534,51.284,50.7197,51.5393,52.7617,50.8254,53.4517,52.1573,50.8259,51.65,50.8332,54.7512,53.3461,50.8,52.9135,50.9725,51.7753,53.7518,51.0999,52.6827,53.2182,53.6551,54.9311,53.5048,51.666,54.3954,52.3329,52.178,50.3287,51.8928,51.5397,53.2396,50.8863,51.739,53.8788,53.6988,54.5453,52.41,51.9852,51.595,52.8326,53.7158,51.2754,53.018,52.4321,52.3893,53.6237,54.1995,52.2659,50.8626,50.7414,50.873,53.6622,51.6004,52.9871,50.8391,52.5721,51.5331,51.0058,51.2379,52.683,53.3822,51.5031,52.1263,51.3821,53.8145,52.0163,52.3526,53.586,55.2906,50.7833,53.1534,53.1872,51.4045,50.5449,50.9164,52.7346,51.7674,52.1837,51.5951,51.3571,52.4237,54.2916,51.8375,55.0314,53.8234,50.8517,54.6612,50.6627,51.927,51.8042,52.1033,50.8359,51.0466,54.0414,51.6987,51.2166,51.5741,50.9096,51.372,52.2403,51.3853,51.3089,51.046,52.1918,52.5381,52.1785,53.0935,53.4206,51.6261,52.089,51.6633,53.1836,54.0177,51.3033,50.8424,53.4106,51.3291,53.2879,50.8403,52.3018,51.6829,52.9623,52.5237,51.8032,51.8775,53.1978,51.5379,52.6058,51.8678,53.3378,51.2244,51.8633,52.4778,51.6639,51.9831,57.532,53.8442,51.7579,51.0805,51.3965,51.4461,54.9926,53.998,52.6346,51.4715,51.7661,51.2135,50.9527,53.3427,51.3986,53.5406,51.6647,50.8905,51.34,53.3828,51.3035,51.5272,54.2185,50.3327,54.8945,51.0222,51.2006,51.8617,51.4808,51.5819,51.3453,51.9574,51.6876,52.1887,51.5916,51.1217,51.6551,57.367,51.6807,57.6696,56.6758,50.7004,51.4733,51.646,57.5426,51.2653,51.3137,52.6289,51.9021,49.9435,60.3386,51.6508,51.4219,56.0042,55.677,52.8601,53.3928,56.1242,51.3622,51.4645,53.9714,52.8673,53.4126,55.9018,51.1652,55.7376,55.4606,56.1876,52.305,50.9937,55.258,51.5869,51.3629,51.5578,56.4809,51.5067,52.1763,51.529,53.4505,56.1932,57.1274,56.4941,51.3846,51.4691,55.9023,55.9613,55.819,51.6177,51.7536,51.4109,55.6046,59.0761,55.8924,55.9765,55.8494,55.8635,51.5102,56.2015,50.8215,51.5023,51.5162,51.4468,51.4472,51.5043,51.7491,55.9576,51.4858,52.2032,55.7622,55.9449,51.5385,51.4613,51.5465,51.516,51.5868,51.5474,51.4553],[0.0324,0.0615,0.5866,0.413,1.6538,0.1141,-1.1874,-1.3046,0.1125,-0.1762,-1.2771,0.2122,-1.2508,1.2215,-2.1546,-1.1929,-1.9674,0.4939,-1.5398,0.0967,-1.9752,-1.2802,-0.9554,-0.3362,-2.0805,-1.6898,-3.018,-1.6331,-2.0232,0.8018,-2.2577,-1.4313,0.5947,-0.5344,-0.0261,-2.3787,-1.0881,-1.4868,-1.2175,0.3819,0.4977,-2.1782,-1.9511,0.8806,0.2369,-0.6964,0.5997,-1.1409,-2.609,-2.891,1.3665,-2.2241,-1.8268,-2.4786,-3.5303,-2.3018,0.1643,-2.3453,1.5925,-1.42,0.1823,0.7542,-2.118,0.7495,-0.5542,-0.7165,-0.982,0.1274,-1.9551,-0.5267,0.9861,1.2619,-3.3259,-1.4398,-0.6028,-3.1783,-1.3891,-0.3497,-1.2988,-1.4239,-1.328,-2.9976,-2.0853,0.6299,-0.7944,-2.4536,-2.0973,-0.3372,-4.2906,-2.2667,-1.4098,-3.4243,-3.2292,-0.4375,-0.8244,-1.5904,-1.321,-0.461,-1.4844,-2.9661,-2.1827,-1.4155,-0.495,-4.1343,-3.0256,-1.209,0.8142,-0.1952,-2.6934,-1.1186,0.303,-2.0374,-2.9368,0.9931,-1.7865,-1.7782,-0.5522,0.5722,-2.7115,-2.4712,-3.2669,-1.1246,-2.2601,0.4822,-0.8657,-0.2119,-2.5154,1.15,-0.7443,-1.9849,0.6464,-0.8215,-1.0897,-2.676,-2.0725,-1.4786,-3.2118,-1.9287,-1.6984,-2.7282,0.2608,-1.4716,-2.6241,-5.023,-2.9292,-4.0351,-2.6762,-0.5601,-2.6572,-1.6835,-2.3899,-3.8159,-1.7823,-1.3094,0.6478,-4.9582,-0.4117,-0.4832,-3.111,-2.3361,-3.3587,-2.3876,-2.4704,-1.5302,-1.7544,-0.405,-2.9787,-2.1831,-1.8733,0.3864,-1.0945,-1.5433,-2.0277,-2.9043,-0.7811,1.1233,-1.2279,-1.8312,0.5758,-1.6868,-1.7094,-1.2815,-0.2887,-1.097,-3.6529,0.1632,0.1604,1.3114,-2.6026,-0.5738,-1.0697,-0.5102,-1.7728,0.9531,-0.2678,-2.2959,-1.9062,-3.3072,-3.455,-3.8069,-0.7756,-3.6201,-1.3859,-1.1546,-4.3294,-2.2355,-3.4237,-0.1636,-3.2085,-1.3026,0.916,-1.5028,-2.7042,-3.6064,-2.6578,-4.1029,-2.1053,-0.2029,1.4467,-0.3765,-3.1007,-2.1882,0.5177,-0.0204,-2.4124,-1.3119,-1.8741,-2.3982,-2.7273,-1.2209,-1.4829,-0.4299,1.3403,-1.6264,-1.7641,-2.8434,-4.1889,-0.7624,-0.4405,-2.3977,-2.8375,1.1628,-2.5578,-1.5374,-0.7072,-4.5173,-0.7809,0.3774,-0.2841,-1.1868,-0.9139,-0.5502,0.3221,-2.7687,-0.6088,-0.7013,-0.9303,-1.8924,-0.2183,-0.0014,-1.8716,-0.3952,-1.2942,-3.3963,-1.5852,-2.8993,-0.9499,0.0359,-3.3819,-1.6391,-1.4497,-1.1475,-0.3474,-1.8772,-2.5597,-0.4274,-3.0807,-1.293,-2.9785,-0.8385,0.0274,-0.2535,-2.1395,-0.895,0.0225,-2.9949,-3.7872,-4.3041,-0.0981,-0.2662,-1.5212,-0.6647,0.0678,-0.1102,-0.2121,-2.3069,-4.0893,-0.3383,0.4092,-1.0521,-2.2633,-0.6136,-7.1583,-2.7113,-3.5006,0.0227,-0.1174,-5.4961,-0.5395,-0.5357,1.2892,-2.0809,-6.3339,-1.2827,-1.4505,-0.8966,-3.7614,-4.8849,-1.0542,-2.3516,-3.7413,-2.5378,-0.9913,-1.0722,-4.1154,-2.8927,-3.6117,-0.6513,-2.6348,-4.4399,-3.1283,-1.608,-1.2505,-4.6508,0.0057,-0.4195,-0.258,-2.9444,-3.1443,0.0998,-0.3123,-2.2443,-5.8591,-2.0945,-3.578,-0.2989,-2.6245,-3.9882,-4.5013,-3.0922,-0.2034,-0.3418,-0.1842,-3.9046,-2.9213,-4.7522,-2.6458,-4.5651,-4.2737,-0.0276,-4.3104,-0.095,-0.1996,-0.1561,-0.321,-0.0204,-0.2266,-1.2472,-4.2411,-0.0647,0.1196,-4.3675,-3.3632,-0.1447,-0.1785,-0.1045,-0.0922,-0.1172,-0.0749,-0.1156],[3487.34856302034,4449.58425024181,4553.89942796281,5653.88362101662,4477.85663013009,4588.0714902887,4747.37822381996,4097.41381849576,5661.37792414532,5620.74728127853,5172.9682001729,7458.84709589894,4294.18211071678,5750.02608689735,6858.27966767177,7776.42591426164,4629.3844083204,6260.95839308967,7011.67597654084,4169.84412178681,7364.21075200866,7413.15047736116,5058.33964854081,6733.64685738716,8372.00095556612,4105.07003594336,5174.05063755661,3896.35727314629,7674.73778053687,4580.26200123967,4162.49924924918,8367.6041971403,5833.6952268695,5961.94599103346,4510.9644201656,4006.8441447104,5393.10671134922,5285.11116250169,4954.1094053321,4669.86081163026,3343.71051378555,5164.95885753217,4889.17170899121,5423.94690239497,4726.73248661271,3582.23393987607,7453.48240757299,4295.43944201289,8081.41076792907,5019.12342944463,5370.36311621477,4258.40345669595,4984.61633428291,5986.75204096512,5507.23160943863,4801.33314819957,7169.07246441267,5251.05703644514,5124.29507347108,4870.72889822458,5544.43865508493,3941.11659304822,6868.36225020201,5508.86558195061,6037.51604552733,4056.64886328605,5315.22341957514,5436.17512595023,4284.01680668972,5205.88128946483,4923.94151061931,5099.64704661019,3895.99794661137,5624.19772056424,4919.79674376899,3731.05883094866,5634.89130329947,4679.8717931157,6337.66518522397,7330.04774882129,5158.68200221723,5231.21400823939,6661.74151404871,5873.19333923207,4643.57620805344,3911.77708976368,6554.47938435998,5912.4275894086,4070.8230126106,3907.99181165979,4800.45831145319,2948.49113954918,3798.631332467,8919.97757844716,5180.23165505173,4762.14237502408,5117.42122557837,4758.52918452751,5433.9672431843,4886.02087592757,6425.91627707676,4792.66105624005,5743.55290739103,7306.29865253262,4388.34820860879,4752.72553383845,5283.40799106032,4279.48595043844,6580.88139993421,4543.25874235664,4322.22165095683,3389.39522629038,5305.31808659952,5051.33645682012,5031.02375267698,3524.20203734122,4585.80418247443,5970.82908815853,5048.72261072046,4545.01925188442,4657.81064449812,4444.36722155134,5082.40100739798,4802.87413951271,6488.72868904225,4640.47411370864,7431.8234639959,5151.81521407746,4417.23895663343,5846.29797393188,6127.64228720966,3481.66626775169,6283.94780372975,6121.40506746613,5527.71200407547,6685.50671228442,6081.87471097523,4836.85848459514,10342.1081023165,5099.2156259566,4627.95851321077,6947.08571992602,6307.67786114668,5235.34144063212,4299.11618824149,4817.92486450339,8559.27567028893,4190.17899379012,5040.43648903545,6417.41380931602,6627.66927358329,5500.9817305641,3324.81578437062,4839.3801255946,4988.38651269125,11370.2242721945,5813.12308488303,7294.43623592667,5892.26611754764,4108.5763957848,3397.94055274662,3817.95756917229,5111.59466311639,4697.48869077936,6984.26803609369,7970.04391455907,5427.66984994482,5567.18959619663,6509.22422412994,5441.36012408662,5199.11530935793,7824.67890715012,4850.36081132115,5054.46337408829,3580.50275799363,4947.12037452092,5356.67807507601,6063.86015669887,4211.88793773054,9321.80240082357,6722.05325774796,5115.70132044473,3858.96359143229,3547.6752951757,5453.25590817082,6225.49596417828,5304.6771815069,5576.27115553037,6786.57498300873,4670.84574782769,4759.15958967547,4209.22795771386,9560.08368164212,4700.72334859221,6322.24643619655,6356.98041526006,8455.08131244165,5959.29526034749,4563.85801707284,5118.74984737485,5094.70313168491,5738.01359357051,6562.46904754605,6137.49134418942,6419.81308139108,4657.85358292851,6828.26478689865,6528.70584419301,5638.04930804973,4689.64817443697,6187.69747159636,6736.82417760772,5089.00776183334,4382.05431276245,3561.90960020043,3773.32744404723,4632.58027453384,4841.90045333441,5627.9303478277,4954.43235900946,5127.68953818384,3788.98403269267,6349.61416150619,4535.19569588789,7958.21588045964,5516.3031098735,10749.7906956368,4404.40688401969,7058.27174313939,6334.91909972022,5486.74767052395,5867.40146913436,5669.49733221562,5627.00630886442,4323.33204831644,5325.52344845087,6935.21448839183,7223.73864422018,4597.73857456032,9404.78601564119,5405.21969951269,5728.80441278981,5106.50565455479,10329.6272924051,4574.05727992119,3896.20328011771,5341.79745029704,4385.70404838265,4738.14309619285,6947.25845208022,4685.21077434089,5873.46575711479,4558.2013996751,8798.56806531608,4036.03766087483,3030.90745487222,6537.06356095763,4683.28944226171,5697.75394344122,5843.49210660886,13426.8685850425,4316.75804279091,5721.39843045387,4386.61600781286,12447.2808275543,4717.20256084048,5437.72011048748,8542.41183741454,5378.06656708524,7183.39752484853,6150.93488829137,7455.78969660491,6784.5707307095,4682.77695390246,5116.83495923017,5833.96948912145,8294.57654133109,6108.25670711374,7690.98173187273,6157.59693386958,4877.78638318654,4256.9002807207,8086.75460243477,4808.11813498795,6471.44497002022,5111.98591547355,4709.56473572665,5750.37390088679,5917.0262801512,4681.7090896381,5125.2707245569,5719.86013815023,7161.92711496005,8273.6690772595,5573.93936099057,5442.9403818157,3987.07913139431,6847.627326308,5098.86261827086,5800.34481733629,7455.49461806526,4841.65261042136,2441.55688035319,4868.59322597401,5051.85114586723,6851.71511375072,7400.16216038541,7089.62622428009,5607.60198302269,4699.82978415176,5152.31986584684,5138.59903086435,754.718490564528,2211.06309272259,5537.29175680675,6245.03002394704,5630.55947486571,5196.30638049759,5306.97654036646,7079.85875565325,3189.16917080295,6487.8347697826,5468.71099986094,6621.17814289874,4946.99909035771,9023.39182347747,5950.05882323864,5511.51521815916,5095.64519957974,4809.69853525146,8537.44692516446,5713.77283412633,5394.96061153369,4960.08064450569,6589.41575558865,5549.88288164714,6968.61535744369,5153.05734491671,8236.60124080315,6105.37468137706,7721.16571509769,8984.74262291358,4413.43403711894,6471.9085284018,5701.05253440099,5840.2054758373,9559.1840655989,7872.71236614167,4157.88407726815,4264.64535454005,8025.78345085388,5880.30611448078,6327.71680782255,8064.53966448179,2133.72912995066,3934.3614475541,4722.88047699706,5937.30578629735,10056.023070777,6579.81762665197,4422.62365570484,7659.63445602987,4679.27344787628,5592.70954010666,6597.15090019927,7056.14625698759,5665.40378084387,5304.22473128732,4994.95745727629,7197.27726296549,4808.28451737207,4601.78226342794,10045.7752314095,6168.7275835459,7946.92393319579,6374.95098020369,1326.49915190323,6506.79644679315,6519.69324431756,7534.56037204561],null,null,{"interactive":true,"className":"","stroke":false,"color":["#800026","#910026","#9A0026","#A30026","#A30026","#AC0026","#AC0026","#AC0026","#AC0026","#B50026","#B50026","#B50026","#B50026","#B50026","#BE0026","#BE0026","#BE0026","#BE0026","#C30425","#C30425","#C30425","#C30425","#C30425","#C30425","#C30425","#C90923","#C90923","#C90923","#C90923","#C90923","#C90923","#CE0D22","#CE0D22","#CE0D22","#CE0D22","#CE0D22","#CE0D22","#CE0D22","#D41121","#D41121","#D41121","#D41121","#D41121","#D9141F","#D9141F","#D9141F","#D9141F","#D9141F","#D9141F","#D9141F","#D9141F","#DF181D","#DF181D","#DF181D","#DF181D","#DF181D","#DF181D","#DF181D","#DF181D","#DF181D","#DF181D","#DF181D","#DF181D","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#EB2F20","#EB2F20","#EB2F20","#EB2F20","#EB2F20","#EB2F20","#EB2F20","#EB2F20","#EB2F20","#EB2F20","#EB2F20","#EB2F20","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#F23E25","#EF3722","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD7033","#FD7033","#FD7033","#FD7033","#FD7033","#FD7033","#FD7033","#FD7033","#FD7033","#FD7033","#FD7033","#FD7033","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD8138","#FD8138","#FD8138","#FD8138","#FD8138","#FD8138","#FD8138","#FD8138","#FD893B","#FD893B","#FD893B","#FD893B","#FD893B","#FD893B","#FD893B","#FD893B","#FD893B","#FD893B","#FD903D","#FD903D","#FD903D","#FD903D","#FD903D","#FD903D","#FD903D","#FD903D","#FD953F","#FD953F","#FD953F","#FD953F","#FD953F","#FD953F","#FE9B42","#FE9B42","#FE9B42","#FE9B42","#FE9B42","#FEA044","#FEA044","#FEA044","#FEA044","#FEA044","#FEA044","#FEA044","#FEA044","#FEA044","#FEA044","#FEA646","#FEA646","#FEA646","#FEA646","#FEA646","#FEA646","#FEA646","#FEA646","#FEAB49","#FEAB49","#FEAB49","#FEAB49","#FEAB49","#FEB04B","#FEB04B","#FEB04B","#FEB04B","#FEB04B","#FEB04B","#FEB04B","#FEB04B","#FEB04B","#FEB04B","#FEB04B","#FEB650","#FEB650","#FEB650","#FEB650","#FEB650","#FEB650","#FEBB56","#FEBB56","#FEBB56","#FEBB56","#FEBB56","#FEBB56","#FEBB56","#FFC15C","#FFC15C","#FFC15C","#FFC762","#FFC762","#FFC762","#FFC762","#FFC762","#FFC762","#FFCC68","#FFCC68","#FFCC68","#FFCC68","#FED26E","#FED874","#FED874","#FFDE81","#FFDE81","#FFE187","#FFE48D","#FFE48D","#FFE48D","#FFE48D","#FFE793","#FFE793","#FFE793","#FFEA99","#FFEFA6","#FFF2AC","#FFF2AC","#FFF2AC","#FFF4B2","#FFF4B2","#FFF4B2","#FFF4B2","#FFF7B9","#FFFCC6","#FFFFCC"],"weight":5,"opacity":0.5,"fill":true,"fillColor":["#800026","#910026","#9A0026","#A30026","#A30026","#AC0026","#AC0026","#AC0026","#AC0026","#B50026","#B50026","#B50026","#B50026","#B50026","#BE0026","#BE0026","#BE0026","#BE0026","#C30425","#C30425","#C30425","#C30425","#C30425","#C30425","#C30425","#C90923","#C90923","#C90923","#C90923","#C90923","#C90923","#CE0D22","#CE0D22","#CE0D22","#CE0D22","#CE0D22","#CE0D22","#CE0D22","#D41121","#D41121","#D41121","#D41121","#D41121","#D9141F","#D9141F","#D9141F","#D9141F","#D9141F","#D9141F","#D9141F","#D9141F","#DF181D","#DF181D","#DF181D","#DF181D","#DF181D","#DF181D","#DF181D","#DF181D","#DF181D","#DF181D","#DF181D","#DF181D","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E41D1C","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#E8271E","#EB2F20","#EB2F20","#EB2F20","#EB2F20","#EB2F20","#EB2F20","#EB2F20","#EB2F20","#EB2F20","#EB2F20","#EB2F20","#EB2F20","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#EF3722","#F23E25","#EF3722","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F23E25","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#F64427","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FA4A29","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FC522B","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD5D2D","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD6730","#FD7033","#FD7033","#FD7033","#FD7033","#FD7033","#FD7033","#FD7033","#FD7033","#FD7033","#FD7033","#FD7033","#FD7033","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD7835","#FD8138","#FD8138","#FD8138","#FD8138","#FD8138","#FD8138","#FD8138","#FD8138","#FD893B","#FD893B","#FD893B","#FD893B","#FD893B","#FD893B","#FD893B","#FD893B","#FD893B","#FD893B","#FD903D","#FD903D","#FD903D","#FD903D","#FD903D","#FD903D","#FD903D","#FD903D","#FD953F","#FD953F","#FD953F","#FD953F","#FD953F","#FD953F","#FE9B42","#FE9B42","#FE9B42","#FE9B42","#FE9B42","#FEA044","#FEA044","#FEA044","#FEA044","#FEA044","#FEA044","#FEA044","#FEA044","#FEA044","#FEA044","#FEA646","#FEA646","#FEA646","#FEA646","#FEA646","#FEA646","#FEA646","#FEA646","#FEAB49","#FEAB49","#FEAB49","#FEAB49","#FEAB49","#FEB04B","#FEB04B","#FEB04B","#FEB04B","#FEB04B","#FEB04B","#FEB04B","#FEB04B","#FEB04B","#FEB04B","#FEB04B","#FEB650","#FEB650","#FEB650","#FEB650","#FEB650","#FEB650","#FEBB56","#FEBB56","#FEBB56","#FEBB56","#FEBB56","#FEBB56","#FEBB56","#FFC15C","#FFC15C","#FFC15C","#FFC762","#FFC762","#FFC762","#FFC762","#FFC762","#FFC762","#FFCC68","#FFCC68","#FFCC68","#FFCC68","#FED26E","#FED874","#FED874","#FFDE81","#FFDE81","#FFE187","#FFE48D","#FFE48D","#FFE48D","#FFE48D","#FFE793","#FFE793","#FFE793","#FFEA99","#FFEFA6","#FFF2AC","#FFF2AC","#FFF2AC","#FFF4B2","#FFF4B2","#FFF4B2","#FFF4B2","#FFF7B9","#FFFCC6","#FFFFCC"],"fillOpacity":0.9},["Boston had  76 % voting for Leave and  30404 total voters","South Holland had  74 % voting for Leave and  49497 total voters","Castle Point had  73 % voting for Leave and  51845 total voters","Thurrock had  72 % voting for Leave and  79916 total voters","Great Yarmouth had  72 % voting for Leave and  50128 total voters","Fenland had  71 % voting for Leave and  52626 total voters","Mansfield had  71 % voting for Leave and  56344 total voters","Bolsover had  71 % voting for Leave and  41972 total voters","East Lindsey had  71 % voting for Leave and  80128 total voters","North East Lincolnshire had  70 % voting for Leave and  78982 total voters","Ashfield had  70 % voting for Leave and  66899 total voters","Havering had  70 % voting for Leave and  139086 total voters","Hartlepool had  70 % voting for Leave and  46100 total voters","Tendring had  70 % voting for Leave and  82657 total voters","Stoke-on-Trent had  69 % voting for Leave and  117590 total voters","Doncaster had  69 % voting for Leave and  151182 total voters","Cannock Chase had  69 % voting for Leave and  53578 total voters","Basildon had  69 % voting for Leave and  97999 total voters","Barnsley had  68 % voting for Leave and  122909 total voters","Harlow had  68 % voting for Leave and  43469 total voters","Walsall had  68 % voting for Leave and  135579 total voters","Rotherham had  68 % voting for Leave and  137387 total voters","Bassetlaw had  68 % voting for Leave and  63967 total voters","Kingston upon Hull, City of had  68 % voting for Leave and  113355 total voters","Dudley had  68 % voting for Leave and  175226 total voters","Tamworth had  67 % voting for Leave and  42129 total voters","Blackpool had  67 % voting for Leave and  66927 total voters","North Warwickshire had  67 % voting for Leave and  37954 total voters","Sandwell had  67 % voting for Leave and  147254 total voters","Rochford had  67 % voting for Leave and  52447 total voters","Burnley had  67 % voting for Leave and  43316 total voters","Wakefield had  66 % voting for Leave and  175042 total voters","King's Lynn and West Norfolk had  66 % voting for Leave and  85080 total voters","North Lincolnshire had  66 % voting for Leave and  88862 total voters","Broxbourne had  66 % voting for Leave and  50872 total voters","Hyndburn had  66 % voting for Leave and  40137 total voters","Redcar and Cleveland had  66 % voting for Leave and  72714 total voters","Nuneaton and Bedworth had  66 % voting for Leave and  69831 total voters","Middlesbrough had  65 % voting for Leave and  61358 total voters","Gravesham had  65 % voting for Leave and  54519 total voters","Forest Heath had  65 % voting for Leave and  27951 total voters","South Staffordshire had  65 % voting for Leave and  66692 total voters","Staffordshire Moorlands had  65 % voting for Leave and  59760 total voters","Breckland had  64 % voting for Leave and  73548 total voters","Dartford had  64 % voting for Leave and  55855 total voters","Corby had  64 % voting for Leave and  32081 total voters","Medway had  64 % voting for Leave and  138886 total voters","Gosport had  64 % voting for Leave and  46127 total voters","Wigan had  64 % voting for Leave and  163273 total voters","Wyre had  64 % voting for Leave and  62979 total voters","Thanet had  64 % voting for Leave and  72102 total voters","Pendle had  63 % voting for Leave and  45335 total voters","East Staffordshire had  63 % voting for Leave and  62116 total voters","Telford and Wrekin had  63 % voting for Leave and  89603 total voters","Torbay had  63 % voting for Leave and  75824 total voters","Wyre Forest had  63 % voting for Leave and  57632 total voters","Bexley had  63 % voting for Leave and  128489 total voters","Newcastle-under-Lyme had  63 % voting for Leave and  68934 total voters","Waveney had  63 % voting for Leave and  65646 total voters","North East Derbyshire had  63 % voting for Leave and  59310 total voters","Epping Forest had  63 % voting for Leave and  76852 total voters","Maldon had  63 % voting for Leave and  38831 total voters","Wolverhampton had  63 % voting for Leave and  117936 total voters","Swale had  62 % voting for Leave and  75869 total voters","Arun had  62 % voting for Leave and  91129 total voters","Wellingborough had  62 % voting for Leave and  41141 total voters","Havant had  62 % voting for Leave and  70629 total voters","Barking and Dagenham had  62 % voting for Leave and  73880 total voters","Redditch had  62 % voting for Leave and  45882 total voters","North Kesteven had  62 % voting for Leave and  67753 total voters","Shepway had  62 % voting for Leave and  60613 total voters","Dover had  62 % voting for Leave and  65016 total voters","Copeland had  62 % voting for Leave and  37947 total voters","South Tyneside had  62 % voting for Leave and  79079 total voters","Scarborough had  62 % voting for Leave and  60511 total voters","Blaenau Gwent had  62 % voting for Leave and  34802 total voters","Isle of Wight had  62 % voting for Leave and  79380 total voters","West Lindsey had  62 % voting for Leave and  54753 total voters","Stockton-on-Tees had  62 % voting for Leave and  100415 total voters","Sunderland had  61 % voting for Leave and  134324 total voters","Erewash had  61 % voting for Leave and  66530 total voters","Sedgemoor had  61 % voting for Leave and  68414 total voters","Tameside had  61 % voting for Leave and  110947 total voters","Braintree had  61 % voting for Leave and  86236 total voters","Kettering had  61 % voting for Leave and  53907 total voters","Weymouth and Portland had  61 % voting for Leave and  38255 total voters","Oldham had  61 % voting for Leave and  107403 total voters","Peterborough had  61 % voting for Leave and  87392 total voters","Torridge had  61 % voting for Leave and  41429 total voters","Rossendale had  61 % voting for Leave and  38181 total voters","North West Leicestershire had  61 % voting for Leave and  57611 total voters","West Somerset had  61 % voting for Leave and  21734 total voters","Barrow-in-Furness had  61 % voting for Leave and  36074 total voters","East Riding of Yorkshire had  60 % voting for Leave and  198915 total voters","Newark and Sherwood had  60 % voting for Leave and  67087 total voters","South Derbyshire had  60 % voting for Leave and  56695 total voters","Hinckley and Bosworth had  60 % voting for Leave and  65470 total voters","Spelthorne had  60 % voting for Leave and  56609 total voters","Amber Valley had  60 % voting for Leave and  73820 total voters","Carlisle had  60 % voting for Leave and  59683 total voters","Rochdale had  60 % voting for Leave and  103231 total voters","Chesterfield had  60 % voting for Leave and  57424 total voters","South Kesteven had  60 % voting for Leave and  82471 total voters","Plymouth had  60 % voting for Leave and  133455 total voters","Torfaen had  60 % voting for Leave and  48144 total voters","Blaby had  59 % voting for Leave and  56471 total voters","Ashford had  59 % voting for Leave and  69786 total voters","Stevenage had  59 % voting for Leave and  45785 total voters","Herefordshire, County of had  59 % voting for Leave and  108270 total voters","Selby had  59 % voting for Leave and  51603 total voters","Brentwood had  59 % voting for Leave and  46704 total voters","Purbeck had  59 % voting for Leave and  28720 total voters","Wrexham had  59 % voting for Leave and  70366 total voters","North Norfolk had  59 % voting for Leave and  63790 total voters","Lichfield had  59 % voting for Leave and  63278 total voters","Christchurch had  59 % voting for Leave and  31050 total voters","East Northamptonshire had  59 % voting for Leave and  52574 total voters","Maidstone had  59 % voting for Leave and  89127 total voters","South Ribble had  59 % voting for Leave and  63724 total voters","Forest of Dean had  59 % voting for Leave and  51643 total voters","Allerdale had  59 % voting for Leave and  54238 total voters","Daventry had  59 % voting for Leave and  49381 total voters","Gloucester had  58 % voting for Leave and  64577 total voters","Rother had  59 % voting for Leave and  57669 total voters","Northampton had  58 % voting for Leave and  105259 total voters","Crawley had  58 % voting for Leave and  53835 total voters","Bolton had  58 % voting for Leave and  138080 total voters","Ipswich had  58 % voting for Leave and  66353 total voters","Rushmoor had  58 % voting for Leave and  48780 total voters","Poole had  58 % voting for Leave and  85448 total voters","Southend-on-Sea had  58 % voting for Leave and  93870 total voters","Melton had  58 % voting for Leave and  30305 total voters","Portsmouth had  58 % voting for Leave and  98720 total voters","St. Helens had  58 % voting for Leave and  93679 total voters","Wychavon had  58 % voting for Leave and  76389 total voters","New Forest had  58 % voting for Leave and  111740 total voters","Caerphilly had  58 % voting for Leave and  92473 total voters","East Dorset had  58 % voting for Leave and  58488 total voters","County Durham had  58 % voting for Leave and  267398 total voters","Halton had  57 % voting for Leave and  65005 total voters","Eastbourne had  57 % voting for Leave and  53545 total voters","Derby had  57 % voting for Leave and  120655 total voters","South Somerset had  57 % voting for Leave and  99467 total voters","Pembrokeshire had  57 % voting for Leave and  68522 total voters","Fylde had  57 % voting for Leave and  46206 total voters","North Devon had  57 % voting for Leave and  58031 total voters","Shropshire had  57 % voting for Leave and  183153 total voters","Lincoln had  57 % voting for Leave and  43894 total voters","Chorley had  57 % voting for Leave and  63515 total voters","Gateshead had  57 % voting for Leave and  102958 total voters","Salford had  57 % voting for Leave and  109815 total voters","Neath Port Talbot had  57 % voting for Leave and  75652 total voters","Richmondshire had  57 % voting for Leave and  27636 total voters","Rugby had  57 % voting for Leave and  58549 total voters","St Edmundsbury had  57 % voting for Leave and  62210 total voters","Cornwall had  57 % voting for Leave and  323205 total voters","Luton had  57 % voting for Leave and  84481 total voters","Hillingdon had  56 % voting for Leave and  133022 total voters","Flintshire had  56 % voting for Leave and  86797 total voters","North Dorset had  56 % voting for Leave and  42201 total voters","Merthyr Tydfil had  56 % voting for Leave and  28865 total voters","Ribble Valley had  56 % voting for Leave and  36442 total voters","Blackburn with Darwen had  56 % voting for Leave and  65321 total voters","Darlington had  56 % voting for Leave and  55166 total voters","Solihull had  56 % voting for Leave and  121950 total voters","Central Bedfordshire had  56 % voting for Leave and  158804 total voters","Newport had  56 % voting for Leave and  73649 total voters","Stafford had  56 % voting for Leave and  77484 total voters","Calderdale had  56 % voting for Leave and  105925 total voters","Tonbridge and Malling had  56 % voting for Leave and  74021 total voters","Gedling had  56 % voting for Leave and  67577 total voters","Coventry had  56 % voting for Leave and  153064 total voters","Bromsgrove had  55 % voting for Leave and  58815 total voters","West Lancashire had  55 % voting for Leave and  63869 total voters","Ryedale had  55 % voting for Leave and  32050 total voters","Mid Suffolk had  55 % voting for Leave and  61185 total voters","Fareham had  55 % voting for Leave and  71735 total voters","Bournemouth had  55 % voting for Leave and  91926 total voters","Hastings had  55 % voting for Leave and  44350 total voters","Kirklees had  55 % voting for Leave and  217240 total voters","Swindon had  55 % voting for Leave and  112965 total voters","Broxtowe had  55 % voting for Leave and  65426 total voters","Adur had  55 % voting for Leave and  37229 total voters","Oadby and Wigston had  55 % voting for Leave and  31465 total voters","Bridgend had  55 % voting for Leave and  74345 total voters","Wealden had  55 % voting for Leave and  96892 total voters","Sevenoaks had  54 % voting for Leave and  70349 total voters","Broadland had  54 % voting for Leave and  77737 total voters","Warrington had  54 % voting for Leave and  115144 total voters","Slough had  54 % voting for Leave and  54542 total voters","South Northamptonshire had  54 % voting for Leave and  56624 total voters","Runnymede had  54 % voting for Leave and  44294 total voters","Bradford had  54 % voting for Leave and  228488 total voters","Babergh had  54 % voting for Leave and  55242 total voters","Huntingdonshire had  54 % voting for Leave and  99927 total voters","Bury had  54 % voting for Leave and  101028 total voters","Northumberland had  54 % voting for Leave and  178721 total voters","East Devon had  54 % voting for Leave and  88783 total voters","Denbighshire had  54 % voting for Leave and  52072 total voters","Conwy had  54 % voting for Leave and  65504 total voters","Bracknell Forest had  54 % voting for Leave and  64890 total voters","Teignbridge had  54 % voting for Leave and  82312 total voters","Southampton had  54 % voting for Leave and  107665 total voters","Charnwood had  54 % voting for Leave and  94172 total voters","Carmarthenshire had  54 % voting for Leave and  103035 total voters","Worcester had  54 % voting for Leave and  54239 total voters","Rhondda Cynon Taf had  54 % voting for Leave and  116563 total voters","Sutton had  54 % voting for Leave and  106560 total voters","Powys had  54 % voting for Leave and  79469 total voters","Hambleton had  54 % voting for Leave and  54982 total voters","Colchester had  54 % voting for Leave and  95719 total voters","North Tyneside had  53 % voting for Leave and  113462 total voters","Preston had  53 % voting for Leave and  64745 total voters","Mid Devon had  53 % voting for Leave and  48006 total voters","Eden had  53 % voting for Leave and  31718 total voters","West Devon had  53 % voting for Leave and  35595 total voters","Tewkesbury had  53 % voting for Leave and  53652 total voters","Welwyn Hatfield had  53 % voting for Leave and  58610 total voters","Suffolk Coastal had  53 % voting for Leave and  79184 total voters","Worthing had  53 % voting for Leave and  61366 total voters","Taunton Deane had  53 % voting for Leave and  65733 total voters","Craven had  53 % voting for Leave and  35891 total voters","Chelmsford had  53 % voting for Leave and  100794 total voters","Tandridge had  53 % voting for Leave and  51420 total voters","South Gloucestershire had  53 % voting for Leave and  158333 total voters","Eastleigh had  52 % voting for Leave and  76074 total voters","Wiltshire had  52 % voting for Leave and  288895 total voters","Malvern Hills had  52 % voting for Leave and  48497 total voters","North Somerset had  52 % voting for Leave and  124548 total voters","Basingstoke and Deane had  52 % voting for Leave and  100328 total voters","Test Valley had  52 % voting for Leave and  75261 total voters","Bedford had  52 % voting for Leave and  86066 total voters","South Norfolk had  52 % voting for Leave and  80358 total voters","Stratford-on-Avon had  52 % voting for Leave and  79158 total voters","Derbyshire Dales had  52 % voting for Leave and  46728 total voters","Knowsley had  52 % voting for Leave and  70903 total voters","Swansea had  52 % voting for Leave and  120243 total voters","Milton Keynes had  51 % voting for Leave and  130456 total voters","Three Rivers had  51 % voting for Leave and  52848 total voters","Cheshire East had  51 % voting for Leave and  221125 total voters","Lancaster had  51 % voting for Leave and  73041 total voters","Canterbury had  51 % voting for Leave and  82048 total voters","West Dorset had  51 % voting for Leave and  65191 total voters","Sheffield had  51 % voting for Leave and  266753 total voters","Surrey Heath had  51 % voting for Leave and  52305 total voters","Isle of Anglesey had  51 % voting for Leave and  37951 total voters","Chichester had  51 % voting for Leave and  71337 total voters","East Cambridgeshire had  51 % voting for Leave and  48086 total voters","Hertsmere had  51 % voting for Leave and  56125 total voters","Nottingham had  51 % voting for Leave and  120661 total voters","Harborough had  51 % voting for Leave and  54878 total voters","Dacorum had  51 % voting for Leave and  86244 total voters","Uttlesford had  51 % voting for Leave and  51943 total voters","Cheshire West and Chester had  51 % voting for Leave and  193537 total voters","South Bucks had  51 % voting for Leave and  40724 total voters","Rutland had  51 % voting for Leave and  22966 total voters","Aylesbury Vale had  51 % voting for Leave and  106833 total voters","High Peak had  51 % voting for Leave and  54833 total voters","Reigate and Banstead had  50 % voting for Leave and  81161 total voters","East Hertfordshire had  50 % voting for Leave and  85366 total voters","Birmingham had  50 % voting for Leave and  450702 total voters","Watford had  50 % voting for Leave and  46586 total voters","Cherwell had  50 % voting for Leave and  81836 total voters","Moray had  50 % voting for Leave and  48106 total voters","Leeds had  50 % voting for Leave and  387337 total voters","Monmouthshire had  50 % voting for Leave and  55630 total voters","East Hampshire had  49 % voting for Leave and  73922 total voters","Bromley had  49 % voting for Leave and  182432 total voters","Vale of Glamorgan had  49 % voting for Leave and  72309 total voters","Newcastle upon Tyne had  49 % voting for Leave and  129003 total voters","Harrogate had  49 % voting for Leave and  94585 total voters","Leicester had  49 % voting for Leave and  138972 total voters","Hounslow had  49 % voting for Leave and  115076 total voters","Cotswold had  49 % voting for Leave and  54821 total voters","Mendip had  49 % voting for Leave and  65455 total voters","Horsham had  49 % voting for Leave and  85088 total voters","Wirral had  48 % voting for Leave and  172000 total voters","West Berkshire had  48 % voting for Leave and  93277 total voters","Sefton had  48 % voting for Leave and  147878 total voters","Wycombe had  48 % voting for Leave and  94790 total voters","Lewes had  48 % voting for Leave and  59482 total voters","Epsom and Ewell had  48 % voting for Leave and  45303 total voters","Stockport had  48 % voting for Leave and  163489 total voters","Hart had  48 % voting for Leave and  57795 total voters","Newham had  47 % voting for Leave and  104699 total voters","South Lakeland had  47 % voting for Leave and  65331 total voters","South Hams had  47 % voting for Leave and  55450 total voters","Dumfries and Galloway had  47 % voting for Leave and  82667 total voters","Mid Sussex had  47 % voting for Leave and  87528 total voters","Mole Valley had  47 % voting for Leave and  54796 total voters","West Oxfordshire had  46 % voting for Leave and  65671 total voters","Windsor and Maidenhead had  46 % voting for Leave and  81792 total voters","Redbridge had  46 % voting for Leave and  128233 total voters","Croydon had  46 % voting for Leave and  171134 total voters","North Hertfordshire had  46 % voting for Leave and  77672 total voters","Stroud had  45 % voting for Leave and  74064 total voters","Ceredigion had  45 % voting for Leave and  39742 total voters","Harrow had  45 % voting for Leave and  117225 total voters","Tunbridge Wells had  45 % voting for Leave and  64996 total voters","South Oxfordshire had  45 % voting for Leave and  84110 total voters","Aberdeenshire had  45 % voting for Leave and  138961 total voters","Chiltern had  45 % voting for Leave and  58604 total voters","Na h-Eileanan Siar had  45 % voting for Leave and  14903 total voters","Angus had  45 % voting for Leave and  59258 total voters","Exeter had  45 % voting for Leave and  63803 total voters","Greenwich had  44 % voting for Leave and  117365 total voters","Enfield had  44 % voting for Leave and  136906 total voters","Highland had  44 % voting for Leave and  125657 total voters","Guildford had  44 % voting for Leave and  78613 total voters","Woking had  44 % voting for Leave and  55221 total voters","Norwich had  44 % voting for Leave and  66366 total voters","Cheltenham had  44 % voting for Leave and  66013 total voters","Isles of Scilly had  44 % voting for Leave and  1424 total voters","Shetland Islands had  43 % voting for Leave and  12222 total voters","Vale of White Horse had  43 % voting for Leave and  76654 total voters","Wokingham had  43 % voting for Leave and  97501 total voters","Falkirk had  43 % voting for Leave and  79258 total voters","North Ayrshire had  43 % voting for Leave and  67504 total voters","Rushcliffe had  42 % voting for Leave and  70410 total voters","Trafford had  42 % voting for Leave and  125311 total voters","Clackmannanshire had  42 % voting for Leave and  25427 total voters","Bath and North East Somerset had  42 % voting for Leave and  105230 total voters","Reading had  42 % voting for Leave and  74767 total voters","York had  42 % voting for Leave and  109600 total voters","Gwynedd had  42 % voting for Leave and  61182 total voters","Liverpool had  42 % voting for Leave and  203554 total voters","West Lothian had  42 % voting for Leave and  88508 total voters","Waverley had  42 % voting for Leave and  75942 total voters","Scottish Borders had  42 % voting for Leave and  64914 total voters","East Ayrshire had  41 % voting for Leave and  57833 total voters","Fife had  41 % voting for Leave and  182220 total voters","Warwick had  41 % voting for Leave and  81618 total voters","Winchester had  41 % voting for Leave and  72764 total voters","South Ayrshire had  41 % voting for Leave and  61506 total voters","Waltham Forest had  41 % voting for Leave and  108551 total voters","Elmbridge had  40 % voting for Leave and  77003 total voters","Brent had  40 % voting for Leave and  121404 total voters","Dundee City had  40 % voting for Leave and  66385 total voters","Cardiff had  40 % voting for Leave and  169604 total voters","South Cambridgeshire had  40 % voting for Leave and  93189 total voters","Ealing had  40 % voting for Leave and  149041 total voters","Manchester had  40 % voting for Leave and  201814 total voters","Argyll and Bute had  39 % voting for Leave and  48696 total voters","Aberdeen City had  39 % voting for Leave and  104714 total voters","Perth and Kinross had  39 % voting for Leave and  81255 total voters","Kingston upon Thames had  38 % voting for Leave and  85270 total voters","Bristol, City of had  38 % voting for Leave and  228445 total voters","North Lanarkshire had  38 % voting for Leave and  154949 total voters","West Dunbartonshire had  38 % voting for Leave and  43220 total voters","Midlothian had  38 % voting for Leave and  45468 total voters","Barnet had  38 % voting for Leave and  161033 total voters","St Albans had  37 % voting for Leave and  86445 total voters","Merton had  37 % voting for Leave and  100100 total voters","South Lanarkshire had  37 % voting for Leave and  162592 total voters","Orkney Islands had  37 % voting for Leave and  11382 total voters","Inverclyde had  36 % voting for Leave and  38698 total voters","East Lothian had  35 % voting for Leave and  55764 total voters","Renfrewshire had  35 % voting for Leave and  88129 total voters","Glasgow City had  33 % voting for Leave and  252809 total voters","Tower Hamlets had  33 % voting for Leave and  108235 total voters","Stirling had  32 % voting for Leave and  48899 total voters","Brighton and Hove had  31 % voting for Leave and  146675 total voters","Kensington and Chelsea had  31 % voting for Leave and  54739 total voters","Westminster had  31 % voting for Leave and  78196 total voters","Richmond upon Thames had  31 % voting for Leave and  108806 total voters","Lewisham had  30 % voting for Leave and  124473 total voters","Hammersmith and Fulham had  30 % voting for Leave and  80242 total voters","Oxford had  30 % voting for Leave and  70337 total voters","East Dunbartonshire had  29 % voting for Leave and  62374 total voters","Southwark had  27 % voting for Leave and  129502 total voters","Cambridge had  26 % voting for Leave and  57799 total voters","East Renfrewshire had  26 % voting for Leave and  52941 total voters","City of Edinburgh had  26 % voting for Leave and  252294 total voters","Camden had  25 % voting for Leave and  95133 total voters","Wandsworth had  25 % voting for Leave and  157884 total voters","Islington had  25 % voting for Leave and  101600 total voters","City of London had  25 % voting for Leave and  4399 total voters","Haringey had  24 % voting for Leave and  105846 total voters","Hackney had  22 % voting for Leave and  106266 total voters","Lambeth had  21 % voting for Leave and  141924 total voters"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]},{"method":"addLegend","args":[{"colors":["#FFFFCC , #FFE793 16.3636363636364%, #FEBB56 34.5454545454545%, #FD8138 52.7272727272727%, #EB2F20 70.9090909090909%, #B50026 89.0909090909091%, #800026 "],"labels":["0.3","0.4","0.5","0.6","0.7"],"na_color":null,"na_label":"NA","opacity":1,"position":"topright","type":"numeric","title":"% of Leave voters","extra":{"p_1":0.163636363636364,"p_n":0.890909090909091},"layerId":null,"className":"info legend","group":null}]}],"setView":[[53.5,-3],6,[]],"limits":{"lat":[49.9435,60.3386],"lng":[-7.1583,1.6538]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<p></br></p>
+<h2 id="section" class="appendix"></h2>
+<p>For completeness (and reproducibility), here’s the code that I used to calculate what’s above.</p>
+<h2 id="data" class="appendix">Data</h2>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+library(tidyverse)
+library(xml2)
+library(htmlwidgets)
+library(DT)
+library(leaflet)
+library(maptools)
+library(sp)
+
+# webResults &lt;- read_html(&quot;https://ig.ft.com/sites/elections/2016/uk/eu-referendum/&quot;)
+  
+# webData &lt;- webResults %&gt;%
+#   html_nodes(&quot;td:nth-child(1) , .area-state-3 .hideable&quot;) %&gt;%
+#   html_text()
+  
+# saveRDS(webData, &quot;webData.rds&quot;)
+
+webData &lt;- readRDS(&quot;webData.rds&quot;)
+
+lWebData &lt;- length(webData)
+  
+areaName &lt;- webData[seq(
+  from = 1, 
+  to = lWebData-2, 
+  by = 3
+  )]
+
+remainVotes &lt;- webData[seq(
+  from = 2, 
+  to = lWebData-1, 
+  by = 3
+  )]
+
+leaveVotes &lt;- webData[seq(
+  from = 3, 
+  to = lWebData, 
+  by = 3
+  )]
+  
+remainVotes &lt;- gsub(&quot;,([0-9])&quot;, &quot;\\1&quot;, remainVotes)
+leaveVotes &lt;- gsub(&quot;,([0-9])&quot;, &quot;\\1&quot;, leaveVotes)
+  
+resultsData &lt;- as.data.frame(
+  t(
+    rbind(
+      areaName, remainVotes, leaveVotes
+      )
+    ), 
+  stringsAsFactors = F
+  )
+  
+resultsData$remainVotes &lt;- as.numeric(
+  resultsData$remainVotes
+  )
+  
+resultsData$leaveVotes &lt;- as.numeric(
+  resultsData$leaveVotes
+  )</code></pre>
+</div>
+<h2 id="charts" class="appendix">Charts</h2>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+# localAuthorityRaw &lt;- readShapeSpatial(
+#   &quot;Local_Authority_District_(GB)_2015_boundaries_(generalised_clipped)/LAD_DEC_2015_GB_BGC.shp&quot;, 
+#   proj4string=CRS(&quot;+init=epsg:27700&quot;)
+#   )
+  
+# # Transform the data to use with ggmap
+# localAuthorityClean &lt;- spTransform(
+#   localAuthorityRaw, 
+#   CRS(&quot;+init=epsg:4326&quot;)
+#   )
+  
+# # Turns the data into a dataframe
+# localAuthorityCleanDF &lt;- fortify(
+#   localAuthorityClean, 
+#   region = &quot;LAD15NM&quot;
+#   )
+  
+# saveRDS(
+#   localAuthorityCleanDF,
+#   &quot;localAuthorityCleanDF.rds&quot;
+#   )
+  
+localAuthorityCleanDF &lt;- readRDS(
+  &quot;localAuthorityCleanDF.rds&quot;
+  )
+
+l1 &lt;- as.data.frame(
+  unique(localAuthorityCleanDF$id),
+  stringsAsFactors = F
+  )
+
+colnames(l1)[1] &lt;- &quot;locAuthID&quot;
+areaNameDF &lt;- as.data.frame(
+  areaName, 
+  stringsAsFactors = F
+  )
+
+l2 &lt;- l1 %&gt;%
+  mutate(
+    check = locAuthID %in% areaNameDF$areaName
+    )
+  
+l3 &lt;- areaNameDF %&gt;%
+  mutate(check = areaName %in% l1$locAuthID)
+  
+# Given these mislabelled regions, alter the names
+resultsData$areaName &lt;- recode(
+  resultsData$areaName,
+  Hull = &quot;Kingston upon Hull, City of&quot;,
+  Herefordshire = &quot;Herefordshire, County of&quot;,
+  `St Helens` = &quot;St. Helens&quot;,
+  Durham = &quot;County Durham&quot;,
+  `Newcastle-upon-Tyne` = &quot;Newcastle upon Tyne&quot;,
+  Dundee = &quot;Dundee City&quot;,
+  Aberdeen = &quot;Aberdeen City&quot;,
+  `Kingston-upon-Thames` = &quot;Kingston upon Thames&quot;,
+  Bristol = &quot;Bristol, City of&quot;,
+  Glasgow = &quot;Glasgow City&quot;,
+  `Richmond-upon-Thames` = &quot;Richmond upon Thames&quot;,
+  Edinburgh = &quot;City of Edinburgh&quot;)
+
+# Drop NI and Gibraltar
+mapDataSummary &lt;- resultsData[c(-308, -382)]</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+mapDataLng &lt;- localAuthorityCleanDF %&gt;% 
+  group_by(id) %&gt;% 
+  summarise(avLng = round(median(long),4))
+  
+mapDataLat &lt;- localAuthorityCleanDF %&gt;% 
+  group_by(id) %&gt;% 
+  summarise(avLat = round(median(lat),4))
+  
+mapDataLngLat &lt;- mapDataLat %&gt;% 
+  left_join(mapDataLng, by = &quot;id&quot;) %&gt;% 
+  rename(areaName = id)
+
+mapDataFinal &lt;- mapDataSummary %&gt;% 
+  left_join(mapDataLngLat, by = &quot;areaName&quot;) %&gt;% 
+  mutate(
+    leaveShare = round(
+      leaveVotes/(leaveVotes + remainVotes)
+      ,2
+      )
+    ,
+    size = leaveVotes + remainVotes
+    )
+  
+mapDataFinal &lt;- mapDataFinal[complete.cases(mapDataFinal),]
+  
+dt &lt;- datatable(
+  mapDataFinal, 
+  rownames = FALSE, 
+  options = list(
+    dom = &#39;tip&#39;, 
+    autoWidth = TRUE,
+    order = list(5, &#39;desc&#39;), 
+    columnDefs = list(
+      list(
+        className = &#39;dt-left&#39;, 
+        targets = 0)
+      ), 
+    pageLength = 10, 
+    fillContainer = T
+    )
+  )
+
+dt</code></pre>
+</div>
+<h2 id="system-settings" class="appendix">System settings</h2>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>
+R version 3.6.0 (2019-04-26)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS  10.15
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_GB.UTF-8/en_GB.UTF-8/en_GB.UTF-8/C/en_GB.UTF-8/en_GB.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods  
+[7] base     
+
+other attached packages:
+ [1] maptools_0.9-5    sp_1.3-1          leaflet_2.0.2    
+ [4] DT_0.9            htmlwidgets_1.5.1 xml2_1.2.2       
+ [7] forcats_0.4.0     stringr_1.4.0     dplyr_0.8.3      
+[10] purrr_0.3.3       readr_1.3.1       tidyr_1.0.0      
+[13] tibble_2.1.3      ggplot2_3.2.1     tidyverse_1.2.1  
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_0.2.5   xfun_0.9           haven_2.1.1       
+ [4] lattice_0.20-38    colorspace_1.4-1   vctrs_0.2.0       
+ [7] generics_0.0.2     htmltools_0.4.0    yaml_2.2.0        
+[10] rlang_0.4.1        later_1.0.0        pillar_1.4.2      
+[13] foreign_0.8-71     glue_1.3.1         withr_2.1.2       
+[16] RColorBrewer_1.1-2 modelr_0.1.5       readxl_1.3.1      
+[19] lifecycle_0.1.0    munsell_0.5.0      gtable_0.3.0      
+[22] cellranger_1.1.0   rvest_0.3.4        evaluate_0.14     
+[25] knitr_1.25         fastmap_1.0.1      httpuv_1.5.2      
+[28] crosstalk_1.0.0    broom_0.5.2        Rcpp_1.0.2        
+[31] xtable_1.8-4       promises_1.1.0     scales_1.0.0      
+[34] backports_1.1.5    jsonlite_1.6       mime_0.7          
+[37] distill_0.7        hms_0.5.1          digest_0.6.22     
+[40] stringi_1.4.3      shiny_1.4.0        grid_3.6.0        
+[43] cli_1.1.0          tools_3.6.0        magrittr_1.5      
+[46] lazyeval_0.2.2     crayon_1.3.4       pkgconfig_2.0.3   
+[49] zeallot_0.1.0      lubridate_1.7.4    assertthat_0.2.1  
+[52] rmarkdown_1.16     httr_1.4.1         rstudioapi_0.10   
+[55] R6_2.4.0           nlme_3.1-139       compiler_3.6.0    </code></pre>
+</div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>
