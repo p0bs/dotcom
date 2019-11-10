@@ -16,225 +16,80 @@ output:
     highlight: pygments
 ---
 
+```{r brexit, echo=FALSE, error=FALSE, message=FALSE, warning=FALSE}
+suppressMessages(library(tidyverse))
+library(ggiraph)
+library(parlitools)
 
+map_details <- west_hex_map
 
-```{r brexit1, echo=FALSE, error=FALSE, message=FALSE, warning=FALSE}
-library(tidyverse)
-library(xml2)
-library(htmlwidgets)
-library(DT)
-library(leaflet)
-library(maptools)
-library(sp)
-
-# webResults <- read_html("https://ig.ft.com/sites/elections/2016/uk/eu-referendum/")
-  
-# webData <- webResults %>%
-#   html_nodes("td:nth-child(1) , .area-state-3 .hideable") %>%
-#   html_text()
-  
-# saveRDS(webData, "webData.rds")
-
-webData <- readRDS("webData.rds")
-
-lWebData <- length(webData)
-  
-areaName <- webData[seq(
-  from = 1, 
-  to = lWebData-2, 
-  by = 3
-  )]
-
-remainVotes <- webData[seq(
-  from = 2, 
-  to = lWebData-1, 
-  by = 3
-  )]
-
-leaveVotes <- webData[seq(
-  from = 3, 
-  to = lWebData, 
-  by = 3
-  )]
-  
-remainVotes <- gsub(",([0-9])", "\\1", remainVotes)
-leaveVotes <- gsub(",([0-9])", "\\1", leaveVotes)
-  
-resultsData <- as.data.frame(
-  t(
-    rbind(
-      areaName, remainVotes, leaveVotes
-      )
-    ), 
-  stringsAsFactors = F
-  )
-  
-resultsData$remainVotes <- as.numeric(
-  resultsData$remainVotes
-  )
-  
-resultsData$leaveVotes <- as.numeric(
-  resultsData$leaveVotes
-  )
-```
-
-</br>
-
-```{r brexit2, echo=FALSE, error=TRUE, message=FALSE, warning=FALSE}
-# localAuthorityRaw <- readShapeSpatial(
-#   "Local_Authority_District_(GB)_2015_boundaries_(generalised_clipped)/LAD_DEC_2015_GB_BGC.shp", 
-#   proj4string=CRS("+init=epsg:27700")
-#   )
-  
-# # Transform the data to use with ggmap
-# localAuthorityClean <- spTransform(
-#   localAuthorityRaw, 
-#   CRS("+init=epsg:4326")
-#   )
-  
-# # Turns the data into a dataframe
-# localAuthorityCleanDF <- fortify(
-#   localAuthorityClean, 
-#   region = "LAD15NM"
-#   )
-  
-# saveRDS(
-#   localAuthorityCleanDF,
-#   "localAuthorityCleanDF.rds"
-#   )
-  
-localAuthorityCleanDF <- readRDS(
-  "localAuthorityCleanDF.rds"
-  )
-
-l1 <- as.data.frame(
-  unique(localAuthorityCleanDF$id),
-  stringsAsFactors = F
-  )
-
-colnames(l1)[1] <- "locAuthID"
-areaNameDF <- as.data.frame(
-  areaName, 
-  stringsAsFactors = F
-  )
-
-l2 <- l1 %>%
-  mutate(
-    check = locAuthID %in% areaNameDF$areaName
-    )
-  
-l3 <- areaNameDF %>%
-  mutate(check = areaName %in% l1$locAuthID)
-  
-# Given these mislabelled regions, alter the names
-resultsData$areaName <- recode(
-  resultsData$areaName,
-  Hull = "Kingston upon Hull, City of",
-  Herefordshire = "Herefordshire, County of",
-  `St Helens` = "St. Helens",
-  Durham = "County Durham",
-  `Newcastle-upon-Tyne` = "Newcastle upon Tyne",
-  Dundee = "Dundee City",
-  Aberdeen = "Aberdeen City",
-  `Kingston-upon-Thames` = "Kingston upon Thames",
-  Bristol = "Bristol, City of",
-  Glasgow = "Glasgow City",
-  `Richmond-upon-Thames` = "Richmond upon Thames",
-  Edinburgh = "City of Edinburgh")
-
-# Drop NI and Gibraltar
-mapDataSummary <- resultsData[c(-308, -382)]
-```
-
-</br> 
-
-```{r brexit3, echo=FALSE, error=TRUE, message=FALSE, warning=FALSE}
-mapDataLng <- localAuthorityCleanDF %>% 
-  group_by(id) %>% 
-  summarise(avLng = round(median(long),4))
-  
-mapDataLat <- localAuthorityCleanDF %>% 
-  group_by(id) %>% 
-  summarise(avLat = round(median(lat),4))
-  
-mapDataLngLat <- mapDataLat %>% 
-  left_join(mapDataLng, by = "id") %>% 
-  rename(areaName = id)
-
-mapDataFinal <- mapDataSummary %>% 
-  left_join(mapDataLngLat, by = "areaName") %>% 
-  mutate(
-    leaveShare = round(
-      leaveVotes/(leaveVotes + remainVotes)
-      ,2
-      )
-    ,
-    size = leaveVotes + remainVotes
-    )
-  
-mapDataFinal <- mapDataFinal[complete.cases(mapDataFinal),]
-  
-dt <- datatable(
-  mapDataFinal, 
-  rownames = FALSE, 
-  options = list(
-    dom = 'tip', 
-    autoWidth = TRUE,
-    order = list(5, 'desc'), 
-    columnDefs = list(
-      list(
-        className = 'dt-left', 
-        targets = 0)
-      ), 
-    pageLength = 10, 
-    fillContainer = T
-    )
-  )
-
-dt
-```
-
-
-```{r brexit4, echo=FALSE, error=TRUE, message=FALSE, warning=FALSE}
-pal <- colorNumeric(
-  palette = "YlOrRd", 
-  domain = mapDataFinal$leaveShare
-  )
-  
-map <- leaflet(mapDataFinal) %>%
-  addProviderTiles(
-    provider = "OpenStreetMap.Mapnik"
+brexitData <- leave_votes_west %>% 
+  mutate(leave_vote = figure_to_use) %>% 
+  left_join(
+    map_details,
+    by = c("ons_const_id" = "gss_code")
     ) %>% 
-  setView(
-    lng = -3, 
-    lat = 53.5, 
-    zoom = 6
-    ) %>%
-  addCircles(
-    lng = ~mapDataFinal$avLng, 
-    lat = ~mapDataFinal$avLat, 
-    color = ~pal(mapDataFinal$leaveShare), 
-    radius = ~20*sqrt(size), 
-    stroke = FALSE, 
-    fillOpacity = 0.9,
-    popup = paste(
-      mapDataFinal$areaName, 
-      "had ", 
-      round(100*mapDataFinal$leaveShare, 1), 
-      "% voting for Leave and ", 
-      mapDataFinal$size, 
-      "total voters")
-    ) %>% 
-  addLegend(
-    "topright", 
-    pal = pal,
-    values = ~mapDataFinal$leaveShare,
-    title = "% of Leave voters",
-    labFormat = labelFormat(),
-    opacity = 1
+  mutate(
+    constituency = ifelse(
+      is.na(constituency_name.x), 
+      constituency_name.y, 
+      constituency_name.x
+      )
+  ) %>% 
+  select(constituency, leave_vote, party_2016, ons_const_id, geometry) %>% 
+  arrange(constituency)
+
+gg <- brexitData %>% 
+  ggplot() + 
+  geom_sf_interactive(
+    aes(
+      group = constituency,
+      geometry = geometry,
+      fill = leave_vote,
+      colour = party_2016,
+      tooltip = paste0(
+        constituency, 
+        "\n MP: ",
+        party_2016,
+        "\n Leave vote: ",
+        round(leave_vote * 100, 0),
+        "%"
+        )
+    )
+  ) + 
+  scale_fill_gradient2_interactive(
+    low = "green", 
+    mid = "white", 
+    high = "orange", 
+    midpoint = 0.5
+    ) +
+  scale_colour_manual_interactive(
+    values = c(
+      Conservative = "#0087DC",
+      DUP = "#D46A4C",
+      Independent = "#AFAFAFAF",
+      Other = "#AFAFAFAF",
+      SDLP = "#AFAFAFAF",
+      UKIP = "#AFAFAFAF",
+      UUP = "#AFAFAFAF",
+      Labour = "#DC241F",
+      `Liberal Democrat` = "#FDBB30",
+      `Plaid Cymru` = "#008142",
+      `Scottish National Party` = "#FFFF00",
+      `Sinn Fein` = "#008800",
+      Green = "#6AB023"
+    )
+  ) +
+  theme_void() +
+  labs(
+    title = "Brexit vote by constituency", 
+    subtitle = "Hover over a point for more information"
+  ) + 
+  theme(
+    legend.position = "right"
     )
 
-map
+girafe(ggobj = gg)
 ```
 
 </br>
@@ -244,17 +99,7 @@ map
 
 For completeness (and reproducibility), here's the code that I used to calculate what's above.
 
-## Data {.appendix}
-
-```{r brexit1, eval=FALSE, echo=TRUE}
-```
-
-## Charts {.appendix}
-
-```{r brexit2, eval=FALSE, echo=TRUE}
-```
-
-```{r brexit3, eval=FALSE, echo=TRUE}
+```{r brexit, eval=FALSE, echo=TRUE}
 ```
 
 ## System settings {.appendix}
