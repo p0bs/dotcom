@@ -125,7 +125,7 @@
   {
     "path": "posts/2016-10-12-brexit/",
     "title": "Brexit vote analysis",
-    "description": "I wanted to better understand the Brexit vote and so I scraped some data from the web and plotted it. I then found the parlitools and ggiraph packages that simplified the whole process.\nIn this post, I therefore plot the Brexit vote and winning parliamentary party from 2016 by constituency.",
+    "description": "I wanted a better understanding of the Brexit vote and so thought I'd analyse it. \nIn this post, I therefore plot the Brexit vote and winning parliamentary party from 2016 by constituency, leaning heavily on the parlitools and ggiraph packages.",
     "author": [
       {
         "name": "Robin Penfold",
@@ -138,7 +138,7 @@
       "geo-viz"
     ],
     "preview": "posts/2016-10-12-brexit/2010_UK_blank_Election_Map.png",
-    "last_modified": "2019-11-10T16:48:45+00:00"
+    "last_modified": "2019-11-10T16:56:50+00:00"
   },
   {
     "path": "posts/2016-10-09-batting/",

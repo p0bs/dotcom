@@ -9,8 +9,8 @@ draft: false
 preview: 2010_UK_blank_Election_Map.png
 slug: brexit
 description: |
-  I wanted to better understand the Brexit vote and so I scraped some data from the web and plotted it. I then found the parlitools and ggiraph packages that simplified the whole process.
-  In this post, I therefore plot the Brexit vote and winning parliamentary party from 2016 by constituency.
+  I wanted a better understanding of the Brexit vote and so thought I'd analyse it. 
+  In this post, I therefore plot the Brexit vote and winning parliamentary party from 2016 by constituency, leaning heavily on the parlitools and ggiraph packages.
 output:
   distill::distill_article:
     self_contained: false
@@ -88,8 +88,8 @@ gg <- brexitData %>%
       Independent = "#6AB023",
       Other = "#AFAFAFAF",
       Labour = "#DC241F",
-      `Liberal Democrat` = "#FDBB30",
-      `Scottish National Party` = "#FFFF00",
+      LibDem = "#FDBB30",
+      SNP = "#FFFF00",
       `Sinn Fein` = "#008800"
     )
   ) +
