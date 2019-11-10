@@ -17,10 +17,11 @@ output:
     highlight: pygments
 ---
 
-```{r brexit, echo=FALSE, error=FALSE, message=FALSE, warning=FALSE, layout="l-screen-inset"}
+```{r brexit, echo=FALSE, error=FALSE, message=FALSE, warning=FALSE, layout="l-body-outset"}
 suppressMessages(library(tidyverse))
 library(ggiraph)
 library(parlitools)
+library(scales)
 
 map_details <- west_hex_map
 
@@ -69,7 +70,8 @@ gg <- brexitData %>%
     low = "green", 
     mid = "white", 
     high = "orange", 
-    midpoint = 0.5
+    midpoint = 0.5,
+    labels = percent_format(accuracy = 1)
     ) +
   scale_colour_manual_interactive(
     values = c(
@@ -89,7 +91,9 @@ gg <- brexitData %>%
     subtitle = "Hover over a point for the details"
   ) + 
   theme(
-    legend.position = "right"
+    legend.position = "right",
+    legend.text = element_text(size = 8, hjust = 0),
+    legend.title = element_text(size = 10)
     )
 
 girafe(ggobj = gg)
