@@ -46,6 +46,14 @@ brexitData <- leave_votes_west %>%
       )
   ) %>% 
   select(constituency, `Leave Vote`, Party, ons_const_id, geometry) %>% 
+  mutate(
+    Party = 
+      recode(
+        Party,
+        `Scottish National Party` = "SNP", 
+        `Liberal Democrat` = "LibDem"
+        )
+    ) %>% 
   arrange(constituency)
 
 gg <- brexitData %>% 
@@ -92,8 +100,8 @@ gg <- brexitData %>%
   ) + 
   theme(
     legend.position = "right",
-    legend.text = element_text(size = 8, hjust = 0),
-    legend.title = element_text(size = 10)
+    legend.text = element_text(size = 6, hjust = 0),
+    legend.title = element_text(size = 8)
     )
 
 girafe(ggobj = gg)
