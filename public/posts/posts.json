@@ -123,6 +123,24 @@
     "last_modified": "2019-10-19T21:15:45+01:00"
   },
   {
+    "path": "posts/2016-10-12-brexit/",
+    "title": "Brexit vote analysis",
+    "description": "I wanted to better understand the Brexit vote and so I scraped some data from the web and plotted it. I then found the parlitools and ggiraph packages that simplified the whole process.\nIn this post, I therefore plot the Brexit vote and winning parliamentary party from 2016 by constituency.",
+    "author": [
+      {
+        "name": "Robin Penfold",
+        "url": {}
+      }
+    ],
+    "date": "2016-10-12",
+    "categories": [
+      "politics",
+      "geo-viz"
+    ],
+    "preview": "posts/2016-10-12-brexit/2010_UK_blank_Election_Map.png",
+    "last_modified": "2019-11-10T14:09:31+00:00"
+  },
+  {
     "path": "posts/2016-10-09-batting/",
     "title": "Who bats best?",
     "description": "Cricket commentators often bang on about changes in batting quality through the ages. Or they say that batting order matters to averages ... or vice-versa. But is there anything in these questions? In this post, I try and find out a bit.",

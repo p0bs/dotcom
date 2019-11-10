@@ -4,19 +4,20 @@ author: Robin Penfold
 date: 2016-10-12
 categories:
   - politics
-  - geoviz
-draft: true
-preview: hex.jpeg
+  - geo-viz
+draft: false
+preview: 2010_UK_blank_Election_Map.png
 slug: brexit
 description: |
-  ADD ...
+  I wanted to better understand the Brexit vote and so I scraped some data from the web and plotted it. I then found the parlitools and ggiraph packages that simplified the whole process.
+  In this post, I therefore plot the Brexit vote and winning parliamentary party from 2016 by constituency.
 output:
   distill::distill_article:
     self_contained: false
     highlight: pygments
 ---
 
-```{r brexit, echo=FALSE, error=FALSE, message=FALSE, warning=FALSE}
+```{r brexit, echo=FALSE, error=FALSE, message=FALSE, warning=FALSE, layout="l-screen-inset"}
 suppressMessages(library(tidyverse))
 library(ggiraph)
 library(parlitools)
@@ -24,7 +25,14 @@ library(parlitools)
 map_details <- west_hex_map
 
 brexitData <- leave_votes_west %>% 
-  mutate(leave_vote = figure_to_use) %>% 
+  mutate(
+    `Leave Vote` = figure_to_use,
+    Party = as_factor(party_2016), 
+    Party = fct_lump(
+      Party,
+      n = 7, 
+      other_level = "Other")
+    ) %>% 
   left_join(
     map_details,
     by = c("ons_const_id" = "gss_code")
@@ -36,7 +44,7 @@ brexitData <- leave_votes_west %>%
       constituency_name.x
       )
   ) %>% 
-  select(constituency, leave_vote, party_2016, ons_const_id, geometry) %>% 
+  select(constituency, `Leave Vote`, Party, ons_const_id, geometry) %>% 
   arrange(constituency)
 
 gg <- brexitData %>% 
@@ -45,14 +53,14 @@ gg <- brexitData %>%
     aes(
       group = constituency,
       geometry = geometry,
-      fill = leave_vote,
-      colour = party_2016,
+      fill = `Leave Vote`,
+      colour = Party,
       tooltip = paste0(
         constituency, 
         "\n MP: ",
-        party_2016,
+        Party,
         "\n Leave vote: ",
-        round(leave_vote * 100, 0),
+        round(`Leave Vote` * 100, 0),
         "%"
         )
     )
@@ -67,23 +75,18 @@ gg <- brexitData %>%
     values = c(
       Conservative = "#0087DC",
       DUP = "#D46A4C",
-      Independent = "#AFAFAFAF",
+      Independent = "#6AB023",
       Other = "#AFAFAFAF",
-      SDLP = "#AFAFAFAF",
-      UKIP = "#AFAFAFAF",
-      UUP = "#AFAFAFAF",
       Labour = "#DC241F",
       `Liberal Democrat` = "#FDBB30",
-      `Plaid Cymru` = "#008142",
       `Scottish National Party` = "#FFFF00",
-      `Sinn Fein` = "#008800",
-      Green = "#6AB023"
+      `Sinn Fein` = "#008800"
     )
   ) +
   theme_void() +
   labs(
-    title = "Brexit vote by constituency", 
-    subtitle = "Hover over a point for more information"
+    title = "Leave vote and winning party, by constituency", 
+    subtitle = "Hover over a point for the details"
   ) + 
   theme(
     legend.position = "right"
@@ -93,7 +96,6 @@ girafe(ggobj = gg)
 ```
 
 </br>
-
 
 ##   {.appendix}
 
