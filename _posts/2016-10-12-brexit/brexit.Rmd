@@ -28,9 +28,9 @@ map_details <- west_hex_map
 brexitData <- leave_votes_west %>% 
   mutate(
     `Leave Vote` = figure_to_use,
-    Party = as_factor(party_2016), 
-    Party = fct_lump(
-      Party,
+    `Party of MP` = as_factor(party_2016), 
+    `Party of MP` = fct_lump(
+      `Party of MP`,
       n = 7, 
       other_level = "Other")
     ) %>% 
@@ -45,11 +45,11 @@ brexitData <- leave_votes_west %>%
       constituency_name.x
       )
   ) %>% 
-  select(constituency, `Leave Vote`, Party, ons_const_id, geometry) %>% 
+  select(constituency, `Leave Vote`, `Party of MP`, ons_const_id, geometry) %>% 
   mutate(
-    Party = 
+    `Party of MP` = 
       recode(
-        Party,
+        `Party of MP`,
         `Scottish National Party` = "SNP", 
         `Liberal Democrat` = "LibDem"
         )
@@ -63,11 +63,11 @@ gg <- brexitData %>%
       group = constituency,
       geometry = geometry,
       fill = `Leave Vote`,
-      colour = Party,
+      colour = `Party of MP`,
       tooltip = paste0(
         constituency, 
         "\n MP: ",
-        Party,
+        `Party of MP`,
         "\n Leave vote: ",
         round(`Leave Vote` * 100, 0),
         "%"
