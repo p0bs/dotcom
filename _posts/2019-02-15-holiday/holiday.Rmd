@@ -16,6 +16,8 @@ output:
     highlight: pygments
 ---
 
+</br>
+
 You can find the code in the appendix below, but here's the app:
 
 ```{r libraries, eval=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
@@ -98,10 +100,7 @@ temp_data <- read_csv('GlobalLandTemperaturesByCity.csv') %>%
     year = year(dt),
     month = month(dt),
     City = str_to_lower(City),
-    Country = str_to_lower(Country),
-    Country = if_else(Country == "united kingdom", "uk", Country),
-    Country = if_else(Country == "united states", "usa", Country),
-    Country = if_else(Country == "united arab emirates", "uae", Country)
+    Country = str_to_lower(Country)
   ) %>% 
   filter(
     year > 2000
