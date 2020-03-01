@@ -54,7 +54,7 @@
   {
     "path": "posts/2019-02-15-holiday/",
     "title": "Holiday ideas",
-    "description": "Yes, it is a first world problem, but we always struggle with holiday destinations. I prefer flying upside down to somewhere different, whilst my wife and boy aren't keen on heat or long flights. \nFor that reason, I made this app to find somewhere that suits us all.",
+    "description": "Yes, it is a first world problem, but we always struggle with holiday destinations. I prefer flying upside down towards somewhere different, whilst my wife and boy aren't keen on heat or long flights. \nFor that reason, I made this analysis to find somewhere that suits us all.",
     "author": [
       {
         "name": "Robin Penfold",
@@ -66,7 +66,7 @@
       "geo-viz"
     ],
     "preview": "posts/2019-02-15-holiday/globe.png",
-    "last_modified": "2020-02-28T14:53:38+00:00"
+    "last_modified": "2020-03-01T16:07:50+00:00"
   },
   {
     "path": "posts/2018-10-28-package/",

@@ -8,14 +8,224 @@ draft: false
 preview: globe.png
 slug: holiday
 description: |
-  Yes, it is a first world problem, but we always struggle with holiday destinations. I prefer flying upside down to somewhere different, whilst my wife and boy aren't keen on heat or long flights. 
-  For that reason, I made this app to find somewhere that suits us all.
+  Yes, it is a first world problem, but we always struggle with holiday destinations. I prefer flying upside down towards somewhere different, whilst my wife and boy aren't keen on heat or long flights. 
+  For that reason, I made this analysis to find somewhere that suits us all.
 output:
   distill::distill_article:
     self_contained: false
     highlight: pygments
 ---
 
-<iframe width="1000" height="1000" scrolling="yes" frameborder="no"  src="http://167.172.99.246:3838/app_hols/"> </iframe>
+You can find the code in the appendix below, but here's the app:
 
-</p>
+```{r libraries, eval=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+library(airportr)
+library(crosstalk)
+library(DT)
+library(leaflet)
+library(lubridate)
+library(rvest)
+suppressMessages(library(tidyverse))
+library(xml2)
+```
+
+```{r data, eval=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
+index_page_LHR <- 'https://www.flightsfrom.com/LHR/destinations'
+index_page_LGW <- 'https://www.flightsfrom.com/LGW/destinations'
+
+airports_LHR <- read_html(index_page_LHR) %>%
+  html_nodes(".airport-content-destination-list-name") %>% 
+  html_text() %>% 
+  str_trim()
+
+times_LHR <- read_html(index_page_LHR) %>%
+  html_nodes(".airport-content-destination-list-time") %>% 
+  html_text() %>% 
+  str_trim()
+
+airports_LGW <- read_html(index_page_LGW) %>%
+  html_nodes(".airport-content-destination-list-name") %>% 
+  html_text() %>% 
+  str_trim()
+
+times_LGW <- read_html(index_page_LGW) %>%
+  html_nodes(".airport-content-destination-list-time") %>% 
+  html_text() %>% 
+  str_trim()
+
+data <- bind_rows(
+  tibble(airports = airports_LHR, times = times_LHR, home = 'LHR'),
+  tibble(airports = airports_LGW, times = times_LGW, home = 'LGW')
+) %>% 
+  arrange(home) %>% 
+  group_by(airports) %>% 
+  slice(1) %>% 
+  ungroup() %>% 
+  arrange(airports) %>% 
+  rowwise() %>% 
+  mutate(
+    code = str_extract(airports, '[[:upper:]][[:upper:]][[:upper:]]'),
+    position = str_locate_all(airports, '[[:upper:]][[:upper:]][[:upper:]]')
+    ) %>% 
+  separate(col = times, into = c('split', 'detail'), sep = ": ") %>% 
+  separate(col = detail, into = c('hours', 'mins'), sep = "h ") %>% 
+  rowwise() %>% 
+  mutate(
+    mins = as.integer(str_sub(mins, start = 1L, end = -2L)),
+    hours = as.integer(hours),
+    minutes = (60 * hours) + mins,
+    position1 = position[[1]] - 2, 
+    position2 = position[[2]] + 2,
+    city = str_trim(str_to_lower(str_sub(string = airports, start = 1L, end = position1))),
+    country = str_trim(str_to_lower(str_sub(string = airports, start = position2, end = -1L))))
+
+airport_data <- airportr::airports
+
+output <- data[, c('code', 'city', 'home', 'country', 'minutes')] %>% 
+  left_join(airport_data, by = c('code' = 'IATA')) %>% 
+  filter(!is.na(ICAO)) %>% 
+  rowwise() %>% 
+  mutate(
+    distance = airport_distance(home, code),
+    City = str_to_lower(City), 
+    Country = str_to_lower(Country)
+    )
+
+# 'GlobalLandTemperaturesByCity.csv' downloaded from https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data#GlobalLandTemperaturesByCity.csv
+
+temp_data <- read_csv('GlobalLandTemperaturesByCity.csv') %>% 
+  mutate(
+    year = year(dt),
+    month = month(dt),
+    City = str_to_lower(City),
+    Country = str_to_lower(Country),
+    Country = if_else(Country == "united kingdom", "uk", Country),
+    Country = if_else(Country == "united states", "usa", Country),
+    Country = if_else(Country == "united arab emirates", "uae", Country)
+  ) %>% 
+  filter(
+    year > 2000
+    ) %>% 
+  group_by(City, Country, month) %>% 
+  summarise(temp_av = mean(AverageTemperature, na.rm = TRUE)) %>% 
+  ungroup()
+
+overall <- output %>% 
+  left_join(temp_data, by = c('city' = 'City', 'country' = 'Country')) %>% 
+  select(code, city, country, month, minutes, ICAO, Latitude, Longitude, UTC, distance, temp_av) %>% 
+  filter(
+    !is.na(temp_av)
+    ) %>% 
+  mutate(
+    minutes = round(minutes, 0),
+    temp_av = round(temp_av, 0),
+    Latitude = round(Latitude, 2),
+    Longitude = round(Longitude, 2),
+    month_label = case_when(
+      month == 1 ~ "01 - January",
+      month == 2 ~ "02 - February",
+      month == 3 ~ "03 - March",
+      month == 4 ~ "04 - April",
+      month == 5 ~ "05 - May",
+      month == 6 ~ "06 - June",
+      month == 7 ~ "07 - July",
+      month == 8 ~ "08 - August",
+      month == 9 ~ "09 - September",
+      month == 10 ~ "10 - October",
+      month == 11 ~ "11 - November",
+      month == 12 ~ "12 - December",
+      TRUE ~ NA_character_
+      )
+    ) %>% 
+  arrange(code) %>% 
+  group_by(country, city, month_label) %>% 
+  slice(1) %>% 
+  ungroup() %>% 
+  arrange(city, month) %>% 
+  select(country, city, temp_av, minutes, Longitude, Latitude, month_label)
+
+# write_rds(x = overall, path = 'overall.rds')
+```
+
+```{r data2, eval=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+overall <- read_rds('overall.rds')
+
+pal <- colorNumeric(
+  palette = "Reds",
+  domain = overall$temp_av)
+
+sd <- SharedData$new(overall)
+
+bscols(
+  filter_slider("temp", "Temperature", sd, column=~temp_av, step=1, width=100),
+  filter_slider("duration", "Flight minutes", sd, column=~minutes, step=1, width=100),
+  filter_select("mon", "Month", sd, group=~month_label, multiple = FALSE)
+  )
+```
+
+
+```{r analysis, eval=TRUE, echo=FALSE, warning=FALSE, message=FALSE, layout="l-screen"}
+output_map <- leaflet(sd) %>% 
+  addTiles() %>% 
+  setView(
+    lng = 15, 
+    lat = 10, 
+    zoom = 2) %>% 
+  addCircles(
+    lng = ~Longitude, 
+    lat = ~Latitude, 
+    weight = 2,
+    radius = ~sqrt(minutes) * 10000, 
+    popup = ~paste(city, "- time: ", round(minutes/60, 1), "hrs; temp: ", round(temp_av, 2), "C"), 
+    color = ~pal(temp_av)
+  )
+
+output_table <- datatable(
+  sd,
+  rownames = FALSE,
+  colnames = c('country' = 'country', 'city' = 'city', 'temp' = 'temp_av', 'minutes' = 'minutes', 'Long' = 'Longitude', 'Lat' = 'Latitude', 'month' = 'month_label'),
+  extensions="Scroller", 
+  style="bootstrap", 
+  class="compact", 
+  width="100%",
+  options=list(
+    dom = 'tip',
+    deferRender=TRUE, 
+    scrollY=300, 
+    scroller=TRUE
+    )
+  ) %>% 
+  formatRound(
+    columns = c(3, 4, 5, 6), 
+    digits = 0
+    )
+
+bscols(output_map, output_table)
+```
+
+##   {.appendix}
+
+For completeness (and reproducibility), here's the code that I used to calculate what's above.
+
+## Libraries and data {.appendix}
+
+```{r libraries, eval=FALSE, echo=TRUE}
+```
+
+```{r data, eval=FALSE, echo=TRUE}
+```
+
+```{r data2, eval=FALSE, echo=TRUE}
+```
+
+## Analysis {.appendix}
+
+```{r analysis, eval=FALSE, echo=TRUE}
+```
+
+## System settings {.appendix}
+
+```{r, eval=TRUE, echo=FALSE}
+sessionInfo()
+```
+
