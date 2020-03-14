@@ -159,12 +159,12 @@ data_tidy %>%
     y = "",
     colour = "",
     title = "Daily cumulative Covid-19 infections",
-    subtitle = "For the countries with the most cases \n \n"
+    subtitle = "For the twelve countries with the most cases \n \n"
   )
 ```
 </br>
 
-Whilst this chart is in a log scale, there is no sense of the country's population. 
+Whilst this chart has a log scale, there is no sense of the country's population. 
 
 At some level, of course, cases are cases: they sadly represent people suffering. In other ways, however, a thousand cases in China (with a population of over a billion) suggests a proportionately smaller problem than a thousand cases in Norway (with a population of just over 5 million).
 
@@ -210,11 +210,9 @@ data_rebased %>%
 ```
 </br>
 
-The pessimist in me sees the chart above as sobering. Essentially, most of these countries seem to experience similar rates of per-capita infection. Perhaps this is just for those countries with the most per-capita cases. Or maybe this is a very unfortunate feature of the outbreak. I will leave the reasons for the domain experts to decide (rather than curious data types).
+The pessimist in me sees the chart above as sobering. Essentially, most of these countries seem to experience similar rates of per-capita infection. Perhaps this is just for those countries with the most per-capita cases. Or maybe this is a very unfortunate feature of the outbreak. Anyhow, I will leave the reasoning to domain experts (rather than curious data types).
 
 At some stage, I might extend this analysis and also use `gganimate` to show this rebased data over time on an animated map, but time precludes this right now.
-
-***
 
 ##   {.appendix}
 

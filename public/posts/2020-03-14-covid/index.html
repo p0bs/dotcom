@@ -1347,7 +1347,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p><img src="covid_files/figure-html5/data-1.png" width="624" /></p>
 </div>
 <p></br></p>
-<p>Whilst this chart is in a log scale, there is no sense of the country’s population.</p>
+<p>Whilst this chart has a log scale, there is no sense of the country’s population.</p>
 <p>At some level, of course, cases are cases: they sadly represent people suffering. In other ways, however, a thousand cases in China (with a population of over a billion) suggests a proportionately smaller problem than a thousand cases in Norway (with a population of just over 5 million).</p>
 <p>In the following chart, I show the cases per million of population.</p>
 <p></br></p>
@@ -1355,9 +1355,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <p><img src="covid_files/figure-html5/rebased-1.png" width="624" data-distill-preview=1 /></p>
 </div>
 <p></br></p>
-<p>The pessimist in me sees the chart above as sobering. Essentially, most of these countries seem to experience similar rates of per-capita infection. Perhaps this is just for those countries with the most per-capita cases. Or maybe this is a very unfortunate feature of the outbreak. I will leave the reasons for the domain experts to decide (rather than curious data types).</p>
+<p>The pessimist in me sees the chart above as sobering. Essentially, most of these countries seem to experience similar rates of per-capita infection. Perhaps this is just for those countries with the most per-capita cases. Or maybe this is a very unfortunate feature of the outbreak. Anyhow, I will leave the reasoning to domain experts (rather than curious data types).</p>
 <p>At some stage, I might extend this analysis and also use <code>gganimate</code> to show this rebased data over time on an animated map, but time precludes this right now.</p>
-<hr />
 <h2 id="section" class="appendix"></h2>
 <p>For completeness (and reproducibility), here’s the code that I used to calculate what’s above.</p>
 <h2 id="data-and-simple-log-chart" class="appendix">Data and simple log chart</h2>
@@ -1503,7 +1502,7 @@ data_tidy %&gt;%
     y = &quot;&quot;,
     colour = &quot;&quot;,
     title = &quot;Daily cumulative Covid-19 infections&quot;,
-    subtitle = &quot;For the countries with the most cases \n \n&quot;
+    subtitle = &quot;For the twelve countries with the most cases \n \n&quot;
   )</code></pre>
 </div>
 <h2 id="rebased-chart" class="appendix">Rebased chart</h2>
