@@ -225,7 +225,7 @@ For completeness (and reproducibility), here's the code that I used to calculate
 
 ## Rebased chart {.appendix}
   
-```{r rebased, ref.label='collExp20', echo=TRUE, eval=FALSE}
+```{r rebased, ref.label='rebased', echo=TRUE, eval=FALSE}
 ```
 
 ## System settings {.appendix}

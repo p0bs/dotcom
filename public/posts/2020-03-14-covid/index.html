@@ -1507,7 +1507,41 @@ data_tidy %&gt;%
 </div>
 <h2 id="rebased-chart" class="appendix">Rebased chart</h2>
 <div class="layout-chunk" data-layout="l-body">
-
+<pre class="r"><code>
+data_rebased %&gt;% 
+  filter(Country %in% data_now_PM$Country_PM) %&gt;% 
+  mutate(
+    Country_PMR = fct_reorder(
+      .f = Country, 
+      .x = Cases_PM_rebased, 
+      .fun = max, 
+      .desc = TRUE
+      )
+  ) %&gt;% 
+  ggplot(
+    aes(
+      x = DateNumber_rebased,
+      y = Cases_PM_rebased,
+      group = Country_PMR,
+      colour = Country_PMR
+    )
+  ) + 
+  scale_y_continuous(
+    trans = &quot;log&quot;, 
+    labels = label_number(
+      big.mark = &#39;,&#39;
+    )
+  ) + 
+  geom_line() + 
+  theme_minimal() +
+  theme(plot.title.position = &quot;plot&quot;) +
+  labs(
+    x = &quot;&quot;,
+    y = &quot;&quot;,
+    colour = &quot;&quot;,
+    title = &quot;Cumulative Covid-19 infections per million inhabitants&quot;,
+    subtitle = &quot;For the twelve countries (of over 5m people) with the most per-capita cases \nShown against days since cumulative infections first exceeded 1 per million \n \n&quot;
+  )</code></pre>
 </div>
 <h2 id="system-settings" class="appendix">System settings</h2>
 <div class="layout-chunk" data-layout="l-body">
