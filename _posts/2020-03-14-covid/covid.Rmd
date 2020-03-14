@@ -1,0 +1,237 @@
+---
+title: "Tracking Covid-19"
+author: Robin Penfold
+date: 2020-03-14
+categories:
+  - medical
+draft: false
+slug: covid
+description: |
+  Although Covid-19 is all over the news, I can't find any analysis that uses per-capita data on a log scale. For that reason, I've done this analysis myself.
+output:
+  distill::distill_article:
+    self_contained: false
+    highlight: pygments
+---
+
+First, I'll start with a simple log plot over time. 
+
+</br>
+
+```{r data, eval=TRUE, echo=FALSE, results='hide', error=TRUE, message=FALSE, warning=FALSE, layout="l-body-outset"}
+# Initialise ----
+library(countrycode)
+library(glue)
+library(lubridate)
+library(rtweet)
+library(scales)
+library(tidyverse)
+library(wbstats)
+
+country_num <- 12
+pop_min <- 5000000
+cases_PM_init <- 1
+
+# Get data ----
+data <- read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv') %>% 
+  select(-Lat, -Long, -`Province/State`) %>% 
+  group_by(`Country/Region`) %>% 
+  summarise_all(.funs = sum) %>% 
+  gather(
+    key = "Date", 
+    value = "Cases", 
+    -`Country/Region`
+  ) %>% 
+  rename("Country" = `Country/Region`) %>% 
+  mutate(
+    Date = as.Date(Date, "%m/%d/%y"),
+    DateNumber = as.integer(
+      Date - as.Date("01/21/20", "%m/%d/%y")
+    ),
+    Country = str_to_upper(Country)
+    )
+
+# countries <- countrycode::codelist
+# write_rds(x = countries, path = 'countries.rds')
+countries <- read_rds('countries.rds')
+
+# population <- wbstats::wb(country = "all", indicator = "SP.POP.TOTL") %>% 
+#   group_by(iso3c) %>% 
+#   arrange(desc(date)) %>% 
+#   slice(1) %>% 
+#   ungroup() %>% 
+#   distinct()
+# write_rds(x = population, path = 'population.rds')
+population <- read_rds('population.rds')
+
+
+# Tidy data ----
+data_tidy <- data %>% 
+  left_join(
+    countries, 
+    by = c('Country' = 'genc.name')
+  ) %>% 
+  left_join(
+    population, 
+    by = 'iso3c'
+  ) %>% 
+  select("Country" = country.name.en, Date, Cases, DateNumber, continent, iso3c, value) %>% 
+  filter(
+    !is.na(Country),
+    value > pop_min
+  ) %>% 
+  mutate(
+    Cases_PM = 1000000 * Cases / value,
+    Country = as_factor(Country),
+    Country = fct_reorder(
+      .f = Country, 
+      .x = Cases, 
+      .fun = max, 
+      .desc = TRUE
+      ),
+    Country_PM = fct_reorder(
+      .f = Country, 
+      .x = Cases_PM, 
+      .fun = max, 
+      .desc = TRUE
+      )
+    )
+
+data_now <- data_tidy %>%
+  filter(
+    Date == max(Date)
+    ) %>%
+  select(-Date) %>%
+  arrange(desc(Cases)) %>%
+  slice(1:country_num)
+
+data_now_PM <- data_tidy %>%
+  filter(
+    Date == max(Date),
+    !is.na(Country_PM)
+  ) %>%
+  select(-Date) %>%
+  arrange(desc(Cases_PM)) %>%
+  slice(1:country_num)
+
+
+# Rebase per capita cases ----
+data_base_value <- data_tidy %>% 
+  arrange(Date) %>% 
+  group_by(Country) %>% 
+  filter(Cases_PM > cases_PM_init) %>% 
+  slice(1) %>% 
+  ungroup() %>% 
+  select(Country, "Date_base" = Date, "DateNumber_base" = DateNumber, "Cases_PM_base" = Cases_PM)
+  
+data_rebased <- data_tidy %>% 
+  left_join(
+    data_base_value, 
+    by = 'Country'
+    ) %>% 
+  mutate(
+    Cases_PM_rebased = Cases_PM / Cases_PM_base,
+    DateNumber_rebased = DateNumber - DateNumber_base
+    ) %>% 
+  filter(DateNumber_rebased >= 0)
+
+data_tidy %>% 
+  filter(Country %in% data_now$Country) %>%
+  ggplot(
+    aes(
+      x = Date,
+      y = Cases,
+      group = Country,
+      colour = Country
+    )
+  ) + 
+  scale_y_continuous(
+    trans = "log", 
+    labels = label_number(
+      big.mark = ','
+      )
+    ) + 
+  geom_line() + 
+  theme_minimal() + 
+  theme(plot.title.position = "plot") +
+  labs(
+    x = "",
+    y = "",
+    colour = "",
+    title = "Daily cumulative Covid-19 infections",
+    subtitle = "For the countries with the most cases \n \n"
+  )
+```
+</br>
+
+Whilst this chart is in a log scale, there is no sense of the country's population. 
+
+At some level, of course, cases are cases: they sadly represent people suffering. In other ways, however, a thousand cases in China (with a population of over a billion) suggests a proportionately smaller problem than a thousand cases in Norway (with a population of just over 5 million).
+
+In the following chart, I show the cases per million of population.
+
+</br>
+
+```{r rebased, eval=TRUE, echo=FALSE, results='hide', error=TRUE, message=FALSE, warning=FALSE, layout="l-body-outset", preview=TRUE}
+data_rebased %>% 
+  filter(Country %in% data_now_PM$Country_PM) %>% 
+  mutate(
+    Country_PMR = fct_reorder(
+      .f = Country, 
+      .x = Cases_PM_rebased, 
+      .fun = max, 
+      .desc = TRUE
+      )
+  ) %>% 
+  ggplot(
+    aes(
+      x = DateNumber_rebased,
+      y = Cases_PM_rebased,
+      group = Country_PMR,
+      colour = Country_PMR
+    )
+  ) + 
+  scale_y_continuous(
+    trans = "log", 
+    labels = label_number(
+      big.mark = ','
+    )
+  ) + 
+  geom_line() + 
+  theme_minimal() +
+  theme(plot.title.position = "plot") +
+  labs(
+    x = "",
+    y = "",
+    colour = "",
+    title = "Cumulative Covid-19 infections per million inhabitants",
+    subtitle = "For the twelve countries (of over 5m people) with the most per-capita cases \nShown against days since cumulative infections first exceeded 1 per million \n \n"
+  )
+```
+</br>
+
+The pessimist in me sees the chart above as sobering. Essentially, most of these countries seem to experience similar rates of per-capita infection. Perhaps this is just for those countries with the most per-capita cases. Or maybe this is a very unfortunate feature of the outbreak. I will leave the reasons for the domain experts to decide (rather than curious data types).
+
+At some stage, I might extend this analysis and also use `gganimate` to show this rebased data over time on an animated map, but time precludes this right now.
+
+***
+
+##   {.appendix}
+
+For completeness (and reproducibility), here's the code that I used to calculate what's above. 
+
+## Data and simple log chart {.appendix}
+
+```{r data, ref.label='data', echo=TRUE, eval=FALSE}
+```
+
+## Rebased chart {.appendix}
+  
+```{r rebased, ref.label='collExp20', echo=TRUE, eval=FALSE}
+```
+
+## System settings {.appendix}
+
+```{r, eval=TRUE, echo=FALSE}
+sessionInfo()
+```

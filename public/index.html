@@ -38,7 +38,7 @@
   <!--radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","site","listing"]}},"value":[{"type":"character","attributes":{},"value":[""]},{"type":"character","attributes":{},"value":["distill::distill_website"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["posts"]}},"value":[{"type":"character","attributes":{},"value":["2019-08-10-twenty-one-teams","2019-05-07-they-think-it-is-all-over","2019-04-24-FUSORC","2019-02-15-holiday","2018-10-28-package","2018-09-12-networks","2016-10-20-evaluation","2016-10-12-brexit","2016-10-09-batting"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","site","listing"]}},"value":[{"type":"character","attributes":{},"value":[""]},{"type":"character","attributes":{},"value":["distill::distill_website"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["posts"]}},"value":[{"type":"character","attributes":{},"value":["2020-03-14-covid","2019-08-10-twenty-one-teams","2019-05-07-they-think-it-is-all-over","2019-04-24-FUSORC","2019-02-15-holiday","2018-10-28-package","2018-09-12-networks","2016-10-20-evaluation","2016-10-12-brexit","2016-10-09-batting"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -1261,6 +1261,13 @@
   <!--radix_placeholder_site_in_header-->
   <style type="text/css">
   .distill-site-nav {
+      color: #edd9c0;
+      background-color: #a8b6bf;
+      font-size: 15px;
+      font-weight: 600;
+  }
+  
+  /* .distill-site-nav {
       color: #d32127;
       background-color: #f2eed7;
       font-size: 15px;
@@ -1630,6 +1637,19 @@ function init_posts_list() {
 <div class="posts-container posts-with-sidebar posts-apply-limit l-screen-inset">
 <div class="posts-list">
 <h1 class="posts-list-caption"></h1>
+<a href="posts/2020-03-14-covid/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["medical"]}</script>
+<div class="metadata">
+<div class="publishedDate">March 14, 2020</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2020-03-14-covid/covid_files/figure-html5/rebased-1.png"/>
+</div>
+<div class="description">
+<h2>Tracking Covid-19</h2>
+<p>Although Covid-19 is all over the news, I can't find any analysis that uses per-capita data on a log scale. For that reason, I've done this analysis myself.</p>
+</div>
+</a>
 <a href="posts/2019-08-10-twenty-one-teams/" class="post-preview">
 <script class="post-metadata" type="text/json">{"categories":["prempredict"]}</script>
 <div class="metadata">
@@ -1762,6 +1782,10 @@ In this post, I therefore plot the Brexit vote and winning parliamentary party f
 <li>
 <a href="#geo-viz">geo-viz</a>
 <span class="category-count">(2)</span>
+</li>
+<li>
+<a href="#medical">medical</a>
+<span class="category-count">(1)</span>
 </li>
 <li>
 <a href="#networks">networks</a>

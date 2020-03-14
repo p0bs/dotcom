@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2020-03-14-covid/",
+    "title": "Tracking Covid-19",
+    "description": "Although Covid-19 is all over the news, I can't find any analysis that uses per-capita data on a log scale. For that reason, I've done this analysis myself.",
+    "author": [
+      {
+        "name": "Robin Penfold",
+        "url": {}
+      }
+    ],
+    "date": "2020-03-14",
+    "categories": [
+      "medical"
+    ],
+    "preview": "posts/2020-03-14-covid/covid_files/figure-html5/rebased-1.png",
+    "last_modified": "2020-03-14T16:38:53+00:00"
+  },
+  {
     "path": "posts/2019-08-10-twenty-one-teams/",
     "title": "PremPredict 2019/20",
     "description": "In this year's PremPredict, there are twenty teams, twenty-one players and a massive £105 up for grabs. In this post, I'll show the latest standings and our collective expectations for the season.",

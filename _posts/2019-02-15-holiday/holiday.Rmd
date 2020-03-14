@@ -16,9 +16,9 @@ output:
     highlight: pygments
 ---
 
-</br>
-
 You can find the code in the appendix below, but here's the app:
+
+</br>
 
 ```{r libraries, eval=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
 library(airportr)
