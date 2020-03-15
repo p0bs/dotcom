@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2020-03-15-job-opening/",
+    "title": "Come and work in our friendly team!",
+    "description": "There's a great job opening in our team and I wanted to tell you more.",
+    "author": [
+      {
+        "name": "Robin Penfold",
+        "url": {}
+      }
+    ],
+    "date": "2020-03-15",
+    "categories": [
+      "job"
+    ],
+    "preview": "posts/2020-03-15-job-opening/job.jpg",
+    "last_modified": "2020-03-15T12:58:38+00:00"
+  },
+  {
     "path": "posts/2020-03-14-covid/",
     "title": "Tracking Covid-19",
     "description": "Although Covid-19 is all over the news, I can't find any analysis that uses per-capita data on a log scale. For that reason, I've done this analysis myself.",

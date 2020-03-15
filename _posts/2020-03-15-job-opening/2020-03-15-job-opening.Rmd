@@ -1,0 +1,64 @@
+---
+title: "Come and work in our friendly team!"
+author: Robin Penfold
+date: 2020-03-15
+categories:
+  - job
+draft: false
+preview: job.jpg
+slug: job-opening
+description: |
+  There's a great job opening in our team and I wanted to tell you more.
+output:
+  distill::distill_article:
+    self_contained: false
+    highlight: pygments
+---
+
+Here are the details of the role. Note that you can apply for the job by clicking [this link](https://wtw.taleo.net/careersection/wtw_external_standard/jobdetail.ftl?job=20000188). 
+
+Being the mentor noted below, I'd welcome everyone to feel free to apply.
+
+</br>
+
+### Quantitative Research Associate
+
+This role is based in Willis Towers Watson's Investments group and has the opportunity to be based in our London or Reigate office.
+
+### Summary
+
+We have typically been able to improve the risk-adjusted returns of our clients by finding excellent investment products for their portfolios. 
+
+In this role, you will use quantitative approaches to help us to find new investment products that are excellent. You will help to coordinate our quantitative analysis across our welcoming team of researchers, and write code to improve the quality and efficiency of this analysis. By doing so, you will have a clear impact on our entire team.
+
+### Details
+
+Most quantitative analysis in our Manager Research team is conducted in the UK or the Philippines. You will coordinate this analysis and conduct some of it, managed and mentored by our Head of Analytics. 
+
+Whilst some of this analysis recurs regularly, other work can be bespoke and used only once. Organisation, proactivity and responsiveness are therefore key qualities to success in this role, along with the ability to use your programming skills to improve the codebase that increasingly drives our analysis.
+
+Most of this current codebase consists of proprietary R packages for data ingestion, reporting, and performance- and holdings-based calculations. We then use these packages in batch reporting, web apps and an internal blog. By improving our packages, you will improve the quality, scale and consistency of our analysis of institutional investment products. That, in turn, will help us to improve our understanding of investment products, making it easier for us to select the best in class for our clients.
+
+### Requirements
+
+  * Being proactive, you are comfortable working independently, able to show initiative and can collaborate within a team environment
+  
+  * You have experience of using the R programming language to solve real-world problems (ideally involving publicly facing code, package development and/or shiny skills)
+  
+  * You have a first or upper-second class Bachelors degree in a subject that requires numeracy skills
+  
+  * You can balance multiple priorities, and deliver timely and accurate work, sometimes at short notice
+  
+  * You have intermediate or advanced knowledge of spreadsheets (and ideally SQL)
+  
+  * You have a keen appetite for learning (not least from your own mistakes)
+  
+  * You have an interest in, and foundational understanding of, institutional investment
+
+### It goes without saying, but I'll say it anyway ...
+
+Willis Towers Watson is an equal opportunity employer.
+
+***
+
+I hope that you feel encouraged to apply!
