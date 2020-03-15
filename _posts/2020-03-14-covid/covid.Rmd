@@ -212,7 +212,11 @@ data_rebased %>%
 
 The pessimist in me sees the chart above as sobering. Essentially, most of these countries seem to experience similar rates of per-capita infection. Perhaps this is just for those countries with the most per-capita cases. Or maybe this is a very unfortunate feature of the outbreak. Anyhow, I will leave the reasoning to domain experts (rather than curious data types).
 
-At some stage, I might extend this analysis and also use `gganimate` to show this rebased data over time on an animated map, but time precludes this right now.
+Either way, I have a suspicion that *population-weighted density* (rather than *population density*) will become a familiar term soon. The chart below shows more, and seems worrying for Spain, with further details available in the paper that is referenced in the Appendix.
+
+![](wtd-pop-den.png)
+
+</br>
 
 ##   {.appendix}
 
@@ -227,6 +231,10 @@ For completeness (and reproducibility), here's the code that I used to calculate
   
 ```{r rebased, ref.label='rebased', echo=TRUE, eval=FALSE}
 ```
+
+## References {.appendix}
+
+> Kompil M, Aurambout J, Ribeiro Barranco R, Barbosa A, Jacobs-Crisioni C, Pisoni E, Zulian G, Vandecasteele I, Trombetti M, Vizcaino M, Vallecillo Rodriguez S, Batista e Silva F, Baranzelli C, Mari Rivero I, Perpiña Castillo C, Polce C, Maes J, Lavalle C., 2015, European cities: territorial analysis of characteristics and trends - An application of the LUISA Modelling Platform (EU Reference Scenario 2013 - Updated Configuration 2014), EUR 27709 EN, doi:10.2788/737963
 
 ## System settings {.appendix}
 

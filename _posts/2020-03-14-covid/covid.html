@@ -49,7 +49,7 @@
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["covid_files/bowser-1.9.3/bowser.min 2.js","covid_files/bowser-1.9.3/bowser.min.js","covid_files/distill-2.2.21/template.v2 2.js","covid_files/distill-2.2.21/template.v2.js","covid_files/figure-html5/data-1 2.png","covid_files/figure-html5/data-1.png","covid_files/figure-html5/rebased-1 2.png","covid_files/figure-html5/rebased-1.png","covid_files/jquery-1.11.3/jquery.min 2.js","covid_files/jquery-1.11.3/jquery.min.js","covid_files/webcomponents-2.0.0/webcomponents 2.js","covid_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["covid_files/bowser-1.9.3/bowser.min 3.js","covid_files/bowser-1.9.3/bowser.min.js","covid_files/distill-2.2.21/template.v2 3.js","covid_files/distill-2.2.21/template.v2.js","covid_files/figure-html5/data-1 2.png","covid_files/figure-html5/data-1.png","covid_files/figure-html5/rebased-1 2.png","covid_files/figure-html5/rebased-1.png","covid_files/jquery-1.11.3/jquery.min 3.js","covid_files/jquery-1.11.3/jquery.min.js","covid_files/webcomponents-2.0.0/webcomponents 3.js","covid_files/webcomponents-2.0.0/webcomponents.js","wtd-pop-den.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -979,7 +979,9 @@
 </div>
 <p></br></p>
 <p>The pessimist in me sees the chart above as sobering. Essentially, most of these countries seem to experience similar rates of per-capita infection. Perhaps this is just for those countries with the most per-capita cases. Or maybe this is a very unfortunate feature of the outbreak. Anyhow, I will leave the reasoning to domain experts (rather than curious data types).</p>
-<p>At some stage, I might extend this analysis and also use <code>gganimate</code> to show this rebased data over time on an animated map, but time precludes this right now.</p>
+<p>Either way, I have a suspicion that <em>population-weighted density</em> (rather than <em>population density</em>) will become a familiar term soon. The chart below shows more, and seems worrying for Spain, with further details available in the paper that is referenced in the Appendix.</p>
+<p><img src="wtd-pop-den.png" /></p>
+<p></br></p>
 <h2 id="section" class="appendix"></h2>
 <p>For completeness (and reproducibility), here’s the code that I used to calculate what’s above.</p>
 <h2 id="data-and-simple-log-chart" class="appendix">Data and simple log chart</h2>
@@ -1166,6 +1168,10 @@ data_rebased %&gt;%
     subtitle = &quot;For the twelve countries (of over 10m people) with the most per-capita cases \nShown against days since cumulative infections first exceeded 10 per million \n \n&quot;
   )</code></pre>
 </div>
+<h2 id="references" class="appendix">References</h2>
+<blockquote>
+<p>Kompil M, Aurambout J, Ribeiro Barranco R, Barbosa A, Jacobs-Crisioni C, Pisoni E, Zulian G, Vandecasteele I, Trombetti M, Vizcaino M, Vallecillo Rodriguez S, Batista e Silva F, Baranzelli C, Mari Rivero I, Perpiña Castillo C, Polce C, Maes J, Lavalle C., 2015, European cities: territorial analysis of characteristics and trends - An application of the LUISA Modelling Platform (EU Reference Scenario 2013 - Updated Configuration 2014), EUR 27709 EN, <a href="doi:10.2788/737963" class="uri">doi:10.2788/737963</a></p>
+</blockquote>
 <h2 id="system-settings" class="appendix">System settings</h2>
 <div class="layout-chunk" data-layout="l-body">
 <pre><code>
