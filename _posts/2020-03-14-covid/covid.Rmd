@@ -29,8 +29,8 @@ library(tidyverse)
 library(wbstats)
 
 country_num <- 12
-pop_min <- 5000000
-cases_PM_init <- 1
+pop_min <- 10000000
+cases_PM_init <- 10
 
 # Get data ----
 data <- read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv') %>% 
@@ -159,7 +159,7 @@ data_tidy %>%
     y = "",
     colour = "",
     title = "Daily cumulative Covid-19 infections",
-    subtitle = "For the twelve countries with the most cases \n \n"
+    subtitle = "For the twelve countries (of over 10m people) with the most cases \n \n"
   )
 ```
 </br>
@@ -168,7 +168,7 @@ Whilst this chart has a log scale, there is no sense of the country's population
 
 At some level, of course, cases are cases: they sadly represent people suffering. In other ways, however, a thousand cases in China (with a population of over a billion) suggests a proportionately smaller problem than a thousand cases in Norway (with a population of just over 5 million).
 
-In the following chart, I show the cases per million of population.
+In the following chart, I show the cases per million of population, but only in instances where there have already been many cases.
 
 </br>
 
@@ -205,7 +205,7 @@ data_rebased %>%
     y = "",
     colour = "",
     title = "Cumulative Covid-19 infections per million inhabitants",
-    subtitle = "For the twelve countries (of over 5m people) with the most per-capita cases \nShown against days since cumulative infections first exceeded 1 per million \n \n"
+    subtitle = "For the twelve countries (of over 10m people) with the most per-capita cases \nShown against days since cumulative infections first exceeded 10 per million \n \n"
   )
 ```
 </br>

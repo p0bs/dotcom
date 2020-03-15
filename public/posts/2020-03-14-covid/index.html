@@ -50,7 +50,7 @@
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["covid_files/bowser-1.9.3/bowser.min.js","covid_files/distill-2.2.21/template.v2.js","covid_files/figure-html5/data-1.png","covid_files/figure-html5/rebased-1.png","covid_files/jquery-1.11.3/jquery.min.js","covid_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["covid_files/bowser-1.9.3/bowser.min 2.js","covid_files/bowser-1.9.3/bowser.min.js","covid_files/distill-2.2.21/template.v2 2.js","covid_files/distill-2.2.21/template.v2.js","covid_files/figure-html5/data-1 2.png","covid_files/figure-html5/data-1.png","covid_files/figure-html5/rebased-1 2.png","covid_files/figure-html5/rebased-1.png","covid_files/jquery-1.11.3/jquery.min 2.js","covid_files/jquery-1.11.3/jquery.min.js","covid_files/webcomponents-2.0.0/webcomponents 2.js","covid_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 
@@ -1349,7 +1349,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p></br></p>
 <p>Whilst this chart has a log scale, there is no sense of the country’s population.</p>
 <p>At some level, of course, cases are cases: they sadly represent people suffering. In other ways, however, a thousand cases in China (with a population of over a billion) suggests a proportionately smaller problem than a thousand cases in Norway (with a population of just over 5 million).</p>
-<p>In the following chart, I show the cases per million of population.</p>
+<p>In the following chart, I show the cases per million of population, but only in instances where there have already been many cases.</p>
 <p></br></p>
 <div class="layout-chunk" data-layout="l-body-outset">
 <p><img src="covid_files/figure-html5/rebased-1.png" width="624" data-distill-preview=1 /></p>
@@ -1372,8 +1372,8 @@ library(tidyverse)
 library(wbstats)
 
 country_num &lt;- 12
-pop_min &lt;- 5000000
-cases_PM_init &lt;- 1
+pop_min &lt;- 10000000
+cases_PM_init &lt;- 10
 
 # Get data ----
 data &lt;- read_csv(&#39;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv&#39;) %&gt;% 
@@ -1502,7 +1502,7 @@ data_tidy %&gt;%
     y = &quot;&quot;,
     colour = &quot;&quot;,
     title = &quot;Daily cumulative Covid-19 infections&quot;,
-    subtitle = &quot;For the twelve countries with the most cases \n \n&quot;
+    subtitle = &quot;For the twelve countries (of over 10m people) with the most cases \n \n&quot;
   )</code></pre>
 </div>
 <h2 id="rebased-chart" class="appendix">Rebased chart</h2>
@@ -1540,7 +1540,7 @@ data_rebased %&gt;%
     y = &quot;&quot;,
     colour = &quot;&quot;,
     title = &quot;Cumulative Covid-19 infections per million inhabitants&quot;,
-    subtitle = &quot;For the twelve countries (of over 5m people) with the most per-capita cases \nShown against days since cumulative infections first exceeded 1 per million \n \n&quot;
+    subtitle = &quot;For the twelve countries (of over 10m people) with the most per-capita cases \nShown against days since cumulative infections first exceeded 10 per million \n \n&quot;
   )</code></pre>
 </div>
 <h2 id="system-settings" class="appendix">System settings</h2>
