@@ -214,9 +214,9 @@ The pessimist in me sees the chart above as sobering. Essentially, most of these
 
 Either way, I have a suspicion that *population-weighted density* (rather than *population density*) will become a familiar term soon. The chart below shows more, and seems worrying for Spain, with further details available in the paper that is referenced in the Appendix.
 
-![](wtd-pop-den.png)
-
 </br>
+
+![](wtd-pop-den.png)
 
 ##   {.appendix}
 
