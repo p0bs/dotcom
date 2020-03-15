@@ -1,6 +1,6 @@
 .distill-site-nav {
-    color: #edd9c0;
-    background-color: #a8b6bf;
+    color: #63431c; 
+    background-color: #edd9c0;
     font-size: 15px;
     font-weight: 600;
 }
@@ -10,4 +10,5 @@
     background-color: #f2eed7;
     font-size: 15px;
     font-weight: 600;
+    ackground-color: #a8b6bf;
 }
