@@ -16,6 +16,8 @@ navbar:
       href: index.html
     - text: "About"
       href: about.html
+    - text: "Likes"
+      href: likes.html
     - icon: fa fa-twitter
       href: https://twitter.com/p0bs
     - icon: fa fa-github
