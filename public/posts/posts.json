@@ -1,7 +1,7 @@
 [
   {
     "path": "posts/2020-03-15-job-opening/",
-    "title": "Come and work in our friendly team!",
+    "title": "Work in our friendly team!",
     "description": "There's a great job opening in our team and I wanted to tell you more.",
     "author": [
       {
@@ -14,7 +14,7 @@
       "job"
     ],
     "preview": "posts/2020-03-15-job-opening/job.jpg",
-    "last_modified": "2020-03-15T12:58:38+00:00"
+    "last_modified": "2020-03-15T13:01:16+00:00"
   },
   {
     "path": "posts/2020-03-14-covid/",
