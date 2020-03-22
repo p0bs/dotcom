@@ -8,7 +8,7 @@ draft: false
 slug: covid-animate
 preview: europe.gif
 description: |
-  Previous analysis in this area has tended not to show maps over time against the right measures. I aim to do so here for Europe. The picture that emerges is generally one of sobering consistency.
+  Previous analysis in this area has tended not to show maps over time against the right measures. I aim to do so here for Europe. The general picture that emerges is one of sobering consistency.
 output:
   distill::distill_article:
     self_contained: false
