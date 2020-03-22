@@ -4,6 +4,7 @@ author: Robin Penfold
 date: 2020-03-21
 categories:
   - animation
+  - geo-viz
   - medical
 draft: false
 slug: covid-animate
