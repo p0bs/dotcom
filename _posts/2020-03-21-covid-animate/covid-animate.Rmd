@@ -8,7 +8,7 @@ draft: false
 slug: covid-animate
 preview: europe.gif
 description: |
-  Previous analysis in this area has tended not to show maps over time against the right measures. I aim to do so here.
+  Previous analysis in this area has tended not to show maps over time against the right measures. I aim to do so here for Europe. The picture that emerges is one of sobering consistency.
 output:
   distill::distill_article:
     self_contained: false
@@ -193,7 +193,15 @@ animation <- data_rebased_country_wide %>%
     expand = FALSE
     ) + 
   scale_fill_binned(type = "gradient") +
-  scale_fill_gradient(low = "white", high = "red") +
+  scale_fill_gradient(
+    low = "white", 
+    high = "red", 
+    trans = "log", 
+    labels = label_number(
+      big.mark = ',', 
+      accuracy = 2
+      )
+  ) +
   theme_void() + 
   theme(
     panel.background = element_rect(fill = 'grey90'),
@@ -220,7 +228,7 @@ animation <- data_rebased_country_wide %>%
   ease_aes('sine-in-out')
 
 # gganimate::anim_save(
-#   animation = animation, 
+#   animation = animation,
 #   filename = 'europe.gif'
 #   )
 
@@ -238,8 +246,15 @@ data_rebased_country_wide %>%
     ylim = c(34.6, 65),
     expand = FALSE
     ) + 
-  scale_fill_binned(type = "gradient") +
-  scale_fill_gradient(low = "white", high = "red") +
+  scale_fill_gradient(
+    low = "white", 
+    high = "red", 
+    trans = "log", 
+    labels = label_number(
+      big.mark = ',', 
+      accuracy = 2
+      )
+    ) +
   theme_void() + 
   theme(
     panel.background = element_rect(fill = 'grey90'),
@@ -250,7 +265,10 @@ data_rebased_country_wide %>%
     subtitle = 'Days since cumulative infections first exceeded 10 per million \n',
     fill = ''
   ) + 
-  facet_wrap(~DateNumber_rebased, ncol = 4)
+  facet_wrap(
+    ~DateNumber_rebased, 
+    ncol = 4
+    )
 ```
 
 </br>
