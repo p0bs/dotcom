@@ -17,6 +17,23 @@
     "last_modified": "2020-03-21T09:55:10+00:00"
   },
   {
+    "path": "posts/2020-03-21-covid-animate/",
+    "title": "Tracking Covid-19",
+    "description": "Previous analysis in this area has tended not to show maps over time against the right measures. I do so here.",
+    "author": [
+      {
+        "name": "Robin Penfold",
+        "url": {}
+      }
+    ],
+    "date": "2020-03-21",
+    "categories": [
+      "medical"
+    ],
+    "preview": "posts/2020-03-21-covid-animate/europe.gif",
+    "last_modified": "2020-03-22T09:31:27+00:00"
+  },
+  {
     "path": "posts/2020-03-15-job-opening/",
     "title": "Work in our friendly team!",
     "description": "There's a great job opening in our team and I wanted to tell you more.",
