@@ -168,7 +168,7 @@ Whilst this chart has a log scale, there is no sense of the country's population
 
 At some level, of course, cases are cases: they sadly represent people suffering. In other ways, however, a thousand cases in China (with a population of over a billion) suggests a proportionately smaller problem than a thousand cases in Norway (with a population of just over 5 million).
 
-Furthermore, as Justin Wolfers rightly says below, both types of log analysis are will show the same growth rates.
+Furthermore, as Justin Wolfers rightly says below, both types of log analysis will show the same growth rates.
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">The vertical axis shows total cases on a log scale, so it&#39;s like graphing log(cases) on a regular scale.<br><br>A per capita graph shows log(cases/population) which = log(cases)-log(population).<br><br>Total population is barely moving day to day, so this is like log(cases)-constant.</p>&mdash; Justin Wolfers (@JustinWolfers) <a href="https://twitter.com/JustinWolfers/status/1241105188011806720?ref_src=twsrc%5Etfw">March 20, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
