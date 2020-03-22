@@ -17,21 +17,24 @@ output:
 
 In other words, the analysis below follows-up on [my post last week](https://www.p0bs.com/posts/2020-03-14-covid/).
 
-What did I do in that post? Well, for each of the twelve large countries with the most per-capita cases, I considered the cumulative Covid-19 infections per million inhabitants. I charted these figures against what I call the 'time since the outbreak' -- that is, the days since that country's cumulative infections first exceeded 10 per million.
+What did I do in that post? Well, for each of the twelve large countries with the most per-capita cases, I considered the cumulative Covid-19 infections per million inhabitants. I charted these figures against what I call the **time since the outbreak** -- that is, the days since 'Day-Zero': the day that country's cumulative infections first exceeded 10 per million.
 
 In this analysis, I animate these details over time, showing the proportion of cases per country against the time since the outbreak.
 
 Doing so generates the following animation (the code for which is in the Appendix below).
 
-![](europe.gif)
+![](europe.gif){width="60%"} 
+
 
 </br>
 
-Overall, it adds to the sobering impression that many countries are on a similar unfortunate path.
+Overall, it adds to the sobering impression that many countries are on a similar unfortunate path. 
+
+For more detail, here's the same chart in a static form, broken-out day by day.
 
 </br>
 
-```{r data, eval=TRUE, echo=FALSE, results='hide', error=TRUE, message=FALSE, warning=FALSE, layout="l-body-outset", preview=TRUE}
+```{r data, eval=TRUE, echo=FALSE, results='hide', error=TRUE, message=FALSE, warning=FALSE, layout="l-page", preview=TRUE}
 # Initialise ----
 library(countrycode)
 library(gganimate)
@@ -215,12 +218,15 @@ animation <- data_rebased_country_wide %>%
       size = 10,
       lineheight = 1,
       padding = margin(2, 5.5, 11, 5.5)
-      )
+      ),
+    plot.caption.position = "plot",
+    plot.caption = element_text(size = 8, hjust = 0)
     ) + 
   labs(
-    title = "Cumulative Covid-19 infections per million people",
-    subtitle = '**{frame_time} days** since cumulative infections first exceeded 10 per million',
-    fill = ''
+    title = "Cumulative Covid-19 cases relative to those at Day-Zero",
+    subtitle = '**{frame_time} days** after Day-Zero, when cumulative infections first exceeded 10 per million',
+    fill = '',
+    caption = '\nFurther details available @p0bs or p0bs.com'
   ) +
   transition_time(DateNumber_rebased) +
   enter_fade() + 
@@ -258,12 +264,15 @@ data_rebased_country_wide %>%
   theme_void() + 
   theme(
     panel.background = element_rect(fill = 'grey90'),
-    plot.title.position = "plot"
+    plot.title.position = "plot",
+    plot.caption.position = "plot",
+    plot.caption = element_text(size = 8, hjust = 0)
     ) + 
   labs(
-    title = "Cumulative Covid-19 cases per million people",
-    subtitle = 'Days since cumulative infections first exceeded 10 per million \n',
-    fill = ''
+    title = "Cumulative Covid-19 cases relative to those at Day-Zero",
+    subtitle = 'Days after Day-Zero, when cumulative infections first exceeded 10 per million \n',
+    fill = '',
+    caption = '\nFurther details available @p0bs or p0bs.com'
   ) + 
   facet_wrap(
     ~DateNumber_rebased, 

@@ -49,7 +49,7 @@
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["covid-animate_files/bowser-1.9.3/bowser.min.js","covid-animate_files/distill-2.2.21/template.v2.js","covid-animate_files/figure-html5/data-1.png","covid-animate_files/jquery-1.11.3/jquery.min.js","covid-animate_files/webcomponents-2.0.0/webcomponents.js","europe.gif"]}
+  {"type":"character","attributes":{},"value":["covid-animate_files/bowser-1.9.3/bowser.min.js","covid-animate_files/distill-2.2.21/template.v2.js","covid-animate_files/figure-html5/data-1 2.png","covid-animate_files/figure-html5/data-1.png","covid-animate_files/jquery-1.11.3/jquery.min.js","covid-animate_files/webcomponents-2.0.0/webcomponents.js","europe.gif"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -965,14 +965,15 @@
 
 <div class="d-article">
 <p>In other words, the analysis below follows-up on <a href="https://www.p0bs.com/posts/2020-03-14-covid/">my post last week</a>.</p>
-<p>What did I do in that post? Well, for each of the twelve large countries with the most per-capita cases, I considered the cumulative Covid-19 infections per million inhabitants. I charted these figures against what I call the ‘time since the outbreak’ – that is, the days since that country’s cumulative infections first exceeded 10 per million.</p>
+<p>What did I do in that post? Well, for each of the twelve large countries with the most per-capita cases, I considered the cumulative Covid-19 infections per million inhabitants. I charted these figures against what I call the <strong>time since the outbreak</strong> – that is, the days since ‘Day-Zero’: the day that country’s cumulative infections first exceeded 10 per million.</p>
 <p>In this analysis, I animate these details over time, showing the proportion of cases per country against the time since the outbreak.</p>
 <p>Doing so generates the following animation (the code for which is in the Appendix below).</p>
-<p><img src="europe.gif" /></p>
+<p><img src="europe.gif" style="width:60.0%" /></p>
 <p></br></p>
 <p>Overall, it adds to the sobering impression that many countries are on a similar unfortunate path.</p>
+<p>For more detail, here’s the same chart in a static form, broken-out day by day.</p>
 <p></br></p>
-<div class="layout-chunk" data-layout="l-body-outset">
+<div class="layout-chunk" data-layout="l-page">
 <p><img src="covid-animate_files/figure-html5/data-1.png" width="624" data-distill-preview=1 /></p>
 </div>
 <p></br></p>
@@ -1164,12 +1165,15 @@ animation &lt;- data_rebased_country_wide %&gt;%
       size = 10,
       lineheight = 1,
       padding = margin(2, 5.5, 11, 5.5)
-      )
+      ),
+    plot.caption.position = &quot;plot&quot;,
+    plot.caption = element_text(size = 8, hjust = 0)
     ) + 
   labs(
-    title = &quot;Cumulative Covid-19 infections per million people&quot;,
-    subtitle = &#39;**{frame_time} days** since cumulative infections first exceeded 10 per million&#39;,
-    fill = &#39;&#39;
+    title = &quot;Cumulative Covid-19 cases relative to those at Day-Zero&quot;,
+    subtitle = &#39;**{frame_time} days** after Day-Zero, when cumulative infections first exceeded 10 per million&#39;,
+    fill = &#39;&#39;,
+    caption = &#39;\nFurther details available @p0bs or p0bs.com&#39;
   ) +
   transition_time(DateNumber_rebased) +
   enter_fade() + 
@@ -1207,12 +1211,15 @@ data_rebased_country_wide %&gt;%
   theme_void() + 
   theme(
     panel.background = element_rect(fill = &#39;grey90&#39;),
-    plot.title.position = &quot;plot&quot;
+    plot.title.position = &quot;plot&quot;,
+    plot.caption.position = &quot;plot&quot;,
+    plot.caption = element_text(size = 8, hjust = 0)
     ) + 
   labs(
-    title = &quot;Cumulative Covid-19 cases per million people&quot;,
-    subtitle = &#39;Days since cumulative infections first exceeded 10 per million \n&#39;,
-    fill = &#39;&#39;
+    title = &quot;Cumulative Covid-19 cases relative to those at Day-Zero&quot;,
+    subtitle = &#39;Days after Day-Zero, when cumulative infections first exceeded 10 per million \n&#39;,
+    fill = &#39;&#39;,
+    caption = &#39;\nFurther details available @p0bs or p0bs.com&#39;
   ) + 
   facet_wrap(
     ~DateNumber_rebased, 
