@@ -1,5 +1,5 @@
 ---
-title: "Tracking Covid-19"
+title: "Animating Covid-19"
 author: Robin Penfold
 date: 2020-03-21
 categories:
@@ -8,7 +8,7 @@ draft: false
 slug: covid-animate
 preview: europe.gif
 description: |
-  Previous analysis in this area has tended not to show maps over time against the right measures. I do so here.
+  Previous analysis in this area has tended not to show maps over time against the right measures. I aim to do so here.
 output:
   distill::distill_article:
     self_contained: false
