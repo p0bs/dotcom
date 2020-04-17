@@ -16,7 +16,7 @@ output:
     highlight: pygments
 ---
 
-Note that you can find out more details on the package's [GitHub page](https://github.com/p0bs/premPredictor).
+Note that you can find out more details on the package's [GitHub page](https://github.com/p0bs/premPredictor) or, even better, its [pkgdown page](https://gifted-bohr-a7c6b7.netlify.app/).
 
 <p>&nbsp;</p>
 
