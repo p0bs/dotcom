@@ -122,3 +122,20 @@ And here are the two inputs to these calculations:
 ```{r, eval=TRUE, echo=FALSE}
 sessionInfo()
 ```
+
+## Wall of Fame {.appendix}
+
+And here are our previous champions, including a double winner that is sorely missed.
+
+  * 2007/08 -- Robert Wye
+  * 2008/09 -- Les Penfold
+  * 2009/10 -- Beth Penfold
+  * 2010/11 -- George Quin and Miranda Stride
+  * 2011/12 -- Hannah Finnis
+  * 2012/13 -- Michael Cheeseman
+  * 2013/14 -- Danny Russell
+  * 2014/15 -- Mathew Saunders
+  * 2015/16 -- Roger Gathercole
+  * 2016/17 -- Luke Finnis
+  * 2017/18 -- George Quin
+  * 2018/19 -- Roger Gathercole
