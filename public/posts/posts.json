@@ -14,7 +14,8 @@
       "medical"
     ],
     "preview": "posts/2020-03-14-covid/covid_files/figure-html5/rebased-1.png",
-    "last_modified": "2020-03-22T12:54:20+00:00"
+    "last_modified": "2020-03-22T12:54:20+00:00",
+    "input_file": {}
   },
   {
     "path": "posts/2020-03-21-covid-animate/",
@@ -33,7 +34,8 @@
       "medical"
     ],
     "preview": "posts/2020-03-21-covid-animate/europe.gif",
-    "last_modified": "2020-03-22T12:59:24+00:00"
+    "last_modified": "2020-03-22T12:59:24+00:00",
+    "input_file": {}
   },
   {
     "path": "posts/2020-03-15-job-opening/",
@@ -50,7 +52,8 @@
       "job"
     ],
     "preview": "posts/2020-03-15-job-opening/job.jpg",
-    "last_modified": "2020-03-15T13:01:16+00:00"
+    "last_modified": "2020-03-15T13:01:16+00:00",
+    "input_file": {}
   },
   {
     "path": "posts/2019-08-10-twenty-one-teams/",
@@ -67,7 +70,8 @@
       "prempredict"
     ],
     "preview": "posts/2019-08-10-twenty-one-teams/twenty-one-teams_files/figure-html5/collExp20-1.png",
-    "last_modified": "2020-05-03T11:30:16+01:00"
+    "last_modified": "2020-05-03T11:30:16+01:00",
+    "input_file": {}
   },
   {
     "path": "posts/2019-05-07-they-think-it-is-all-over/",
@@ -85,7 +89,8 @@
       "simulation"
     ],
     "preview": "posts/2019-05-07-they-think-it-is-all-over/PPLOGO.jpeg",
-    "last_modified": "2020-03-01T16:45:29+00:00"
+    "last_modified": "2020-03-01T16:45:29+00:00",
+    "input_file": {}
   },
   {
     "path": "posts/2019-04-24-FUSORC/",
@@ -102,7 +107,8 @@
       "programming"
     ],
     "preview": "posts/2019-04-24-FUSORC/R.jpeg",
-    "last_modified": "2020-03-01T16:45:29+00:00"
+    "last_modified": "2020-03-01T16:45:29+00:00",
+    "input_file": {}
   },
   {
     "path": "posts/2019-02-15-holiday/",
@@ -119,7 +125,8 @@
       "geo-viz"
     ],
     "preview": "posts/2019-02-15-holiday/globe.png",
-    "last_modified": "2020-03-01T16:47:55+00:00"
+    "last_modified": "2020-07-07T11:21:39+01:00",
+    "input_file": {}
   },
   {
     "path": "posts/2018-10-28-package/",
@@ -137,7 +144,8 @@
       "prempredict"
     ],
     "preview": "posts/2018-10-28-package/package.jpg",
-    "last_modified": "2020-04-17T11:53:10+01:00"
+    "last_modified": "2020-04-17T11:53:10+01:00",
+    "input_file": {}
   },
   {
     "path": "posts/2018-09-12-networks/",
@@ -155,7 +163,8 @@
       "presentations"
     ],
     "preview": "posts/2018-09-12-networks/network.jpeg",
-    "last_modified": "2020-03-01T16:45:29+00:00"
+    "last_modified": "2020-03-01T16:45:29+00:00",
+    "input_file": {}
   },
   {
     "path": "posts/2016-10-20-evaluation/",
@@ -173,7 +182,8 @@
       "presentations"
     ],
     "preview": "posts/2016-10-20-evaluation/evaluation.png",
-    "last_modified": "2020-03-01T16:45:29+00:00"
+    "last_modified": "2020-03-01T16:45:29+00:00",
+    "input_file": {}
   },
   {
     "path": "posts/2016-10-12-brexit/",
@@ -191,7 +201,8 @@
       "geo-viz"
     ],
     "preview": "posts/2016-10-12-brexit/2010_UK_blank_Election_Map.png",
-    "last_modified": "2020-03-01T16:45:29+00:00"
+    "last_modified": "2020-03-01T16:45:29+00:00",
+    "input_file": {}
   },
   {
     "path": "posts/2016-10-09-batting/",
@@ -209,6 +220,7 @@
       "sport"
     ],
     "preview": "posts/2016-10-09-batting/bat.jpg",
-    "last_modified": "2020-03-01T16:45:29+00:00"
+    "last_modified": "2020-03-01T16:45:29+00:00",
+    "input_file": {}
   }
 ]
