@@ -18,26 +18,6 @@
     "input_file": {}
   },
   {
-    "path": "posts/2020-03-21-covid-animate/",
-    "title": "Animating Covid-19",
-    "description": "Previous analysis in this area has tended not to show maps over time against the right measures. I aim to do so here for Europe. The general picture that emerges is one of sobering consistency.",
-    "author": [
-      {
-        "name": "Robin Penfold",
-        "url": {}
-      }
-    ],
-    "date": "2020-03-21",
-    "categories": [
-      "animation",
-      "geo-viz",
-      "medical"
-    ],
-    "preview": "posts/2020-03-21-covid-animate/europe.gif",
-    "last_modified": "2020-03-22T12:59:24+00:00",
-    "input_file": {}
-  },
-  {
     "path": "posts/2020-03-15-job-opening/",
     "title": "Work in our friendly team!",
     "description": "There's a great job opening in our team and I wanted to tell you more.",
