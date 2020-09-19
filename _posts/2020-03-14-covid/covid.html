@@ -977,20 +977,7 @@
 <p>First, I’ll start with a simple log plot over time.</p>
 <p></br></p>
 <div class="layout-chunk" data-layout="l-body-outset">
-<pre><code>
-Error in open.connection(con, &quot;rb&quot;): HTTP error 404.</code></pre>
-<pre><code>
-Error in UseMethod(&quot;left_join&quot;): no applicable method for &#39;left_join&#39; applied to an object of class &quot;function&quot;</code></pre>
-<pre><code>
-Error in eval(lhs, parent, parent): object &#39;data_tidy&#39; not found</code></pre>
-<pre><code>
-Error in eval(lhs, parent, parent): object &#39;data_tidy&#39; not found</code></pre>
-<pre><code>
-Error in eval(lhs, parent, parent): object &#39;data_tidy&#39; not found</code></pre>
-<pre><code>
-Error in eval(lhs, parent, parent): object &#39;data_tidy&#39; not found</code></pre>
-<pre><code>
-Error in eval(lhs, parent, parent): object &#39;data_tidy&#39; not found</code></pre>
+<p><img src="covid_files/figure-html5/data-1.png" width="624" /></p>
 </div>
 <p></br></p>
 <p>Whilst this chart has a log scale, there is no sense of the country’s population.</p>
@@ -1008,8 +995,7 @@ The vertical axis shows total cases on a log scale, so it's like graphing log(ca
 <p>To my mind, once the virus becomes (sadly) more widespread, this version of the analysis becomes ever more useful, particularly when comparing the effectiveness of action across different countries.</p>
 <p></br></p>
 <div class="layout-chunk" data-layout="l-body-outset">
-<pre><code>
-Error in eval(lhs, parent, parent): object &#39;data_rebased&#39; not found</code></pre>
+<p><img src="covid_files/figure-html5/rebased-1.png" width="624" data-distill-preview=1 /></p>
 </div>
 <p></br></p>
 <p>The pessimist in me sees the chart above as sobering. Essentially, most of these countries seem to experience similar rates of per-capita infection. Perhaps this is just for those countries with the most per-capita cases. Or maybe this is a very unfortunate feature of the outbreak. Anyhow, I will leave the reasoning to domain experts (rather than curious data types).</p>
@@ -1029,13 +1015,14 @@ library(rtweet)
 library(scales)
 library(tidyverse)
 library(wbstats)
+suppressMessages(library(tidyverse))
 
 country_num &lt;- 12
 pop_min &lt;- 10000000
 cases_PM_init &lt;- 10
 
 # Get data ----
-data &lt;- read_csv(&#39;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv&#39;) %&gt;% 
+data &lt;- read_csv(&#39;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv&#39;) %&gt;% 
   select(-Lat, -Long, -`Province/State`) %&gt;% 
   group_by(`Country/Region`) %&gt;% 
   summarise_all(.funs = sum) %&gt;% 
@@ -1239,16 +1226,16 @@ loaded via a namespace (and not attached):
 [13] DBI_1.1.0        dbplyr_1.4.4     modelr_0.1.7    
 [16] readxl_1.3.1     lifecycle_0.2.0  munsell_0.5.0   
 [19] gtable_0.3.0     cellranger_1.1.0 rvest_0.3.6     
-[22] evaluate_0.14    knitr_1.29       curl_4.3        
-[25] fansi_0.4.1      broom_0.7.0      Rcpp_1.0.5      
-[28] backports_1.1.6  jsonlite_1.6.1   fs_1.4.1        
-[31] distill_0.8      hms_0.5.3        digest_0.6.25   
-[34] stringi_1.5.3    grid_4.0.0       cli_2.0.2       
-[37] tools_4.0.0      magrittr_1.5     crayon_1.3.4    
-[40] pkgconfig_2.0.3  ellipsis_0.3.1   xml2_1.3.2      
-[43] reprex_0.3.0     assertthat_0.2.1 rmarkdown_2.3   
-[46] httr_1.4.2       rstudioapi_0.11  R6_2.4.1        
-[49] compiler_4.0.0  </code></pre>
+[22] evaluate_0.14    labeling_0.3     knitr_1.29      
+[25] curl_4.3         fansi_0.4.1      broom_0.7.0     
+[28] Rcpp_1.0.5       backports_1.1.6  jsonlite_1.6.1  
+[31] farver_2.0.3     fs_1.4.1         distill_0.8     
+[34] hms_0.5.3        digest_0.6.25    stringi_1.5.3   
+[37] grid_4.0.0       cli_2.0.2        tools_4.0.0     
+[40] magrittr_1.5     crayon_1.3.4     pkgconfig_2.0.3 
+[43] ellipsis_0.3.1   xml2_1.3.2       reprex_0.3.0    
+[46] assertthat_0.2.1 rmarkdown_2.3    httr_1.4.2      
+[49] rstudioapi_0.11  R6_2.4.1         compiler_4.0.0  </code></pre>
 </div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
