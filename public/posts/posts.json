@@ -2,7 +2,7 @@
   {
     "path": "posts/2020-03-14-covid/",
     "title": "Tracking Covid-19",
-    "description": "Although Covid-19 is all over the news, I can't find any analysis that uses per-capita data on a log scale. For that reason, I've done this analysis myself.",
+    "description": "At this time of this post, I can't find any analysis that uses per-capita data on a log scale. For that reason, I've done this analysis myself.",
     "author": [
       {
         "name": "Robin Penfold",
@@ -13,9 +13,9 @@
     "categories": [
       "medical"
     ],
-    "preview": "posts/2020-03-14-covid/covid_files/figure-html5/rebased-1.png",
-    "last_modified": "2020-03-22T12:54:20+00:00",
-    "input_file": {}
+    "preview": {},
+    "last_modified": "2020-09-19T09:41:28+01:00",
+    "input_file": "covid.utf8.md"
   },
   {
     "path": "posts/2020-03-21-covid-animate/",

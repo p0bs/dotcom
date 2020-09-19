@@ -7,7 +7,7 @@ categories:
 draft: false
 slug: covid
 description: |
-  Although Covid-19 is all over the news, I can't find any analysis that uses per-capita data on a log scale. For that reason, I've done this analysis myself.
+  At this time of this post, I can't find any analysis that uses per-capita data on a log scale. For that reason, I've done this analysis myself.
 output:
   distill::distill_article:
     self_contained: false
