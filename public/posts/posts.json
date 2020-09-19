@@ -1,5 +1,23 @@
 [
   {
+    "path": "posts/2020-09-19-PremPredict/",
+    "title": "PremPredict",
+    "description": "They think it's all over. It is now.",
+    "author": [
+      {
+        "name": "Robin Penfold",
+        "url": {}
+      }
+    ],
+    "date": "2020-09-19",
+    "categories": [
+      "prempredict"
+    ],
+    "preview": "posts/2020-09-19-PremPredict/PPlogo.jpg",
+    "last_modified": "2020-09-19T11:03:52+01:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2020-03-14-covid/",
     "title": "Tracking Covid-19",
     "description": "At this time of this post, I can't find any analysis that uses per-capita data on a log scale. For that reason, I've done this analysis myself.",

@@ -1,0 +1,53 @@
+---
+title: "PremPredict"
+author: Robin Penfold
+date: 2020-09-19
+categories:
+  - prempredict
+draft: false
+preview: PPlogo.jpg
+slug: PremPredict
+description: |
+  They think it's all over. It is now.
+output:
+  distill::distill_article:
+    self_contained: false
+    highlight: pygments
+---
+
+After a good run of thirteen years, now feels like the right time to end our PremPredict competition.
+
+Thanks to all of you who have shared in the fun over this time. I'm pleased to say that this included Les Penfold, Mike Finnis and Roger Gathercole.
+
+</br>
+
+As you'll see below, though, this post and the Wall of Fame will remain here, always showing that Peter Finnis was left holding the crown! 
+
+</br>
+
+(Oh yeah -- and always showing how some of the biggest football nerds remained winless.)
+
+<img src='homer.gif' style="width:50%;"></img>
+
+</br>
+
+## PremPredict champions
+
+
+  * 2007/08 -- Robert Wye
+  * 2008/09 -- Les Penfold
+  * 2009/10 -- Beth Penfold
+  * 2010/11 -- George Quin and Miranda Stride
+  * 2011/12 -- Hannah Finnis
+  * 2012/13 -- Michael Cheeseman
+  * 2013/14 -- Danny Russell
+  * 2014/15 -- Mathew Saunders
+  * 2015/16 -- Roger Gathercole
+  * 2016/17 -- Luke Finnis
+  * 2017/18 -- George Quin
+  * 2018/19 -- Roger Gathercole
+  * 2019/20 -- Peter Finnis
+
+</br>
+
+Thanks again for all the fun!
