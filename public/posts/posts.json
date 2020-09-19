@@ -54,25 +54,6 @@
     "input_file": {}
   },
   {
-    "path": "posts/2019-05-07-they-think-it-is-all-over/",
-    "title": "Is it all over?",
-    "description": "I run 10,000 simulations on the final round of matches in the Premier League season, so as to project the odds of each player winning my PremPredict competition.",
-    "author": [
-      {
-        "name": "Robin Penfold",
-        "url": {}
-      }
-    ],
-    "date": "2019-05-07",
-    "categories": [
-      "prempredict",
-      "simulation"
-    ],
-    "preview": "posts/2019-05-07-they-think-it-is-all-over/PPLOGO.jpeg",
-    "last_modified": "2020-03-01T16:45:29+00:00",
-    "input_file": {}
-  },
-  {
     "path": "posts/2019-04-24-FUSORC/",
     "title": "My R code snippets",
     "description": "I keep a list of frequently-used code snippets that I find valuable and, in the spirit of the R community, I thought it best to share them.",
