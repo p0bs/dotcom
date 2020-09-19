@@ -5,6 +5,7 @@ date: 2018-10-28
 categories:
   - packages
   - prempredict
+  - programming
 draft: false
 preview: package.jpg
 slug: package
