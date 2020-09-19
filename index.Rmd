@@ -4,7 +4,6 @@ site: distill::distill_website
 listing: 
   posts:
     - 2019-08-10-twenty-one-teams
-    - 2020-03-21-covid-animate
     - 2020-03-14-covid
     - 2020-03-15-job-opening
     - 2019-05-07-they-think-it-is-all-over
