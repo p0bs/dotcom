@@ -3,6 +3,7 @@ title: ""
 site: distill::distill_website
 listing: 
   posts:
+    - 2020-09-20-MyLifeInMonths
     - 2020-09-19-PremPredict
     - 2020-03-14-covid
     - 2020-03-15-job-opening

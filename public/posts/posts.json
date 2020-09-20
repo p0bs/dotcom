@@ -1,5 +1,23 @@
 [
   {
+    "path": "posts/2020-09-20-MyLifeInMonths/",
+    "title": "My Life In Months",
+    "description": "Many of us have recently had more time to reflect on things. One artifact of this reflection is My Life In Months: a chart that explains each month of your life. Like many, I find it a useful way to get some perspective. In fact, I'd call it 'the most meta personal dashboard available'. And I've found a tweak to make it even more realistic.",
+    "author": [
+      {
+        "name": "Robin Penfold",
+        "url": {}
+      }
+    ],
+    "date": "2020-09-20",
+    "categories": [
+      "eschatology"
+    ],
+    "preview": "posts/2020-09-20-MyLifeInMonths/MyLifeInMonths_files/figure-html5/code-1.png",
+    "last_modified": "2020-09-20T11:15:59+01:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2020-09-19-PremPredict/",
     "title": "PremPredict",
     "description": "They think it's all over. It is now.",
