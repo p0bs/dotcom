@@ -35,8 +35,7 @@ add.alpha <- function(value_colour, value_alpha = 1){
     )  
 }
 
-# values_colour <- brewer.pal(n = 9, name = 'Pastel2')
-# values_colour <- c("#FFF2AE", "#B3E2CD", "#E6F5C9", "#F4CAE4", "#CBD5E8", "#F1E2CC", "#FDCDAC", "#CCCCCC")  
+# values_colour <- brewer.pal(n = 8, name = 'Accent')
 values_colour <- c("#FDC086", "#F0027F", "#7FC97F", "#FFFF99", "#386CB0", "#BEAED4", "#BF5B17", "#666666")
 background_colour <- 'black'
 
