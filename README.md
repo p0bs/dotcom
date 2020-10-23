@@ -1,2 +1,0 @@
-# dotcom
-My website details
