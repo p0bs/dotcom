@@ -11,6 +11,8 @@ description: |
   I keep a list of frequently-used code snippets that I find valuable and, in the spirit of the R community, I thought it best to share them.
 output:
   distill::distill_article:
+    toc: true
+    toc_depth: 3
     self_contained: false
     highlight: pygments
 ---
