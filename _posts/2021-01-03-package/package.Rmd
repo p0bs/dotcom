@@ -1,0 +1,21 @@
+---
+title: "An R package of my frequently-used functions"
+author: Robin Penfold
+date: 2021-01-03
+categories:
+  - packages
+  - programming
+draft: false
+preview: package.jpg
+slug: package
+description: |
+  Given my repeated use of certain functions that are otherwise unavailable, I decided to build an R package for it.
+output:
+  distill::distill_article:
+    self_contained: false
+    highlight: pygments
+---
+
+In short, you can get more details on the package's [GitHub page](https://github.com/p0bs/p0bservations) or [pkgdown page](https://festive-mcclintock-0b679a.netlify.app/).
+
+Please feel free to try it out (and post an issue if required).
